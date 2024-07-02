@@ -4,3 +4,4 @@ deneme 3 4
 deneme asdhfdshfdhsf
 =======
 >>>>>>> 38ef8c9b8e0fab0b44a375f3b9ab298068a64dd4
+adamın amına koyarız
