@@ -1,2 +1,2 @@
 # MyFitBuddy
-Fitness App for Sportspeople
+Fitness App of everyone
