@@ -6,5 +6,9 @@ deneme asdhfdshfdhsf
 >>>>>>> 38ef8c9b8e0fab0b44a375f3b9ab298068a64dd4
 adamın amına koyarız
 adsadsbavnsvd
+<<<<<<< HEAD
 random devam
 amınake
+=======
+random devam
+>>>>>>> dae5d641e11aafe93f97fd226df8bdd91d0a9683
