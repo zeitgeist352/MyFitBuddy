@@ -12,12 +12,13 @@ import com.myfitbuddy.R;
 public class MainActivity extends AppCompatActivity {
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().setTitle("MyFitBuddy");
-
+/*
         Button buttonLogin = findViewById(R.id.button_login);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+     */
+
 
         Button buttonSignUp = findViewById(R.id.button_signup);
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
