@@ -1,9 +1,9 @@
-
+import java.io.Serializable;
 
 public abstract class Exercises implements Serializable{
     
-    private double difficulty;
-    private String name;
+    protected double difficulty;
+    protected String name;
 
     public Exercises(double difficulty, String name) {
         this.difficulty = difficulty;
