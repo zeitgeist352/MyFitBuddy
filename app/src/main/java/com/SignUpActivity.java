@@ -32,7 +32,12 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.myfitbuddy.R;
+
+import java.util.concurrent.locks.ReadWriteLock;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -135,20 +140,49 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void registerUser(String textFullName, String textEmail, String textDoB, String textGend, String textMobile, String textPwd) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        //create user profile
         auth.createUserWithEmailAndPassword(textEmail, textPwd).addOnCompleteListener(SignUpActivity.this,
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(SignUpActivity.this, "User Signed Up Successfully", Toast.LENGTH_LONG).show();
                             FirebaseUser firebaseUser = auth.getCurrentUser();
-                            firebaseUser.sendEmailVerification();
-                            /*
-                            Intent intent = new Intent(SignUpActivity.this, UserProfileActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
-                            */
+
+                            //updt display name
+                            UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(textFullName).build();
+                            firebaseUser.updateProfile(profileChangeRequest);
+
+
+                            //realtime data
+                            ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails( textDoB, textGend, textMobile );
+
+                            //user reference for signed up users
+                            DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Signed Up Users");
+
+                            referenceProfile.child(firebaseUser.getUid()).setValue(writeUserDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    if (task.isSuccessful()){
+                                        firebaseUser.sendEmailVerification();
+
+                                        Toast.makeText(SignUpActivity.this, "User Signed Up Successfully. Please verify your email",
+                                                Toast.LENGTH_LONG).show();
+
+
+                                      /*  Intent intent = new Intent(SignUpActivity.this, UserProfileActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();*/
+                                    }else {
+                                        Toast.makeText(SignUpActivity.this, "Registration failed, please try again",
+                                                Toast.LENGTH_LONG).show();
+                                    }
+                                    progressBar.setVisibility(View.GONE);
+
+                                }
+                            });
                         } else{
                             try {
                                 throw task.getException();
@@ -165,8 +199,9 @@ public class SignUpActivity extends AppCompatActivity {
                             }catch (Exception e ){
                                 Log.e(TAG, e.getMessage());
                                 Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                                progressBar.setVisibility(View.GONE);
+
                             }
+                            progressBar.setVisibility(View.GONE);
                         }
 
                     }
