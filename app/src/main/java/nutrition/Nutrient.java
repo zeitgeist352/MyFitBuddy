@@ -21,24 +21,24 @@ public class Nutrient {
         return this.name;
     }
 
-    public double getProteins(double grams)
+    public double getProteins()
     {
-        return this.proteinsPer100Gram * grams / 100;
+        return this.proteinsPer100Gram 
     }
 
-    public double getCarbs(double grams)
+    public double getCarbs()
     {
-        return this.carbsPer100Gram * grams / 100;
+        return this.carbsPer100Gram;
     }
 
-    public double getFats(double grams)
+    public double getFats()
     {
-        return this.fatsPer100Gram * grams / 100;
+        return this.fatsPer100Gram;
     }
 
-    public double getCalories(double grams)
+    public double getCalories()
     {
-        return this.CaloriesPer100Gram * grams / 100;
+        return this.CaloriesPer100Gram;
     }
 
     public void setName(String name)
