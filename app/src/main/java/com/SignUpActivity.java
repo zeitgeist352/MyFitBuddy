@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.myfitbuddy.R;
 
@@ -36,6 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private RadioGroup radioGroupSignupGend;
     private RadioButton radioButtonSignupSelectedGend;
+    private static final String TAG = "SignUpActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,10 +149,26 @@ public class SignUpActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                             */
-                        } else {
-                            Toast.makeText(SignUpActivity.this, "Sign Up Failed", Toast.LENGTH_LONG).show();
+                        } else{
+                            try {
+                                throw task.getException();
+                            }catch (FirebaseAuthWeakPasswordException e ){
+
+                                editTextSignUpPwd.setError("Your password is too weak. Try to create a stronger password(mix of alphabetic and special characters)");
+                                editTextSignUpPwd.requestFocus();
+                            }catch (FirebaseAuthInvalidCredentialsException e){
+                                editTextSignUpEmail.setError("Your email is invalid or already in use.");
+                                editTextSignUpEmail.requestFocus();
+                            }catch (FirebaseAuthUserCollisionException e){
+                                editTextSignUpEmail.setError("User is already registered with this email.");
+                                editTextSignUpEmail.requestFocus();
+                            }catch (Exception e ){
+                                Log.e(TAG, e.getMessage());
+                                Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                progressBar.setVisibility(View.GONE);
+                            }
                         }
-                        progressBar.setVisibility(View.GONE);
+
                     }
                 });
     }
