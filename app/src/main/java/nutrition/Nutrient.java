@@ -42,6 +42,11 @@ public class Nutrient {
         return this.CaloriesPer100Gram;
     }
 
+    public double getGrams()
+    {
+        return this.grams;
+    }
+
     public void setName(String name)
     {
         this.name = name;
@@ -70,5 +75,10 @@ public class Nutrient {
     public void setGrams(double grams)
     {
         this.grams = grams;
+    }
+
+    public String toString()
+    {
+        return this.name + " Amount: " + this.grams; + " grams";
     }
 }
