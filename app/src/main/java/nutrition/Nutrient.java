@@ -6,6 +6,7 @@ public class Nutrient {
     private double carbsPer100Gram;
     private double fatsPer100Gram;
     private double caloriesPer100Gram;
+    private double grams;
 
     public Nutrient(String name , double proteins, double carbs, double fat, double calories)
     {
@@ -23,7 +24,7 @@ public class Nutrient {
 
     public double getProteins()
     {
-        return this.proteinsPer100Gram 
+        return this.proteinsPer100Gram; 
     }
 
     public double getCarbs()
@@ -64,5 +65,10 @@ public class Nutrient {
     public void setCalories(double calories)
     {
         this.caloriesPer100Gram = calories;
+    }
+    
+    public void setGrams(double grams)
+    {
+        this.grams = grams;
     }
 }
