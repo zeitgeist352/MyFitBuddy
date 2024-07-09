@@ -9,17 +9,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.exercises.ExerciseAdapter;
+import com.exercises.ExerciseModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.myfitbuddy.R;
 import com.myfitbuddy.databinding.ActivityMainBinding;
 import com.myfitbuddy.databinding.ActivityReportBinding;
-import com.exercises.ExerciseAdapter;
-import com.exercises.ExerciseModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +42,8 @@ public class ReportActivity extends AppCompatActivity {
 
     private ExerciseAdapter exerciseAdapter;
     TextView caloriesText;
-    TextView cancerText;
-    TextView heartAttackText;
-
     TextView daysToGoalText;
+    TextView consumedCaloriesText;
 
 
     @Override
@@ -64,11 +61,13 @@ public class ReportActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+        /*
+        //to be declared change from view9
+        //daysToGoalText = findViewById(R.id.textView9);
+        */
 
-        daysToGoalText = findViewById(R.id.textView15);
         caloriesText = binding.caloriesText;
-        cancerText = binding.cancerText;
-        heartAttackText = binding.heartAttackText;
+        consumedCaloriesText = binding.consumedCaloriesText;
         findCurrentUserPlace();
         setTexts(currentUser.getUid());
     }
@@ -79,7 +78,7 @@ public class ReportActivity extends AppCompatActivity {
         documentReference.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
                 // Retrieve and display name
-                System.out.println("MERHABA REPORT ACTIVITY");
+                System.out.println("REPORT ACTIVITY");
                 // Retrieve and display points
                 Number pointsNumber = documentSnapshot.getLong("points");
                 if (pointsNumber != null) {  // Check if the points data exists
@@ -87,18 +86,18 @@ public class ReportActivity extends AppCompatActivity {
                     double n1 = (double) points / 30000.0;
                     double n2 = (double) points / 25000.0;
 
-
+/*
                     String formattedN1 = String.format("%.6f", n1);
                     String formattedN2 = String.format("%.6f", n2);
-
+*/
                     caloriesText.setText("Calories have burned so far: " + points * 3);
-                    cancerText.setText("You've reduced your risk of getting cancer by this much: %" + formattedN1);
-                    heartAttackText.setText("You've reduced your risk of having a heart attack by this much: %" + formattedN2);
+
+                    //burasi doldurulacak kalori intakei ile
+                    //consumedCaloriesText.setText("Calories have consumed so far: " + 0);
 
                 } else {
                     caloriesText.setText("Calories have burned so far: " + 0);; // Default to 0 if no points
-                    cancerText.setText("You've reduced your risk of getting cancer by this much: " + 0);
-                    heartAttackText.setText("You've reduced your risk of having a heart attack by this much: " + 0);
+                    consumedCaloriesText.setText("Calories have consumed so far: " + 0);
                 }
             } else {
                 Log.d("Error", "No such document with the current user id: " + userId);

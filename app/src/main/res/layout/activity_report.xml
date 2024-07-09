@@ -10,7 +10,7 @@
 
     <!-- Text for Calories Burned -->
     <ImageView
-        android:id="@+id/caloriesImage"
+        android:id="@+id/consumedCaloriesImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="48dp"
@@ -27,8 +27,8 @@
         android:layout_marginEnd="20dp"
         android:text="Burnt calories so far: "
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@id/caloriesImage"
-        app:layout_constraintTop_toTopOf="@id/caloriesImage" />
+        app:layout_constraintStart_toEndOf="@id/consumedCaloriesImage"
+        app:layout_constraintTop_toTopOf="@id/consumedCaloriesImage" />
 
 
     <ImageView
@@ -39,10 +39,10 @@
         android:layout_marginTop="260dp"
         android:src="@drawable/calorieintake"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/caloriesImage" />
+        app:layout_constraintTop_toBottomOf="@id/consumedCaloriesImage" />
 
     <TextView
-        android:id="@+id/cancerText"
+        android:id="@+id/consumedCaloriesText"
         android:layout_width="200dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"

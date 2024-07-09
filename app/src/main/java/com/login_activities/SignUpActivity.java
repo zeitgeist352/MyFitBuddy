@@ -9,6 +9,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.MainActivity;
+import com.get_info_activites.GenderActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -16,13 +18,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.myfitbuddy.databinding.ActivitySignUpBinding;
-import com.MainActivity;
-import com.get_info_activites.GenderActivity;
+
+import java.util.HashMap;
 
 
 
@@ -82,8 +80,6 @@ public class SignUpActivity extends AppCompatActivity {
                             HashMap userInfo = new HashMap();
                             userInfo.put("name_surname",name_surname);
                             userInfo.put("email",email);
-                            userInfo.put("friends", new ArrayList<String>());
-                            userInfo.put("friendRequests", new ArrayList<String>());
                             userInfo.put("points",0);
                             userInfo.put("power",0.0);
                             userInfo.put("profileImage","https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png"); // Use the same variable name as in user data

@@ -72,7 +72,7 @@ public class UserInfoHolder implements Serializable {
 
     public void calculateIbm()
     {
-        System.out.println("sirayla kilo boy: *************** : " + this.weight + " , " + this.height);
+        System.out.println("weight heigth respectively: *************** : " + this.weight + " , " + this.height);
         this.ibm = (double) this.getWeight() / ((double) (this.getHeight() * this.getHeight()) / 10000);
         System.out.println("ibm: *************** : " + this.ibm);
     }
@@ -258,7 +258,7 @@ public class UserInfoHolder implements Serializable {
         //if bmi is equal to 23.5 increment will be max.
         this.power = this.power + ((5 - Math.abs(ibm - 23.5)) / 5);
 
-        System.out.println("*********IBMDEN SONRA " + this.power);
+        System.out.println("AFTER IBM** " + this.power);
 
         //increases the power according to body type.
         if (this.bodyType.equals("muscular"))
