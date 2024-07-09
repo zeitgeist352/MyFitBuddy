@@ -150,7 +150,6 @@
         android:fontFamily="sans-serif-black"
 
         android:paddingLeft="29dp"
-
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
         android:text="Select your target muscle group"
