@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.friends.FriendsActivity">
+    tools:context="com.Settings.SettingsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarSettings"
@@ -26,13 +26,15 @@
             android:textSize="30dp"/>
     </androidx.appcompat.widget.Toolbar>
 
-    <ImageView
-        android:id="@+id/imageView_user"
+
+    <TextView
+        android:id="@+id/txtView_user"
         android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/ic_launcher_background"
-        android:background="@drawable/circle_background"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:text="Name"
+        android:textSize="30dp"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbarSettings" />
@@ -41,8 +43,8 @@
         android:id="@+id/textView_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
-        app:layout_constraintTop_toBottomOf="@id/imageView_user"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@id/txtView_user"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="15dp"
@@ -51,6 +53,7 @@
     <Button
         android:id="@+id/button_change_password"
         android:layout_width="0dp"
+        android:background="#2F4F4F"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,32 +63,24 @@
         android:layout_marginTop="20dp"
          />
 
-    <Button
-        android:id="@+id/button_change_photo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Change Photo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_change_password"
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="30dp"
-        />
+
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Program"
+        android:text="PROGRAM CHANGING SETTINGS"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_change_photo"
+        app:layout_constraintTop_toBottomOf="@id/button_change_password"
         android:layout_marginTop="40dp"/>
 
 
     <Button
         android:id="@+id/button_change_program"
         android:layout_width="0dp"
+        android:background="#2F4F4F"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="20dp"
@@ -98,6 +93,7 @@
         android:id="@+id/button_regenerate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="#2F4F4F"
         android:text="Regenerate The Program"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,6 +106,7 @@
         android:id="@+id/button_logout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="#2F4F4F"
         android:text="Log out"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
