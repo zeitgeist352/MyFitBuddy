@@ -9,7 +9,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
+import com.MainActivity;
+import com.ProgramActivity.DaysFragment;
+import com.algorithm.Exercises;
+import com.algorithm.Tester;
+import com.get_info_activites.GenderActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -17,14 +21,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.MainActivity;
-import com.ProgramActivity.DaysFragment;
-import com.myfitbuddy.R;
-import com.algorithm.Exercises;
-import com.algorithm.Tester;
-import com.myfitbuddy.databinding.ActivitySettingsBinding;
-import com.get_info_activites.GenderActivity;
 import com.login_activities.SignUpActivity;
+import com.myfitbuddy.R;
+import com.myfitbuddy.databinding.ActivitySettingsBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,21 +72,12 @@ public class SettingsActivity extends AppCompatActivity {
         retrieveProgramFromDatabase(currentUser.getUid(), "Wednesday");
         retrieveProgramFromDatabase(currentUser.getUid(), "Thursday");*/
 
-        loadUserProfilePhoto();
 
         binding.buttonChangePassword.setOnClickListener(v -> {
             sendResetMail();
             Intent intent = new Intent(SettingsActivity.this, ChangePasswordActivity.class);
             startActivity(intent);
         });
-
-        binding.buttonChangePhoto.setOnClickListener(v -> {
-            Intent intent = new Intent(SettingsActivity.this, ChangePhotoActivity.class);
-            startActivity(intent);
-            finish();
-        });
-
-
 
         binding.buttonChangeProgram.setOnClickListener(v -> {
             Intent intent = new Intent(SettingsActivity.this, GenderActivity.class);
@@ -164,30 +154,7 @@ public class SettingsActivity extends AppCompatActivity {
             mAuth.sendPasswordResetEmail(email);
         }
     }
-
-    private void loadUserProfilePhoto() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            FirebaseFirestore.getInstance().collection("Users").document(user.getUid())
-                    .get()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            DocumentSnapshot doc = task.getResult();
-                            if (doc.exists() && doc.contains("profileImage")) {
-                                String photoUrl = doc.getString("profileImage");
-                                if (photoUrl != null && !photoUrl.isEmpty()) {
-                                    Glide.with(this)
-                                            .load(photoUrl)
-                                            .circleCrop() // if you want to apply circle cropping to the image
-                                            .into(binding.imageViewUser);
-                                }
-                            }
-                        } else {
-                            Toast.makeText(this, "Failed to load user photo.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
-    }
+    
 
     private void updateUsernameTextView() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
