@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Design"
+        tools:targetApi="31">
+        <activity android:name="com.NotificationsActivity" android:exported="false" />
+        <activity android:name="com.EditFriendsActivity" android:exported="false" />
+        <activity android:name="com.LeaderBoardActivity" android:exported="false" />
+        <activity android:name="com.Settings.ChangePhotoActivity" android:exported="false" />
+        <activity android:name="com.Settings.ChangePasswordActivity" android:exported="false" />
+        <activity android:name="com.NotificiationActivity" android:exported="false" />
+        <activity android:name="com.Settings.SettingsActivity" android:exported="false" />
+        <activity android:name="com.FeedbackActivity" android:exported="false" />
+        <activity android:name="com.ReportActivity" android:exported="false" />
+        <activity android:name="com.ProgramActivity.ProgramActivity" android:exported="false" />
+        <activity android:name="com.friends.FriendsActivity" android:exported="false" />
+        <activity android:name="com.get_info_activites.LoadingInfoSessionSActivity" android:exported="true" />
+        <activity android:name="com.get_info_activites.GetPushupActivity" android:exported="false" />
+        <activity android:name="com.get_info_activites.BodyTypeActivity" android:exported="false" />
+        <activity android:name="com.get_info_activites.GoalActivity" android:exported="false" />
+        <activity android:name="com.get_info_activites.TargetMusclesActivity" android:exported="false" />
+        <activity android:name="com.get_info_activites.PreferredDaysActivity" android:exported="false" />
+        <activity android:name="com.get_info_activites.BodyInfoActivity" android:exported="false" />
+        <activity android:name="com.get_info_activites.GenderActivity" android:exported="true" />
+        <activity android:name="com.login_activities.ForgotPasswordActivity" android:exported="false" />
+        <activity android:name="com.login_activities.SignInActivity" android:exported="false" />
+        <activity android:name="com.login_activities.SignUpActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.MainActivity" android:exported="true" />
+    </application>
+
+</manifest>
