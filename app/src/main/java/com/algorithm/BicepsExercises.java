@@ -1,11 +1,12 @@
+package com.algorithm;
 
 import java.io.Serializable;
 
 public class BicepsExercises extends Exercises implements Serializable {
 
-    public BicepsExercises(double difficulty, String name)
+    public BicepsExercises(int dif, String name)
     {
-        super(difficulty, name);
+        super(dif, name);
     }
     
 }

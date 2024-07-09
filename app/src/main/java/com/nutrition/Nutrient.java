@@ -1,3 +1,4 @@
+package com.nutrition;
 
 public class Nutrient {
 
@@ -24,7 +25,7 @@ public class Nutrient {
 
     public double getProteins()
     {
-        return this.proteinsPer100Gram; 
+        return this.proteinsPer100Gram;
     }
 
     public double getCarbs()
@@ -39,7 +40,7 @@ public class Nutrient {
 
     public double getCalories()
     {
-        return this.CaloriesPer100Gram;
+        return this.caloriesPer100Gram;
     }
 
     public double getGrams()
@@ -61,7 +62,7 @@ public class Nutrient {
     {
         this.carbsPer100Gram = carbs;
     }
-    
+
     public void setFats(double fats)
     {
         this.fatsPer100Gram = fats;
@@ -71,7 +72,7 @@ public class Nutrient {
     {
         this.caloriesPer100Gram = calories;
     }
-    
+
     public void setGrams(double grams)
     {
         this.grams = grams;
@@ -79,6 +80,6 @@ public class Nutrient {
 
     public String toString()
     {
-        return this.name + " Amount: " + this.grams; + " grams";
+        return this.name + " Amount: " + this.grams + " grams";
     }
 }
