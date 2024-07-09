@@ -278,12 +278,12 @@ public class UserInfoHolder implements Serializable {
             this.power += 0.5;
         }
 
-        System.out.println("*********BODITYPETAN SONRA " + this.power);
+        System.out.println("AFTER BODYTYPE " + this.power);
 
         //increases the power according to pushup count.
         this.power += this.pushupCount / 9.0;
 
-        System.out.println("*********PUSHUPTANSONRA " + this.power);
+        System.out.println("AFTER PUSHUPCOUNT " + this.power);
 
         if (this.gender.equals("male"))
         {

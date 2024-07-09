@@ -13,6 +13,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.ProgramActivity.ProgramActivity;
+import com.Settings.SettingsActivity;
+import com.exercises.ExerciseAdapter;
+import com.exercises.ExerciseModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -20,15 +24,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.ProgramActivity.ProgramActivity;
-import com.Settings.SettingsActivity;
-import com.exercises.ExerciseAdapter;
-import com.exercises.ExerciseModel;
-import com.myfitbuddy.databinding.ActivityMainBinding;
-import com.friends.FriendsActivity;
-
-
 import com.myfitbuddy.R;
+import com.myfitbuddy.databinding.ActivityMainBinding;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -98,11 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        activityMainBinding.alertButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, NotificationsActivity.class);
-            startActivity(intent);
-        });
-
 
 
         activityMainBinding.settingsButton.setOnClickListener(v -> {
@@ -112,18 +104,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         activityMainBinding.Navi.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.navigation_leaderBoard) {
-                Intent intent = new Intent(MainActivity.this, LeaderBoardActivity.class);
-                startActivity(intent);
-                finish();
-                return true;
-            }  else if (item.getItemId() == R.id.navigation_program) {
+
+             if (item.getItemId() == R.id.navigation_program) {
                 Intent intent = new Intent(MainActivity.this, ProgramActivity.class);
-                startActivity(intent);
-                finish();
-                return true;
-            } else if (item.getItemId() == R.id.navigation_friends) {
-                Intent intent = new Intent(MainActivity.this, FriendsActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
