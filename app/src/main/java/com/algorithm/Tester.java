@@ -61,8 +61,8 @@ public class Tester {
         {
             if (exercisesList.get(i).getName().equalsIgnoreCase(s))
             {
-                System.out.println("buraya giriyor. TESTER 24.SATIR ");
-                System.out.println("classin adi da su ki : " + String.valueOf(exercisesList.get(i).getClass()));
+                System.out.println("Tester input");
+                System.out.println("name of the class is : " + String.valueOf(exercisesList.get(i).getClass()));
                 if (String.valueOf(exercisesList.get(i).getClass()).equalsIgnoreCase("class com.algorithm.BackExercises"))
                 {
                     return  true;

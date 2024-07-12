@@ -73,19 +73,19 @@ public class SlottedRectangleView extends View {
                 if (completedExerciseDays[i]) {
                     paint.setColor(Color.parseColor("#00FF00"));
                     paint.setTypeface(Typeface.DEFAULT_BOLD); // Set text style (bold
-                    System.out.println("ticccccc");
+                    System.out.println("aaaa");
                     paint.setTextSize(60);
                     canvas.drawText("+", xText, (float) (height / 1.35) + textHeight / 2, paint);
                 } else {
                     paint.setColor(Color.RED);
-                    System.out.println("minuss");
+                    System.out.println("bbbb");
                     paint.setTextSize(70);
                     paint.setTypeface(Typeface.DEFAULT_BOLD); // Set text style (bold
                     canvas.drawText("-", xText, (float) (height / 1.35) + textHeight / 2, paint);
                 }
             }else{
                 System.out.println(exerciseDays.length);
-                System.out.println("nooo");
+                System.out.println("cccc");
             }
             paint.setTextSize(textHeight);
 
