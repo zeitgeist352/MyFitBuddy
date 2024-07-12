@@ -42,18 +42,14 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<ExerciseModel> exerciseList;
     private ExerciseAdapter exerciseAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(activityMainBinding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-
-
-        super.onCreate(savedInstanceState);
-        activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
-
-        setContentView(activityMainBinding.getRoot());
 
         Button completedButton = activityMainBinding.buttonCompletedExercise;
 
@@ -62,22 +58,19 @@ public class MainActivity extends AppCompatActivity {
         exerciseList = new ArrayList<>();
         exerciseAdapter = new ExerciseAdapter(exerciseList);
 
-
-
-        activityMainBinding.recyclerViewExerciseList.setLayoutManager(new LinearLayoutManager(this));
+        // Highlight these lines to ensure RecyclerView setup
+        activityMainBinding.recyclerViewExerciseList.setLayoutManager(new LinearLayoutManager(this));  // Ensure this line is present
+        activityMainBinding.recyclerViewExerciseList.setAdapter(exerciseAdapter);                      // Ensure this line is present
 
         retrieveProgramFromDatabase(currentUser.getUid());
-        activityMainBinding.recyclerViewExerciseList.setAdapter(exerciseAdapter);
-
-
 
         SharedPreferences sharedPreferences = getSharedPreferences("CompletedExerciseDays", Context.MODE_PRIVATE);
         Boolean isCompleted = sharedPreferences.getBoolean("day_" + (LocalDate.now().getDayOfWeek().getValue() - 1), false);
         SharedPreferences sharedPreferences1 = getSharedPreferences("ExerciseDays", Context.MODE_PRIVATE);
         Boolean isCompleted1 = sharedPreferences1.getBoolean("day_" + (LocalDate.now().getDayOfWeek().getValue() - 1), false);
-        if (!isCompleted && isCompleted1){
+        if (!isCompleted && isCompleted1) {
             completedButton.setVisibility(Button.VISIBLE);
-        }else{
+        } else {
             completedButton.setVisibility(Button.INVISIBLE);
         }
 
@@ -92,10 +85,7 @@ public class MainActivity extends AppCompatActivity {
             completedButton.setVisibility(Button.INVISIBLE);
             updateUserPoints();
             finish();
-
         });
-
-
 
         activityMainBinding.settingsButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
@@ -104,13 +94,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         activityMainBinding.Navi.setOnItemSelectedListener(item -> {
-
-             if (item.getItemId() == R.id.navigation_program) {
+            if (item.getItemId() == R.id.navigation_program) {
                 Intent intent = new Intent(MainActivity.this, ProgramActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
-
             } else if (item.getItemId() == R.id.navigation_report) {
                 Intent intent = new Intent(MainActivity.this, ReportActivity.class);
                 startActivity(intent);
@@ -157,8 +145,6 @@ public class MainActivity extends AppCompatActivity {
         }).addOnFailureListener(e -> Log.e("power", "Error fetching user document.", e));
     }
 
-
-
     private void retrieveProgramFromDatabase(String userId) {
         db = FirebaseFirestore.getInstance();
         documentReference = db.collection("Users").document(userId);
@@ -175,9 +161,13 @@ public class MainActivity extends AppCompatActivity {
                 if (documentSnapshot != null && documentSnapshot.exists()) {
                     Map<String, Object> programData = (Map<String, Object>) documentSnapshot.get("program");
                     if (programData != null) {
+                        Log.d(TAG, "Program data exists: " + programData);
                         // Get the program for the current day
-                        ArrayList<String> program = (ArrayList<String>) programData.get(determineDayToShowProgramInUpcoming());
+                        String currentDay = determineDayToShowProgramInUpcoming();
+                        Log.d(TAG, "Current day: " + currentDay);
+                        ArrayList<String> program = (ArrayList<String>) programData.get(currentDay);
                         if (program != null) {
+                            Log.d(TAG, "Program for the current day: " + program);
                             // Clear the exerciseList before adding new exercises
                             exerciseList.clear();
                             for (String exercise : program) {
@@ -186,19 +176,17 @@ public class MainActivity extends AppCompatActivity {
                             // Notify the adapter that the data set has changed
                             exerciseAdapter.notifyDataSetChanged();
                         } else {
-                            Log.d("Error", "No program data for the current day: " + determineDayToShowProgramInUpcoming());
+                            Log.d(TAG, "No program data for the current day: " + currentDay);
                         }
                     } else {
-                        Log.d("Error", "No program data for the current user id: " + userId);
+                        Log.d(TAG, "No program data for the current user id: " + userId);
                     }
                 } else {
-                    Log.d("Error", "No such document with the current user id: " + userId);
+                    Log.d(TAG, "No such document with the current user id: " + userId);
                 }
             }
         });
     }
-
-
 
     private void setVariablesForUser(String userId) {
         db = FirebaseFirestore.getInstance();
@@ -226,16 +214,7 @@ public class MainActivity extends AppCompatActivity {
         }).addOnFailureListener(e -> Log.d(TAG, "Error fetching document", e));
     }
 
-
-    public boolean[] getExerciseDays(){
-        SharedPreferences sharedPreferences = getSharedPreferences("ExerciseDays", Context.MODE_PRIVATE);
-        boolean[] days = new boolean[7];
-        for (int i = 0; i < 7; i++) {
-            days[i] = sharedPreferences.getBoolean("day_" + i, false);
-        }
-        return days;
-    }
-    public boolean[] getCompletedExerciseDays(){
+    public boolean[] getCompletedExerciseDays() {
         SharedPreferences sharedPreferences = getSharedPreferences("CompletedExerciseDays", Context.MODE_PRIVATE);
         boolean[] days = new boolean[7];
         for (int i = 0; i < 7; i++) {
@@ -247,19 +226,29 @@ public class MainActivity extends AppCompatActivity {
     public String determineDayToShowProgramInUpcoming() {
         LocalDate today = LocalDate.now();
         int value = today.getDayOfWeek().getValue();
+        Log.d(TAG, "Today's value: " + value);
 
         for (int i = value; i <= 7; i++) {
             if (getExerciseDays()[i - 1]) {
                 if (!getCompletedExerciseDays()[i - 1]) {
-                    return dayOfWeekFromIndex(i - 1);
+                    String dayOfWeek = dayOfWeekFromIndex(i - 1);
+                    Log.d(TAG, "Next exercise day: " + dayOfWeek);
+                    return dayOfWeek;
                 }
             }
         }
 
-        return "Monday";
-
+        return "Monday"; // default to Monday if no other day is found
     }
 
+    public boolean[] getExerciseDays() {
+        SharedPreferences sharedPreferences = getSharedPreferences("ExerciseDays", Context.MODE_PRIVATE);
+        boolean[] days = new boolean[7];
+        for (int i = 0; i < 7; i++) {
+            days[i] = sharedPreferences.getBoolean("day_" + i, false);
+        }
+        return days;
+    }
 
     private String dayOfWeekFromIndex(int index) {
         switch (index % 7 + 1) { // Modulo 7 and shift by 1 to match DayOfWeek values
@@ -280,9 +269,5 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return "";
         }
-
-
     }
-
-
 }

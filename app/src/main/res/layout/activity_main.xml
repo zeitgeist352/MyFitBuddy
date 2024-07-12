@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.MainActivity"
     android:fitsSystemWindows="true">
 
@@ -24,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="User's name"
-        android:textColor="#652B2B"
+        android:textColor="@color/teal_200"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -109,8 +110,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_exercise_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
+            android:scrollbars="vertical"
             tools:listitem="@layout/exercise_list_base_model" />
     </FrameLayout>
 
@@ -118,7 +120,7 @@
         android:id="@+id/button_completed_exercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:text="Completed Exercise"
         app:layout_constraintTop_toBottomOf="@id/frame_exercise_list"
         app:layout_constraintEnd_toEndOf="parent"

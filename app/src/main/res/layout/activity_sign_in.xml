@@ -5,9 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.login_activities.SignInActivity"
-    android:background="@color/grey">
-    
+    tools:context="com.login_activities.SignInActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -18,7 +16,9 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon" />
+        app:srcCompat="@drawable/icon"
+        />
+
 
 
     <EditText
@@ -31,7 +31,7 @@
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="15dp"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.304"
@@ -45,7 +45,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/grey"
         android:background="@drawable/text_view_gb"
         android:hint="Password"
         android:inputType="textPassword"
