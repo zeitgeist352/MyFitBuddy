@@ -64,7 +64,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginBottom="30dp"
         android:text="Previous"
-        android:background="#2F4F4F"
+        android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -75,7 +75,7 @@
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="30dp"
         android:text="Next"
-        android:background="#2F4F4F"
+        android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
