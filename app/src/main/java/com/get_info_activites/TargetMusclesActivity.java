@@ -46,13 +46,13 @@ public class TargetMusclesActivity extends AppCompatActivity {
 
     private void updateBodyImage() {
         if (binding.checkBoxChest.isChecked()) {
-            binding.imageView11.setImageResource(R.drawable.image_chest);
+            binding.imageView11.setImageResource(R.drawable.chestnobackg);
         }else if (binding.checkBoxBack.isChecked()) {
-            binding.imageView11.setImageResource(R.drawable.image__back);
+            binding.imageView11.setImageResource(R.drawable.backnobg);
         }else if (binding.checkBoxArms.isChecked()) {
-            binding.imageView11.setImageResource(R.drawable.image__arm);
+            binding.imageView11.setImageResource(R.drawable.armnobg);
         }else if (binding.checkBoxLegs.isChecked()) {
-            binding.imageView11.setImageResource(R.drawable.image__leg);
+            binding.imageView11.setImageResource(R.drawable.legnobg);
         } else {
             binding.imageView11.setImageResource(R.drawable.anatomy);
         }
