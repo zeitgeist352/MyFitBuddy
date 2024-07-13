@@ -116,7 +116,6 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
                 exerciseList.get(position).getName().contains("Seated Dumbbell Press") ||
                 exerciseList.get(position).getName().contains("High Pulls") ||
                 exerciseList.get(position).getName().contains("Push Press") ||
-                exerciseList.get(position).getName().contains("Push-up") ||
                 exerciseList.get(position).getName().contains("Dumbbell Pullover") ||
                 exerciseList.get(position).getName().contains("Cable Lateral Raise") ||
                 exerciseList.get(position).getName().contains("Bent Over Lateral Raise") ||
@@ -132,9 +131,10 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
                 exerciseList.get(position).getName().contains("Cable Fly") ||
                 exerciseList.get(position).getName().contains("Machine Fly") ||
                 exerciseList.get(position).getName().contains("Dumbbell Fly") ||
-                exerciseList.get(position).getName().contains("Push-ups") ||
                 exerciseList.get(position).getName().contains("Dips")) {
             holder.binding.imageExercise.setImageResource(R.drawable.barbellbenchpress);
+        } else if (exerciseList.get(position).getName().contains("Push-up")) {
+            holder.binding.imageExercise.setImageResource(R.drawable.pushups);
         } else if (exerciseList.get(position).getName().contains("Pec Deck") ||
                 exerciseList.get(position).getName().contains("Chest Press Machine") ||
                 exerciseList.get(position).getName().contains("Chest Squeeze")) {

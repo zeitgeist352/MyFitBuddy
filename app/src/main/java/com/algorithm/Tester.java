@@ -176,28 +176,8 @@ public class Tester {
             }
         }
 
-        /*for (int i = 0; i < days.length; i ++)
-        {
-            if (days[i])
-            {
-                for (int j = 0; j < program[i].size(); j++)
-                {
-                    for (int k = 0; k < exercisesList.size(); k++)
-                    {
-                        if (exercisesList.get(k).getClass() == program[i].get(j).getClass()
-                                && exercisesList.get(k).getDif()() < power && program[i].get(j).getDif()() == 0
-                                    && !program[i].contains(exercisesList.get(k)))
-                        {
-                            program[i].set(j, exercisesList.get(k));
-                            if (power > 1)
-                            {
-                                power = power - exercisesList.get(k).getDif()() * 0.03;
-                            }
-                        }
-                    }
-                }
-            }
-        }*/
+
+
 
     }
 
@@ -377,94 +357,6 @@ public class Tester {
         }
     }
 
-    /*
-    public static ChestExercises getAvailableChestExercise(double guc, ArrayList<Exercises> program)
-    {
-        ChestExercises h = new ChestExercises(0, null);
-
-        for (int i = 0; i < exercisesList.size(); i++)
-        {
-            if (exercisesList.get(i).getClass() == h.getClass() && !program.contains(exercisesList.get(i)) && guc > exercisesList.get(i).getDif()())
-            {
-                return (ChestExercises) exercisesList.get(i);
-            }
-        }
-        return null;
-    }
-
-    public static BackExercises getAvailableBackExercise(double guc, ArrayList<Exercises> program)
-    {
-        BackExercises h = new BackExercises(0, null);
-
-        for (int i = 0; i < exercisesList.size(); i++)
-        {
-            if (exercisesList.get(i).getClass() == h.getClass() && !program.contains(exercisesList.get(i))&& guc > exercisesList.get(i).getDif()())
-            {
-                return (BackExercises) exercisesList.get(i);
-            }
-        }
-
-        return null;
-    }
-    public static BicepsExercises getAvailableBicepsExercise(double guc, ArrayList<Exercises> program) 
-    {
-        BicepsExercises h = new BicepsExercises(0, null);
-
-        for (int i = 0; i < exercisesList.size(); i++)
-        {
-            if (exercisesList.get(i).getClass() == h.getClass() && !program.contains(exercisesList.get(i))&& guc > exercisesList.get(i).getDif()())
-            {
-                return (BicepsExercises) exercisesList.get(i);
-            }
-        }
-
-        return null;
-    }
-    
-    public static ShoulderExercises getAvailableOmuzExercise(double guc, ArrayList<Exercises> program) 
-    {
-        ShoulderExercises h = new ShoulderExercises(0, null);
-
-        for (int i = 0; i < exercisesList.size(); i++)
-        {
-            if (exercisesList.get(i).getClass() == h.getClass() && !program.contains(exercisesList.get(i))&& guc > exercisesList.get(i).getDif()())
-            {
-                return (ShoulderExercises) exercisesList.get(i);
-            }
-        }
-
-        return null;
-    }
-    
-    public static TricepsExercises getAvailableTricepsExercise(double guc, ArrayList<Exercises> program) 
-    {
-        TricepsExercises h = new TricepsExercises(0, null);
-
-        for (int i = 0; i < exercisesList.size(); i++)
-        {
-            if (exercisesList.get(i).getClass() == h.getClass() && !program.contains(exercisesList.get(i)) && guc > exercisesList.get(i).getDif()())
-            {
-                return (TricepsExercises) exercisesList.get(i);
-            }
-        }
-
-        return null;
-    }
-    
-    public static LegExercises getAvailableBacakExercise(double guc, ArrayList<Exercises> program) 
-    {
-        LegExercises h = new LegExercises(0, null);
-
-        for (int i = 0; i < exercisesList.size(); i++)
-        {
-            if (exercisesList.get(i).getClass() == h.getClass() && !program.contains(exercisesList.get(i)) && guc > exercisesList.get(i).getDif()())
-            {
-                return (LegExercises) exercisesList.get(i);
-            }
-        }
-
-        return null;
-    }*/
 
     public static void shuffleExercises()
     {

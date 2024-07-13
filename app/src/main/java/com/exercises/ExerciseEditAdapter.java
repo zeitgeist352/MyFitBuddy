@@ -300,12 +300,7 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
             }
         }).addOnFailureListener(e -> Log.w(TAG, "Error retrieving user document", e));
     }
-
-
-
-
-
-
+    
 
     @Override
     public int getItemCount() {
