@@ -24,14 +24,14 @@
         android:id="@+id/checkBox_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="310dp"
+        android:layout_marginEnd="60dp"
         android:fontFamily="sans-serif-black"
         android:text="Back"
         android:textSize="20sp"
-        app:layout_constraintEnd_toTopf="parent"
-        app:layout_constraintTop_toStartof="parent"
-        tools:layout_editor_absoluteX="265dp"
-        tools:layout_editor_absoluteY="308dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+         />
 
     <CheckBox
         android:id="@+id/checkBox_arms"
@@ -87,7 +87,7 @@
         android:layout_marginTop="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/chestnobg" />
+        app:srcCompat="@drawable/chestnobackg" />
 
     <ImageView
         android:id="@+id/imageView11"

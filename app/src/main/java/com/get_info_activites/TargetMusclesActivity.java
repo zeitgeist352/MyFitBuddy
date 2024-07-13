@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.myfitbuddy.R;
 import com.myfitbuddy.databinding.ActivityTargetMusclesBinding;
 
 public class TargetMusclesActivity extends AppCompatActivity {
@@ -20,10 +19,6 @@ public class TargetMusclesActivity extends AppCompatActivity {
         Intent comingIntent = getIntent();
         UserInfoHolder userInfoHolder = (UserInfoHolder) comingIntent.getSerializableExtra("userInfoHolder");
 
-        binding.checkBoxChest.setOnCheckedChangeListener((buttonView, isChecked) -> updateBodyImage());
-        binding.checkBoxBack.setOnCheckedChangeListener((buttonView, isChecked) -> updateBodyImage());
-        binding.checkBoxArms.setOnCheckedChangeListener((buttonView, isChecked) -> updateBodyImage());
-        binding.checkBoxLegs.setOnCheckedChangeListener((buttonView, isChecked) -> updateBodyImage());
 
         binding.buttonNext.setOnClickListener(view -> {
             userInfoHolder.setChest(binding.checkBoxChest.isChecked());
@@ -36,7 +31,6 @@ public class TargetMusclesActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-
         binding.buttonPrev.setOnClickListener(view -> {
             Intent intentPrev = new Intent(TargetMusclesActivity.this, GoalActivity.class);
             startActivity(intentPrev);
@@ -44,17 +38,4 @@ public class TargetMusclesActivity extends AppCompatActivity {
         });
     }
 
-    private void updateBodyImage() {
-        if (binding.checkBoxChest.isChecked()) {
-            binding.imageView11.setImageResource(R.drawable.chestnobackg);
-        }else if (binding.checkBoxBack.isChecked()) {
-            binding.imageView11.setImageResource(R.drawable.backnobg);
-        }else if (binding.checkBoxArms.isChecked()) {
-            binding.imageView11.setImageResource(R.drawable.armnobg);
-        }else if (binding.checkBoxLegs.isChecked()) {
-            binding.imageView11.setImageResource(R.drawable.legnobg);
-        } else {
-            binding.imageView11.setImageResource(R.drawable.anatomy);
-        }
-    }
 }
