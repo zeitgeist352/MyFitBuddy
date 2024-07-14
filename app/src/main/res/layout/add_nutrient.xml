@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editText_nutrient_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nutrient Name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editText_grams"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Grams"
+        android:inputType="number"/>
+
+    <EditText
+        android:id="@+id/editText_calories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Calories (in 100 grams)"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/editText_protein"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Protein"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/editText_carbs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Carbohydrates"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/editText_fat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Fat"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/button_save_nutrient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save" />
+</LinearLayout>

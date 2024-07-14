@@ -1,85 +1,42 @@
 package com.nutrition;
 
 public class Nutrient {
-
     private String name;
-    private double proteinsPer100Gram;
-    private double carbsPer100Gram;
-    private double fatsPer100Gram;
-    private double caloriesPer100Gram;
-    private double grams;
+    private int calories;
+    private int protein;
+    private int carbs;
+    private int fat;
+    private int grams;
 
-    public Nutrient()
-    {
-        this.name = "";
-        this.proteinsPer100Gram = 0;
-        this.carbsPer100Gram = 0;
-        this.fatsPer100Gram = 0;
-        this.caloriesPer100Gram = 0;
-    }
-
-    public String getName()
-    {
-        return this.name;
-    }
-
-    public double getProteins()
-    {
-        return this.proteinsPer100Gram;
-    }
-
-    public double getCarbs()
-    {
-        return this.carbsPer100Gram;
-    }
-
-    public double getFats()
-    {
-        return this.fatsPer100Gram;
-    }
-
-    public double getCalories()
-    {
-        return this.caloriesPer100Gram;
-    }
-
-    public double getGrams()
-    {
-        return this.grams;
-    }
-
-    public void setName(String name)
-    {
+    public Nutrient(String name, int calories, int protein, int carbs, int fat, int grams) {
         this.name = name;
-    }
-
-    public void setProteins(double proteins)
-    {
-        this.proteinsPer100Gram = proteins;
-    }
-
-    public void setCarbs(double carbs)
-    {
-        this.carbsPer100Gram = carbs;
-    }
-
-    public void setFats(double fats)
-    {
-        this.fatsPer100Gram = fats;
-    }
-
-    public void setCalories(double calories)
-    {
-        this.caloriesPer100Gram = calories;
-    }
-
-    public void setGrams(double grams)
-    {
+        this.calories = calories;
+        this.protein = protein;
+        this.carbs = carbs;
+        this.fat = fat;
         this.grams = grams;
     }
 
-    public String toString()
-    {
-        return this.name + " Amount: " + this.grams + " grams";
+    public String getName() {
+        return name;
+    }
+
+    public int getCalories() {
+        return calories;
+    }
+
+    public int getProtein() {
+        return protein;
+    }
+
+    public int getCarbs() {
+        return carbs;
+    }
+
+    public int getFat() {
+        return fat;
+    }
+    public int getGrams(){
+        return grams;
     }
 }

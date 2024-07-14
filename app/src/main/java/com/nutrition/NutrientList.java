@@ -22,7 +22,7 @@ public class NutrientList{
         double totalProtein = 0;
         for(int i = 0; i < this.nutrients.size(); i++)
         {
-            double proteinAmount = this.nutrients.get(i).getProteins();
+            double proteinAmount = this.nutrients.get(i).getProtein();
             double grams = this.nutrients.get(i).getGrams();
 
             totalProtein += proteinAmount * grams / 100;
@@ -50,7 +50,7 @@ public class NutrientList{
         double totalFats = 0;
         for(int i = 0; i < this.nutrients.size(); i++)
         {
-            double fatAmount = this.nutrients.get(i).getFats();
+            double fatAmount = this.nutrients.get(i).getFat();
             double grams = this.nutrients.get(i).getGrams();
 
             totalFats += fatAmount * grams / 100;
