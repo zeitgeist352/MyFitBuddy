@@ -14,15 +14,11 @@ import com.exercises.ExerciseModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.myfitbuddy.databinding.ActivityMainBinding;
 import com.myfitbuddy.databinding.ActivityReportBinding;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 
 public class ReportActivity extends AppCompatActivity {
@@ -42,7 +38,6 @@ public class ReportActivity extends AppCompatActivity {
 
     private ExerciseAdapter exerciseAdapter;
     TextView caloriesText;
-    TextView daysToGoalText;
     TextView consumedCaloriesText;
 
 
@@ -61,14 +56,10 @@ public class ReportActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-        /*
-        //to be declared change from view9
-        //daysToGoalText = findViewById(R.id.textView9);
-        */
+        
 
         caloriesText = binding.caloriesText;
         consumedCaloriesText = binding.consumedCaloriesText;
-        findCurrentUserPlace();
         setTexts(currentUser.getUid());
     }
 
@@ -104,34 +95,7 @@ public class ReportActivity extends AppCompatActivity {
             }
         }).addOnFailureListener(e -> Log.d(TAG, "Error fetching document", e));
     }
-    private void findCurrentUserPlace() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            String userId = currentUser.getUid();
-            db.collection("Users")
-                    .orderBy("points", Query.Direction.DESCENDING)
-                    .get()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            List<DocumentSnapshot> documents = task.getResult().getDocuments();
-                            int currentUserRank = 0;
-                            int totalUsers = documents.size();
-                            for (int i = 0; i < documents.size(); i++) {
-                                if (documents.get(i).getId().equals(userId)) {
-                                    currentUserRank = i + 1; // Rank starts from 1
-                                    break;
-                                }
-                            }
-                            double percentage = 100.0 - ((double) currentUserRank / totalUsers * 100);
-                            String message = "Congratulations! You have exercised more than " + String.format(Locale.getDefault(), "%.2f", percentage) + "% of Bilfit users.";
-                            // Şimdi bu mesajı bir TextView'e yazdıralım. Örneğin:
-                            daysToGoalText.setText(message);
-                        } else {
-                            Log.e(TAG, "Error getting documents: ", task.getException());
-                        }
-                    });
-        }
+    
+        
     }
-
-}
+    

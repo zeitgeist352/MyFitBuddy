@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.myfitbuddy.R;
 import com.myfitbuddy.databinding.ActivityMainBinding;
+import com.nutrition.NutrientActivity;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -58,9 +59,8 @@ public class MainActivity extends AppCompatActivity {
         exerciseList = new ArrayList<>();
         exerciseAdapter = new ExerciseAdapter(exerciseList);
 
-        // Highlight these lines to ensure RecyclerView setup
-        activityMainBinding.recyclerViewExerciseList.setLayoutManager(new LinearLayoutManager(this));  // Ensure this line is present
-        activityMainBinding.recyclerViewExerciseList.setAdapter(exerciseAdapter);                      // Ensure this line is present
+        activityMainBinding.recyclerViewExerciseList.setLayoutManager(new LinearLayoutManager(this));
+        activityMainBinding.recyclerViewExerciseList.setAdapter(exerciseAdapter);
 
         retrieveProgramFromDatabase(currentUser.getUid());
 
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
 
+
         activityMainBinding.Navi.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.navigation_program) {
                 Intent intent = new Intent(MainActivity.this, ProgramActivity.class);
@@ -101,6 +102,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             } else if (item.getItemId() == R.id.navigation_report) {
                 Intent intent = new Intent(MainActivity.this, ReportActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            } else if(item.getItemId() == R.id.navigation_nutrients){
+                Intent intent = new Intent(MainActivity.this, NutrientActivity.class);
                 startActivity(intent);
                 finish();
                 return true;

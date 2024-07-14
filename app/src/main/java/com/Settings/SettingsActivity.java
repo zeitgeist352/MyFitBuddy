@@ -148,13 +148,13 @@ public class SettingsActivity extends AppCompatActivity {
         currentUser = mAuth.getCurrentUser();
         String email = currentUser.getEmail();
         if (email == null) {
-            Toast.makeText(this, "fill in the blanks", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You need to write your email to reset", Toast.LENGTH_LONG).show();
             return;
         }else{
             mAuth.sendPasswordResetEmail(email);
         }
     }
-    
+
 
     private void updateUsernameTextView() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
