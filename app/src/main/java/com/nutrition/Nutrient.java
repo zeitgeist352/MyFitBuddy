@@ -22,7 +22,7 @@ public class Nutrient {
     }
 
     public int getCalories() {
-        return calories;
+        return calories * grams / 100;
     }
 
     public int getProtein() {
