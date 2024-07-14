@@ -43,25 +43,7 @@ public class User {
     {
         return this.program;
     }
-
-    /*public void programiOlustur()
-    {
-        if (this.dayCount == 2)
-        {
-            program = s.getIkiGunluk();
-        }
-        else if (this.dayCount == 3) {
-            program = s.getUcGunluk();
-        }
-        else if (this.dayCount == 4) {
-            program = s.getDortGunluk();
-        }
-        else if (this.dayCount == 5) {
-            program = s.getBesGunluk();
-        }
-
-        Tester.programDoldurucu(program, strength);
-    }*/
+    
 
     public void displayProgramme()
     {
@@ -117,7 +99,7 @@ public class User {
         }
     }
 
-    public void forusLeg()
+    public void focusLeg()
     {
         LegExercises h = new LegExercises(0, null);
 

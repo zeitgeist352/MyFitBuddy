@@ -55,8 +55,7 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
         if (exerciseList.get(position).getName().equalsIgnoreCase("squat") ||
                 exerciseList.get(position).getName().equalsIgnoreCase("dumbell squat") ||
                 exerciseList.get(position).getName().equalsIgnoreCase("bulgarian split squat") ||
-                exerciseList.get(position).getName().equalsIgnoreCase("hack squat") ||
-                exerciseList.get(position).getName().equalsIgnoreCase("sumo squat"))
+                exerciseList.get(position).getName().equalsIgnoreCase("hack squat"))
         {
             holder.binding.imageExercise.setImageResource(R.drawable.squat);
         }
@@ -67,8 +66,7 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
         else if (exerciseList.get(position).getName().equalsIgnoreCase("leg curl") ||
                 exerciseList.get(position).getName().equalsIgnoreCase("leg extension") ||
                 exerciseList.get(position).getName().equalsIgnoreCase("calf raise") ||
-                exerciseList.get(position).getName().equalsIgnoreCase("lunges") ||
-                exerciseList.get(position).getName().equalsIgnoreCase("good mornings"))
+                exerciseList.get(position).getName().equalsIgnoreCase("lunges"))
         {
             holder.binding.imageExercise.setImageResource(R.drawable.legextension);
         }
@@ -90,7 +88,7 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
         }
         else if (Tester.isBackExercise(exerciseList.get(position).getName()))
         {
-            holder.binding.imageExercise.setImageResource(R.drawable.back__2_);
+            holder.binding.imageExercise.setImageResource(R.drawable.backnobg);
         }
         else if (Tester.isBicepsExercise(exerciseList.get(position).getName()))
         {
@@ -137,7 +135,7 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
                 exerciseList.get(position).getName().contains("Jumping Jacks") ||
                 exerciseList.get(position).getName().contains("Plyometric"))
         {
-            holder.binding.imageExercise.setImageResource(R.drawable.jumping_rope);
+            holder.binding.imageExercise.setImageResource(R.drawable.ropenobg);
         }
         else if (exerciseList.get(position).getName().contains("Rowing"))
         {
@@ -147,29 +145,29 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
                 exerciseList.get(position).getName().contains("HIIT") ||
                 exerciseList.get(position).getName().contains("Sprinting"))
         {
-            holder.binding.imageExercise.setImageResource(R.drawable.running);
+            holder.binding.imageExercise.setImageResource(R.drawable.runningnobg);
         }
         else if (exerciseList.get(position).getName().contains("Climbing"))
         {
-            holder.binding.imageExercise.setImageResource(R.drawable.stair_climbing);
+            holder.binding.imageExercise.setImageResource(R.drawable.stairnobg);
         }
         else if (exerciseList.get(position).getName().contains("Cycling") ||
                 exerciseList.get(position).getName().contains("Circuit Training"))
         {
-            holder.binding.imageExercise.setImageResource(R.drawable.cycling);
+            holder.binding.imageExercise.setImageResource(R.drawable.cyclenbg);
         }
         else if (exerciseList.get(position).getName().contains("Elliptical"))
         {
-            holder.binding.imageExercise.setImageResource(R.drawable.elliptical);
+            holder.binding.imageExercise.setImageResource(R.drawable.ellipticalng);
         }
         else if (exerciseList.get(position).getName().contains("Burpees"))
         {
-            holder.binding.imageExercise.setImageResource(R.drawable.burpee);
+            holder.binding.imageExercise.setImageResource(R.drawable.burpeeng);
         }
         else if (exerciseList.get(position).getName().contains("Climbing")||
                 (exerciseList.get(position).getName().contains("Mountain Climbers")))
         {
-            holder.binding.imageExercise.setImageResource(R.drawable.stair_climbing);
+            holder.binding.imageExercise.setImageResource(R.drawable.stairnobg);
         }
         else if (exerciseList.get(position).getName().contains("Military Press") ||
                 exerciseList.get(position).getName().contains("Arnold Press") ||
@@ -300,7 +298,7 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
             }
         }).addOnFailureListener(e -> Log.w(TAG, "Error retrieving user document", e));
     }
-    
+
 
     @Override
     public int getItemCount() {
