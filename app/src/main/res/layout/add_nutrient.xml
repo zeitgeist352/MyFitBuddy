@@ -3,7 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="55dp">
+
+    <TextView
+        android:id="@+id/textView_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="Add New Nutrient"
+        android:textSize="20dp"
+        android:textColor="#03A603"/>
 
     <EditText
         android:id="@+id/editText_nutrient_name"

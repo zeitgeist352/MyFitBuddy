@@ -21,6 +21,7 @@ import java.util.List;
 
 public class NutrientActivity extends AppCompatActivity {
 
+    private TextView textViewHead;
     private TextView textViewCalories;
     private TextView textViewProtein;
     private TextView textViewCarbs;
