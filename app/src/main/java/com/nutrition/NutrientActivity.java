@@ -1,7 +1,9 @@
 package com.nutrition;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,16 +14,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.MainActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.myfitbuddy.R;
+import com.myfitbuddy.databinding.ActivityNutrientBinding;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NutrientActivity extends AppCompatActivity {
 
-    private TextView textViewHead;
     private TextView textViewCalories;
     private TextView textViewProtein;
     private TextView textViewCarbs;
@@ -29,14 +40,27 @@ public class NutrientActivity extends AppCompatActivity {
     private Button buttonAddNutrient;
     private RecyclerView recyclerViewNutrientList;
 
+    private ActivityNutrientBinding binding;
+
     private NutrientAdapter nutrientAdapter;
-    private List<Nutrient> nutrientList;
+    private NutrientList nutrientList;
     private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nutrient);
+
+        binding = ActivityNutrientBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        binding.toolbarNutrient.setNavigationOnClickListener(v -> {
+            Intent intent = new Intent(NutrientActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         // Initialize views
         textViewCalories = findViewById(R.id.textView_nutrient_calories);
@@ -46,14 +70,22 @@ public class NutrientActivity extends AppCompatActivity {
         buttonAddNutrient = findViewById(R.id.button_add_nutrient);
         recyclerViewNutrientList = findViewById(R.id.recycler_view_nutrient_list);
 
-        // Initialize Firebase Database
+        // Initialize Firebase
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+
+        // Initialize Firebase Realtime Database
         databaseReference = FirebaseDatabase.getInstance().getReference("nutrients");
 
         // Initialize nutrient list and adapter
-        nutrientList = new ArrayList<>();
-        nutrientAdapter = new NutrientAdapter(nutrientList);
+        nutrientList = new NutrientList(new ArrayList<>());
+        nutrientAdapter = new NutrientAdapter(nutrientList.getNutrients());
         recyclerViewNutrientList.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewNutrientList.setAdapter(nutrientAdapter);
+
+        // Load nutrients from Firebase
+        loadNutrientsFromFirebase();
 
         // Set button click listener
         buttonAddNutrient.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +95,31 @@ public class NutrientActivity extends AppCompatActivity {
             }
         });
 
+        // Update nutrient information display
         updateNutrientInfo();
+    }
+
+    private void loadNutrientsFromFirebase() {
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            databaseReference.child(userId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    nutrientList.getNutrients().clear(); // Clear the current list
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Nutrient nutrient = snapshot.getValue(Nutrient.class);
+                        nutrientList.addNutrient(nutrient);
+                    }
+                    nutrientAdapter.notifyDataSetChanged();
+                    updateNutrientInfo();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e("Firebase", "Failed to load nutrients", databaseError.toException());
+                }
+            });
+        }
     }
 
     private void showAddNutrientDialog() {
@@ -89,8 +145,12 @@ public class NutrientActivity extends AppCompatActivity {
                 int grams = Integer.parseInt(editTextGrams.getText().toString().trim());
 
                 Nutrient nutrient = new Nutrient(name, calories, protein, carbs, fat, grams);
-                databaseReference.push().setValue(nutrient); //firebase
-                nutrientList.add(nutrient);
+
+                databaseReference.child(currentUser.getUid()).push().setValue(nutrient);
+
+                saveNutrientToFirestore(nutrient);
+
+                nutrientList.addNutrient(nutrient);
                 nutrientAdapter.notifyDataSetChanged();
                 updateNutrientInfo();
 
@@ -101,22 +161,28 @@ public class NutrientActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void updateNutrientInfo() {
-        int totalCalories = 0;
-        int totalProtein = 0;
-        int totalCarbs = 0;
-        int totalFat = 0;
+    private void saveNutrientToFirestore(Nutrient nutrient) {
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            DocumentReference userDocRef = db.collection("Users").document(userId).collection("nutrients").document();
+            Map<String, Object> nutrientData = new HashMap<>();
+            nutrientData.put("name", nutrient.getName());
+            nutrientData.put("calories", nutrient.getCalories());
+            nutrientData.put("protein", nutrient.getProtein());
+            nutrientData.put("carbs", nutrient.getCarbs());
+            nutrientData.put("fat", nutrient.getFat());
+            nutrientData.put("grams", nutrient.getGrams());
 
-        for (Nutrient nutrient : nutrientList) {
-            totalCalories += nutrient.getCalories();
-            totalProtein += nutrient.getProtein();
-            totalCarbs += nutrient.getCarbs();
-            totalFat += nutrient.getFat();
+            userDocRef.set(nutrientData)
+                    .addOnSuccessListener(aVoid -> Log.d("Firebase", "Nutrient data saved successfully"))
+                    .addOnFailureListener(e -> Log.d("Firebase", "Error saving nutrient data", e));
         }
+    }
 
-        textViewCalories.setText("Calories: " + totalCalories + " kcal");
-        textViewProtein.setText("Protein: " + totalProtein + " g");
-        textViewCarbs.setText("Carbohydrates: " + totalCarbs + " g");
-        textViewFat.setText("Fat: " + totalFat + " g");
+    private void updateNutrientInfo() {
+        textViewCalories.setText("Calories: " + nutrientList.getTotalCalories() + " kcal");
+        textViewProtein.setText("Protein: " + nutrientList.getTotalProteins() + " g");
+        textViewCarbs.setText("Carbohydrates: " + nutrientList.getTotalCarbs() + " g");
+        textViewFat.setText("Fat: " + nutrientList.getTotalFats() + " g");
     }
 }
