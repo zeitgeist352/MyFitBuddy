@@ -9,13 +9,13 @@ public class Nutrient {
     private double caloriesPer100Gram;
     private double grams;
 
-    public Nutrient(String name , double proteins, double carbs, double fat, double calories)
+    public Nutrient()
     {
-        this.name = name;
-        this.proteinsPer100Gram = proteins;
-        this.carbsPer100Gram = carbs;
-        this.fatsPer100Gram = fat;
-        this.caloriesPer100Gram = calories;
+        this.name = "";
+        this.proteinsPer100Gram = 0;
+        this.carbsPer100Gram = 0;
+        this.fatsPer100Gram = 0;
+        this.caloriesPer100Gram = 0;
     }
 
     public String getName()
