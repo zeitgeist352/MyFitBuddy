@@ -5,6 +5,8 @@ import static android.content.ContentValues.TAG;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,13 +15,20 @@ import com.exercises.ExerciseAdapter;
 import com.exercises.ExerciseModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.myfitbuddy.R;
 import com.myfitbuddy.databinding.ActivityMainBinding;
 import com.myfitbuddy.databinding.ActivityReportBinding;
+import com.nutrition.Nutrient;
+import com.nutrition.NutrientList;
 
 import java.util.ArrayList;
-
 
 public class ReportActivity extends AppCompatActivity {
 
@@ -31,8 +40,7 @@ public class ReportActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private DocumentReference documentReference;
     private ArrayList<ExerciseModel> exerciseList;
-    private int goalpoints = 10000;
-
+    private NutrientList nutrientList;
 
     private ActivityReportBinding binding;
 
@@ -40,14 +48,15 @@ public class ReportActivity extends AppCompatActivity {
     TextView caloriesText;
     TextView consumedCaloriesText;
 
+    private String reportType = "weekly";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        super.onCreate(savedInstanceState);
         binding = ActivityReportBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -56,46 +65,78 @@ public class ReportActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-        
 
         caloriesText = binding.caloriesText;
         consumedCaloriesText = binding.consumedCaloriesText;
-        setTexts(currentUser.getUid());
+
+        nutrientList = new NutrientList(new ArrayList<>());
+        loadNutrientsFromDb();
+
+        Button buttonWeeklyReport = findViewById(R.id.buttonWeeklyReport);
+        Button buttonMonthlyReport = findViewById(R.id.buttonMonthlyReport);
+
+        buttonWeeklyReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reportType = "weekly";
+                setTexts(currentUser.getUid(), reportType);
+            }
+        });
+
+        buttonMonthlyReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reportType = "monthly";
+                setTexts(currentUser.getUid(), reportType);
+            }
+        });
+
+        setTexts(currentUser.getUid(), reportType);
     }
 
-    private void setTexts(String userId) {
+    private void loadNutrientsFromDb() {
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("nutrients").child(userId);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    nutrientList.getNutrients().clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Nutrient nutrient = snapshot.getValue(Nutrient.class);
+                        nutrientList.addNutrient(nutrient);
+                    }
+                    updateConsumedCalories();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e("Firebase", "Failed to load nutrients", databaseError.toException());
+                }
+            });
+        }
+    }
+
+    private void updateConsumedCalories() {
+        consumedCaloriesText.setText("Calories consumed so far: " + nutrientList.getTotalCalories() + " kcal");
+    }
+
+    private void setTexts(String userId, String reportType) {
         db = FirebaseFirestore.getInstance();
         documentReference = db.collection("Users").document(userId);
         documentReference.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
-                // Retrieve and display name
-                System.out.println("REPORT ACTIVITY");
-                // Retrieve and display points
                 Number pointsNumber = documentSnapshot.getLong("points");
-                if (pointsNumber != null) {  // Check if the points data exists
+                if (pointsNumber != null) {
                     int points = pointsNumber.intValue();
-                    double n1 = (double) points / 30000.0;
-                    double n2 = (double) points / 25000.0;
-
-/*
-                    String formattedN1 = String.format("%.6f", n1);
-                    String formattedN2 = String.format("%.6f", n2);
-*/
-                    caloriesText.setText("Calories have burned so far: " + points * 3);
-
-                    //burasi doldurulacak kalori intakei ile
-                    //consumedCaloriesText.setText("Calories have consumed so far: " + 0);
-
+                    caloriesText.setText("Your " + reportType + " kcal burn is: " + points * 3);
                 } else {
-                    caloriesText.setText("Calories have burned so far: " + 0);; // Default to 0 if no points
-                    consumedCaloriesText.setText("Calories have consumed so far: " + 0);
+                    caloriesText.setText("Your " + reportType + " kcal burn is: 0");
                 }
+                consumedCaloriesText.setText("Your " + reportType + " kcal intake is: " + nutrientList.getTotalCalories() + " kcal");
             } else {
                 Log.d("Error", "No such document with the current user id: " + userId);
             }
         }).addOnFailureListener(e -> Log.d(TAG, "Error fetching document", e));
     }
-    
-        
-    }
-    
+}

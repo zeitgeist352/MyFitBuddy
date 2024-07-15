@@ -43,7 +43,7 @@ public class User {
     {
         return this.program;
     }
-    
+
 
     public void displayProgramme()
     {
@@ -56,89 +56,5 @@ public class User {
             }
         }
     }
-/*
-    public void focusChest()
-    {
-        ChestExercises h = new ChestExercises(0, null);
 
-        for (int i = 0; i < program.size(); i++)
-        {
-            boolean flag = false;
-            for (int j = 0; j < program.get(i).size(); j++)
-            {
-                if (program.get(i).get(j).getClass() == h.getClass())
-                {
-                    flag = true;
-                }
-            }
-            if (flag)
-            {
-                this.program.get(i).add(Tester.getAvailableChestExercise(strength, program.get(i)));
-            }
-        }
-    }
-
-    public void focusBack()
-    {
-        BackExercises h = new BackExercises(0, null);
-
-        for (int i = 0; i < program.size(); i++)
-        {
-            boolean flag = false;
-            for (int j = 0; j < program.get(i).size(); j++)
-            {
-                if (program.get(i).get(j).getClass() == h.getClass())
-                {
-                    flag = true;
-                }
-            }
-            if (flag)
-            {
-                this.program.get(i).add(Tester.getAvailableBackExercise(strength, program.get(i)));
-            }
-        }
-    }
-
-    public void focusLeg()
-    {
-        LegExercises h = new LegExercises(0, null);
-
-        for (int i = 0; i < program.size(); i++)
-        {
-            boolean flag = false;
-            for (int j = 0; j < program.get(i).size(); j++)
-            {
-                if (program.get(i).get(j).getClass() == h.getClass())
-                {
-                    flag = true;
-                }
-            }
-            if (flag)
-            {
-                this.program.get(i).add(Tester.getAvailableBacakExercise(strength, program.get(i)));
-            }
-        }
-    }
-
-    public void focusArm()
-    {
-        GogusHareketi h = new GogusHareketi(0, null);
-
-        for (int i = 0; i < program.size(); i++)
-        {
-            boolean flag = false;
-            for (int j = 0; j < program.get(i).size(); j++)
-            {
-                if (program.get(i).get(j).getClass() == h.getClass())
-                {
-                    flag = true;
-                }
-            }
-            if (flag)
-            {
-                Tester.getAvailableChestExercise(strength, program.get(i));
-            }
-        }
-
-    }*/
 }
