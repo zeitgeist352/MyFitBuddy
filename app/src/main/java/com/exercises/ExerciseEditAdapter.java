@@ -75,7 +75,7 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
         }
         else if (Tester.isLegExercise(exerciseList.get(position).getName()))
         {
-            holder.binding.imageExercise.setImageResource(R.drawable.bodyweightsquat);
+            holder.binding.imageExercise.setImageResource(R.drawable.runningnobg);
         }
         else if (exerciseList.get(position).getName().contains("Deadlift"))
         {
@@ -144,7 +144,8 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
         {
             holder.binding.imageExercise.setImageResource(R.drawable.seatedvbarcablerow);
         }
-        else if (exerciseList.get(position).getName().contains("Running") ||
+        else if (exerciseList.get(position).getName().contains("Running (High Tempo)") ||
+                exerciseList.get(position).getName().contains("Running (Low Tempo)") ||
                 exerciseList.get(position).getName().contains("HIIT") ||
                 exerciseList.get(position).getName().contains("Sprinting"))
         {
@@ -178,6 +179,9 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
                 exerciseList.get(position).getName().contains("Push Press"))
         {
             holder.binding.imageExercise.setImageResource(R.drawable.facepull);
+        }
+        else if (exerciseList.get(position).getName().contains("Shrugs")) {
+            holder.binding.imageExercise.setImageResource(R.drawable.shrugs);
         }
         else if (exerciseList.get(position).getName().contains("Machine Shoulder Press")||
             exerciseList.get(position).getName().contains("Seated Dumbbell Press") ){

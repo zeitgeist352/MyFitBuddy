@@ -94,7 +94,8 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
             holder.binding.imageExercise.setImageResource(R.drawable.ropenobg);
         } else if (exerciseList.get(position).getName().contains("Rowing")) {
             holder.binding.imageExercise.setImageResource(R.drawable.seatedvbarcablerow);
-        } else if (exerciseList.get(position).getName().contains("Running") ||
+        } else if (exerciseList.get(position).getName().contains("Running (High Tempo") ||
+                exerciseList.get(position).getName().contains("Running (Low Tempo")||
                 exerciseList.get(position).getName().contains("HIIT") ||
                 exerciseList.get(position).getName().contains("Sprinting")) {
             holder.binding.imageExercise.setImageResource(R.drawable.runningnobg);

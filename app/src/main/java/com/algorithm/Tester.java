@@ -521,8 +521,6 @@ public class Tester {
         exercisesList.add(new LegExercises(3, "Bulgarian Split Squat"));
         exercisesList.add(new LegExercises(4, "Hack Squat"));
         exercisesList.add(new LegExercises(2, "Calf Raise"));
-        exercisesList.add(new LegExercises(3, "Sumo Squat"));
-        exercisesList.add(new LegExercises(1, "Good Mornings"));
 
         // back excs
         exercisesList.add(new BackExercises(5, "Conventional Dead lift"));

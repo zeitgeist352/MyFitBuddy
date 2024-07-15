@@ -5,10 +5,6 @@ import java.util.ArrayList;
 public class NutrientList {
 
     private ArrayList<Nutrient> nutrients;
-    private double totalProteins;
-    private double totalCarbs;
-    private double totalFat;
-    private double totalCalories;
 
     public NutrientList(ArrayList<Nutrient> nutrients) {
         this.nutrients = nutrients;
