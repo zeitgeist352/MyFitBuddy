@@ -32,7 +32,7 @@ public class BodyInfoActivity extends AppCompatActivity {
 
             userInfoHolder.calculateIbm();
 
-            Intent intent = new Intent(BodyInfoActivity.this, PreferredDaysActivity.class);
+            Intent intent = new Intent(BodyInfoActivity.this, BodyMeasureActivity.class);
             intent.putExtra("userInfoHolder", userInfoHolder);
 
             startActivity(intent);

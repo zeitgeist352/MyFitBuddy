@@ -99,6 +99,10 @@ public class LoadingInfoSessionSActivity extends AppCompatActivity {
                 data.put("age", userInfoHolder.getAge());
                 data.put("weight", userInfoHolder.getWeight());
                 data.put("height", userInfoHolder.getHeight());
+                data.put("waistcircum", userInfoHolder.getWaistCircum());
+                data.put("hipcircum", userInfoHolder.getHipCircum());
+                data.put("armcircum", userInfoHolder.getArmCircum());
+                data.put("legcircum", userInfoHolder.getLegCircum());
                 data.put("isMondayEligible", userInfoHolder.isMondayEligible());
                 data.put("isTuesdayEligible", userInfoHolder.isTuesdayEligible());
                 data.put("isWednesdayEligible", userInfoHolder.isWednesdayEligible());
