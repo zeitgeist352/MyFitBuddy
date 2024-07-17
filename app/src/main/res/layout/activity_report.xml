@@ -48,6 +48,20 @@
         app:layout_constraintStart_toEndOf="@id/intakeImage"
         app:layout_constraintTop_toTopOf="@id/intakeImage" />
 
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="16dp"
+        android:text=""
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/consumedCaloriesText" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarReport"
         android:layout_width="match_parent"
@@ -74,24 +88,24 @@
         android:id="@+id/buttonWeeklyReport"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="232dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="164dp"
         android:background="@drawable/border"
         android:text="Weekly Report"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/intakeImage" />
+        app:layout_constraintTop_toBottomOf="@id/resultText" />
 
     <Button
         android:id="@+id/buttonMonthlyReport"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="232dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="164dp"
         android:background="@drawable/border2"
         android:text="Monthly Report"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/buttonWeeklyReport"
-        app:layout_constraintTop_toBottomOf="@id/intakeImage" />
+        app:layout_constraintTop_toBottomOf="@id/resultText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

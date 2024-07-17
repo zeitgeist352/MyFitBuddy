@@ -41,12 +41,14 @@ public class ReportActivity extends AppCompatActivity {
     private DocumentReference documentReference;
     private ArrayList<ExerciseModel> exerciseList;
     private NutrientList nutrientList;
+    private final int kcalConst = 7700;
 
     private ActivityReportBinding binding;
 
     private ExerciseAdapter exerciseAdapter;
     TextView caloriesText;
     TextView consumedCaloriesText;
+    TextView resultText;  
 
     private String reportType = "weekly";
 
@@ -68,6 +70,7 @@ public class ReportActivity extends AppCompatActivity {
 
         caloriesText = binding.caloriesText;
         consumedCaloriesText = binding.consumedCaloriesText;
+        resultText = binding.resultText;  
 
         nutrientList = new NutrientList(new ArrayList<>());
         loadNutrientsFromDb();
@@ -119,6 +122,7 @@ public class ReportActivity extends AppCompatActivity {
 
     private void updateConsumedCalories() {
         consumedCaloriesText.setText("Calories consumed so far: " + nutrientList.getTotalCalories() + " kcal");
+        calculateCaloricBalance();
     }
 
     private void setTexts(String userId, String reportType) {
@@ -134,9 +138,29 @@ public class ReportActivity extends AppCompatActivity {
                     caloriesText.setText("Your " + reportType + " kcal burn is: 0");
                 }
                 consumedCaloriesText.setText("Your " + reportType + " kcal intake is: " + nutrientList.getTotalCalories() + " kcal");
+                calculateCaloricBalance();
             } else {
                 Log.d("Error", "No such document with the current user id: " + userId);
             }
         }).addOnFailureListener(e -> Log.d(TAG, "Error fetching document", e));
+    }
+
+    private void calculateCaloricBalance() {
+        double totalConsumed = nutrientList.getTotalCalories();
+        double totalBurned = thisWeekPoints * 3;
+
+        if (totalConsumed > totalBurned) {
+            double excessCalories = totalConsumed - totalBurned;
+            double weightGain =  excessCalories / kcalConst;
+            resultText.setText(String.format("You are likely to gain %.2f kilos", weightGain));
+        } else if (totalConsumed < totalBurned){
+            double deficitCalories = totalBurned - totalConsumed;
+            double weightLoss = deficitCalories / kcalConst;
+            resultText.setText(String.format("You are likely to lose %.2f kilos", weightLoss));
+        }
+        else{
+            resultText.setText(String.format("You are in balance, no kilos expected to be gained or burnt"));
+
+        }
     }
 }
