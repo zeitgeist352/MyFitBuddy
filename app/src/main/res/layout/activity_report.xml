@@ -5,23 +5,21 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#696969"
     tools:context="com.ReportActivity">
 
-    <!-- Text for Calories Burned -->
     <ImageView
         android:id="@+id/consumedCaloriesImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="92dp"
-        android:src="@drawable/calorieburn"
+        android:src="@drawable/cbnobg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbarReport" />
 
     <TextView
         android:id="@+id/caloriesText"
-        android:layout_width="195dp"
+        android:layout_width="160dp"
         android:layout_height="63dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="20dp"
@@ -30,21 +28,20 @@
         app:layout_constraintStart_toEndOf="@id/consumedCaloriesImage"
         app:layout_constraintTop_toTopOf="@id/consumedCaloriesImage" />
 
-
     <ImageView
         android:id="@+id/intakeImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="260dp"
-        android:src="@drawable/calorieintake"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/cinobg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/consumedCaloriesImage" />
 
     <TextView
         android:id="@+id/consumedCaloriesText"
         android:layout_width="200dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Consumed calories so far: "
         android:textSize="18sp"
@@ -73,6 +70,28 @@
             android:textSize="30dp" />
     </androidx.appcompat.widget.Toolbar>
 
+    <Button
+        android:id="@+id/buttonWeeklyReport"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="232dp"
+        android:background="@drawable/border"
+        android:text="Weekly Report"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/intakeImage" />
 
+    <Button
+        android:id="@+id/buttonMonthlyReport"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="232dp"
+        android:background="@drawable/border2"
+        android:text="Monthly Report"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/buttonWeeklyReport"
+        app:layout_constraintTop_toBottomOf="@id/intakeImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
