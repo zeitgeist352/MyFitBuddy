@@ -25,7 +25,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         activityForgotPasswordBinding.passResetButton.setOnClickListener(view -> sendResetMail());
     }
-
+    //reset mail for the password
     public void sendResetMail() {
         String email = activityForgotPasswordBinding.editTextEmailForgotPass.getText().toString();
 
