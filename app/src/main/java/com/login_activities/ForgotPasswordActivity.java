@@ -1,13 +1,10 @@
 package com.login_activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.myfitbuddy.databinding.ActivityForgotPasswordBinding;
@@ -22,6 +19,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityForgotPasswordBinding = ActivityForgotPasswordBinding.inflate(getLayoutInflater());
         setContentView(activityForgotPasswordBinding.getRoot());
+
+        activityForgotPasswordBinding.toolbar.setNavigationOnClickListener(v -> {
+            Intent intent = new Intent(ForgotPasswordActivity.this, SignInActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         activityForgotPasswordBinding.passResetButton.setOnClickListener(view -> sendResetMail());
     }
