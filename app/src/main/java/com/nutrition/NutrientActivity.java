@@ -185,4 +185,7 @@ public class NutrientActivity extends AppCompatActivity {
         textViewCarbs.setText("Carbohydrates: " + nutrientList.getTotalCarbs() + " g");
         textViewFat.setText("Fat: " + nutrientList.getTotalFats() + " g");
     }
+
+    Nutrient nutrient1 = new Nutrient("Chicken Breast" , 110, 23, 0, 1, 100);
+    saveNutrientToFirestore(nutrient1);
 }
