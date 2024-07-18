@@ -32,6 +32,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         if (!email.isEmpty()){
             auth.sendPasswordResetEmail(email);
+            Toast.makeText(this,"reset mail has been sent", Toast.LENGTH_LONG).show();
         }else{
             Toast.makeText(this,"fill in the blanks", Toast.LENGTH_LONG).show();
         }
