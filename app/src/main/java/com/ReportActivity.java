@@ -5,7 +5,6 @@ import static android.content.ContentValues.TAG;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.myfitbuddy.R;
-import com.myfitbuddy.databinding.ActivityMainBinding;
 import com.myfitbuddy.databinding.ActivityReportBinding;
 import com.nutrition.Nutrient;
 import com.nutrition.NutrientList;
@@ -32,7 +30,6 @@ import java.util.ArrayList;
 
 public class ReportActivity extends AppCompatActivity {
 
-    private ActivityMainBinding activityMainBinding;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private int thisWeekPoints = 0;
@@ -48,7 +45,7 @@ public class ReportActivity extends AppCompatActivity {
     private ExerciseAdapter exerciseAdapter;
     TextView caloriesText;
     TextView consumedCaloriesText;
-    TextView resultText;  
+    TextView resultText;
 
     private String reportType = "weekly";
 
@@ -70,7 +67,7 @@ public class ReportActivity extends AppCompatActivity {
 
         caloriesText = binding.caloriesText;
         consumedCaloriesText = binding.consumedCaloriesText;
-        resultText = binding.resultText;  
+        resultText = binding.resultText;
 
         nutrientList = new NutrientList(new ArrayList<>());
         loadNutrientsFromDb();
@@ -78,20 +75,14 @@ public class ReportActivity extends AppCompatActivity {
         Button buttonWeeklyReport = findViewById(R.id.buttonWeeklyReport);
         Button buttonMonthlyReport = findViewById(R.id.buttonMonthlyReport);
 
-        buttonWeeklyReport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reportType = "weekly";
-                setTexts(currentUser.getUid(), reportType);
-            }
+        buttonWeeklyReport.setOnClickListener(v -> {
+            reportType = "weekly";
+            setTexts(currentUser.getUid(), reportType);
         });
 
-        buttonMonthlyReport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reportType = "monthly";
-                setTexts(currentUser.getUid(), reportType);
-            }
+        buttonMonthlyReport.setOnClickListener(v -> {
+            reportType = "monthly";
+            setTexts(currentUser.getUid(), reportType);
         });
 
         setTexts(currentUser.getUid(), reportType);
@@ -122,7 +113,31 @@ public class ReportActivity extends AppCompatActivity {
 
     private void updateConsumedCalories() {
         consumedCaloriesText.setText("Calories consumed so far: " + nutrientList.getTotalCalories() + " kcal");
-        calculateCaloricBalance();
+        calculateBurn(currentUser.getUid());
+    }
+
+    private void calculateBurn(String userId) {
+        db = FirebaseFirestore.getInstance();
+        documentReference = db.collection("Users").document(userId);
+        documentReference.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                Number number = documentSnapshot.getLong("points");
+                if (number != null) {
+                    thisWeekPoints = number.intValue() * 3;
+                    calcBalance(thisWeekPoints);
+                } else {
+                    thisWeekPoints = 0;
+                    calcBalance(thisWeekPoints);
+                }
+            } else {
+                thisWeekPoints = 0;
+                calcBalance(thisWeekPoints);
+            }
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "Error fetching document", e);
+            thisWeekPoints = 0;
+            calcBalance(thisWeekPoints);
+        });
     }
 
     private void setTexts(String userId, String reportType) {
@@ -138,29 +153,26 @@ public class ReportActivity extends AppCompatActivity {
                     caloriesText.setText("Your " + reportType + " kcal burn is: 0");
                 }
                 consumedCaloriesText.setText("Your " + reportType + " kcal intake is: " + nutrientList.getTotalCalories() + " kcal");
-                calculateCaloricBalance();
             } else {
                 Log.d("Error", "No such document with the current user id: " + userId);
             }
         }).addOnFailureListener(e -> Log.d(TAG, "Error fetching document", e));
     }
 
-    private void calculateCaloricBalance() {
+    private void calcBalance(int thisWeekPoints) {
         double totalConsumed = nutrientList.getTotalCalories();
-        double totalBurned = thisWeekPoints * 3;
+        double totalBurned = thisWeekPoints;
 
         if (totalConsumed > totalBurned) {
             double excessCalories = totalConsumed - totalBurned;
-            double weightGain =  excessCalories / kcalConst;
+            double weightGain = excessCalories / kcalConst;
             resultText.setText(String.format("You are likely to gain %.2f kilos", weightGain));
-        } else if (totalConsumed < totalBurned){
+        } else if (totalConsumed < totalBurned) {
             double deficitCalories = totalBurned - totalConsumed;
             double weightLoss = deficitCalories / kcalConst;
             resultText.setText(String.format("You are likely to lose %.2f kilos", weightLoss));
-        }
-        else{
-            resultText.setText(String.format("You are in balance, no kilos expected to be gained or burnt"));
-
+        } else {
+            resultText.setText("You are in balance, no kilos expected to be gained or lost");
         }
     }
 }
