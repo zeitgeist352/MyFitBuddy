@@ -273,16 +273,6 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
     }
 
 
-    private ArrayList<String> getExerciseList(int position) {
-
-        ArrayList<String> exercises = new ArrayList<>();
-
-        exercises.add("Exercise 1");
-        exercises.add("Exercise 2");
-        exercises.add("Exercise 3");
-        return exercises;
-    }
-
     public void updateExerciseInArray(String day, int exerciseIndex, String newExerciseName) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = auth.getCurrentUser();

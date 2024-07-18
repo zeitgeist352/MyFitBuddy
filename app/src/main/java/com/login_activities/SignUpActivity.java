@@ -82,7 +82,6 @@ public class SignUpActivity extends AppCompatActivity {
                             userInfo.put("email",email);
                             userInfo.put("points",0);
                             userInfo.put("power",0.0);
-                            userInfo.put("profileImage","https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png"); // Use the same variable name as in user data
 
                             if (currentUser != null){
                                 documentReference.set(userInfo).addOnCompleteListener(new OnCompleteListener<Void>() {

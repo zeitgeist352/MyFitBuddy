@@ -22,6 +22,10 @@ public class UserInfoHolder implements Serializable {
     private int age;
     private int weight;
     private int height;
+    private int hipCircum;
+    private int armCircum;
+    private int legCircum;
+    private int waistCircum;
 
     private boolean isMondayEligible;
     private boolean isTuesdayEligible;
@@ -123,6 +127,23 @@ public class UserInfoHolder implements Serializable {
         return height;
     }
 
+    public int getHipCircum(){
+        return hipCircum;
+    }
+
+    public int getArmCircum(){
+        return armCircum;
+    }
+
+    public int getLegCircum(){
+        return legCircum;
+    }
+
+    public int getWaistCircum(){
+        return waistCircum;
+    }
+
+
     public boolean isMondayEligible() {
         return isMondayEligible;
     }
@@ -197,6 +218,19 @@ public class UserInfoHolder implements Serializable {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+    public void setHipCircum(int hipCircum){
+        this.hipCircum = hipCircum;
+    }
+
+    public void setArmCircum(int armCircum){
+        this.armCircum = armCircum;
+    }
+    public void setWaistCircum(int waistCircum){
+        this.waistCircum = waistCircum;
+    }
+    public void setLegCircum(int legCircum){
+        this.legCircum = legCircum;
     }
 
     public void setHeight(int height) {

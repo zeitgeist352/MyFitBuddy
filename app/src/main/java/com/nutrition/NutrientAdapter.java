@@ -15,6 +15,15 @@ import java.util.List;
 public class NutrientAdapter extends RecyclerView.Adapter<NutrientAdapter.NutrientViewHolder> {
 
     private List<Nutrient> nutrientList;
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(Nutrient nutrient);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
 
     public NutrientAdapter(List<Nutrient> nutrientList) {
         this.nutrientList = nutrientList;
@@ -30,11 +39,16 @@ public class NutrientAdapter extends RecyclerView.Adapter<NutrientAdapter.Nutrie
     @Override
     public void onBindViewHolder(@NonNull NutrientViewHolder holder, int position) {
         Nutrient nutrient = nutrientList.get(position);
-        holder.textViewName.setText(nutrient.getName());
-        holder.textViewCalories.setText("Calories: " + nutrient.getCalories() + " kcal");
-        holder.textViewProtein.setText("Protein: " + nutrient.getProtein() + " g");
-        holder.textViewCarbs.setText("Carbs: " + nutrient.getCarbs() + " g");
-        holder.textViewFat.setText("Fat: " + nutrient.getFat() + " g");
+        holder.bind(nutrient);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(nutrient);
+                }
+            }
+        });
     }
 
     @Override
@@ -43,11 +57,11 @@ public class NutrientAdapter extends RecyclerView.Adapter<NutrientAdapter.Nutrie
     }
 
     public static class NutrientViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewName;
-        TextView textViewCalories;
-        TextView textViewProtein;
-        TextView textViewCarbs;
-        TextView textViewFat;
+        private TextView textViewName;
+        private TextView textViewCalories;
+        private TextView textViewProtein;
+        private TextView textViewCarbs;
+        private TextView textViewFat;
 
         public NutrientViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,6 +70,14 @@ public class NutrientAdapter extends RecyclerView.Adapter<NutrientAdapter.Nutrie
             textViewProtein = itemView.findViewById(R.id.textView_nutrient_protein);
             textViewCarbs = itemView.findViewById(R.id.textView_nutrient_carbs);
             textViewFat = itemView.findViewById(R.id.textView_nutrient_fat);
+        }
+
+        public void bind(Nutrient nutrient) {
+            textViewName.setText(nutrient.getName());
+            textViewCalories.setText("Calories: " + nutrient.getCalories() + " kcal");
+            textViewProtein.setText("Protein: " + nutrient.getProtein() + " g");
+            textViewCarbs.setText("Carbs: " + nutrient.getCarbs() + " g");
+            textViewFat.setText("Fat: " + nutrient.getFat() + " g");
         }
     }
 }

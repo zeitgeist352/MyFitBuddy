@@ -38,6 +38,7 @@ public class NutrientActivity extends AppCompatActivity {
     private TextView textViewCarbs;
     private TextView textViewFat;
     private Button buttonAddNutrient;
+    private Button buttonSelectNutrient;
     private RecyclerView recyclerViewNutrientList;
 
     private ActivityNutrientBinding binding;
@@ -68,6 +69,7 @@ public class NutrientActivity extends AppCompatActivity {
         textViewCarbs = findViewById(R.id.textView_nutrient_carbs);
         textViewFat = findViewById(R.id.textView_nutrient_fat);
         buttonAddNutrient = findViewById(R.id.button_add_nutrient);
+        buttonSelectNutrient = findViewById(R.id.button_select_nutrient);
         recyclerViewNutrientList = findViewById(R.id.recycler_view_nutrient_list);
 
         // Initialize Firebase
@@ -92,6 +94,12 @@ public class NutrientActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showAddNutrientDialog();
+            }
+        });
+        buttonSelectNutrient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSelectNutrientDialog();
             }
         });
 
@@ -120,6 +128,58 @@ public class NutrientActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+    private void showSelectNutrientDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_select_nutrient);
+
+        RecyclerView recyclerView = dialog.findViewById(R.id.recycler_view_dialog_nutrient_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        NutrientAdapter dialogAdapter = new NutrientAdapter(nutrientList.getNutrients());
+        recyclerView.setAdapter(dialogAdapter);
+
+        dialogAdapter.setOnItemClickListener(new NutrientAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Nutrient nutrient) {
+                showEnterGramsDialog(nutrient);
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+    private void showEnterGramsDialog(final Nutrient selectedNutrient) {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_enter_grams);
+
+        final EditText editTextGrams = dialog.findViewById(R.id.editText_grams);
+        Button buttonSave = dialog.findViewById(R.id.button_save_grams);
+
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String gramsStr = editTextGrams.getText().toString().trim();
+                if (!gramsStr.isEmpty()) {
+                    int grams = Integer.parseInt(gramsStr);
+                    Nutrient nutrientWithGrams = NutrientData.getNutrient(selectedNutrient.getName());
+                    nutrientWithGrams.setGrams(grams);
+
+                    // Add the nutrient to the list and update UI
+                    nutrientList.addNutrient(nutrientWithGrams);
+                    nutrientAdapter.notifyDataSetChanged();
+                    updateNutrientInfo();
+
+                    // Save to Firebase
+                    databaseReference.child(currentUser.getUid()).push().setValue(nutrientWithGrams);
+                    saveNutrientToFirestore(nutrientWithGrams);
+
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        dialog.show();
     }
 
     private void showAddNutrientDialog() {
@@ -185,7 +245,4 @@ public class NutrientActivity extends AppCompatActivity {
         textViewCarbs.setText("Carbohydrates: " + nutrientList.getTotalCarbs() + " g");
         textViewFat.setText("Fat: " + nutrientList.getTotalFats() + " g");
     }
-
-    Nutrient nutrient1 = new Nutrient("Chicken Breast" , 110, 23, 0, 1, 100);
-    saveNutrientToFirestore(nutrient1);
 }

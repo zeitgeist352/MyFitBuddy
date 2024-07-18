@@ -7,6 +7,7 @@
     tools:context="com.nutrition.NutrientActivity"
     android:fitsSystemWindows="true">
 
+    <!-- Title TextView -->
     <TextView
         android:id="@+id/textView_nutrient_tracking_title"
         android:layout_width="wrap_content"
@@ -21,6 +22,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center" />
 
+    <!-- Nutrient Information CardView -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_nutrient_info"
         android:layout_width="match_parent"
@@ -96,16 +98,32 @@
             android:textSize="30dp"/>
     </androidx.appcompat.widget.Toolbar>
 
+    <!-- Add Nutrient Button -->
+
+    <!-- Nutrient List RecyclerView -->
     <Button
         android:id="@+id/button_add_nutrient"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Add Nutrient"
+        android:layout_marginTop="24dp"
         android:background="@drawable/border"
-        app:layout_constraintTop_toBottomOf="@id/cardView_nutrient_info"
+        android:text="Add Nutrient"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintTop_toBottomOf="@id/cardView_nutrient_info" />
+
+    <Button
+        android:id="@+id/button_select_nutrient"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/border"
+        android:text="Select Nutrient"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.839"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView_nutrient_info" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_nutrient_list"
