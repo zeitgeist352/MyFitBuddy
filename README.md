@@ -1,6 +1,6 @@
 Overview
 
-MyFitBuddy is a mobile app designed to enhance healthy living through personalized exercise programs, progress tracking, and nutrient management. By customizing workouts to meet individual needs and goals, MyFitBuddy eliminates the guesswork from daily exercise routines. The app also promotes friendly competition with a leaderboard that tracks user progress, inspiring users to achieve more. Social interaction is encouraged through features like friend-adding and notifications, fostering a supportive community. MyFitBuddy includes essential screens for sign-up, sign-in, and password recovery, along with a user-friendly menu providing access to exercise programs, social features, and nutrient tracking.
+MyFitBuddy is a mobile app designed to enhance healthy living through personalized exercise programs, progress tracking, and nutrient management. By customizing workouts to meet individual needs and goals, MyFitBuddy eliminates the guesswork from daily exercise routines. MyFitBuddy includes essential screens for sign-up, sign-in, and password recovery, along with a user-friendly menu providing access to exercise programs, and nutrient tracking.
 
 Features
 
