@@ -2,17 +2,17 @@ package com.nutrition;
 
 public class Nutrient {
     private String name;
-    private int calories;
-    private int protein;
-    private int carbs;
-    private int fat;
-    private int grams;
+    private double calories;
+    private double protein;
+    private double carbs;
+    private double fat;
+    private double grams;
 
     public Nutrient() {
         // Default constructor required for calls to DataSnapshot.getValue(Nutrient.class)
     }
 
-    public Nutrient(String name, int calories, int protein, int carbs, int fat, int grams) {
+    public Nutrient(String name, double calories, double protein, double carbs, double fat, double grams) {
         this.name = name;
         this.calories = calories;
         this.protein = protein;
@@ -23,11 +23,11 @@ public class Nutrient {
 
     // Getters and setters
     public String getName() { return name; }
-    public int getCalories() { return calories; }
-    public int getProtein() { return protein; }
-    public int getCarbs() { return carbs; }
-    public int getFat() { return fat; }
-    public int getGrams() { return grams; }
+    public double getCalories() { return calories; }
+    public double getProtein() { return protein; }
+    public double getCarbs() { return carbs; }
+    public double getFat() { return fat; }
+    public double getGrams() { return grams; }
 
     public void setName(String name) { this.name = name; }
     public void setCalories(int calories) { this.calories = calories; }
