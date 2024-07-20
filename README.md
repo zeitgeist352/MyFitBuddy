@@ -31,7 +31,7 @@ To get started with MyFitBuddy, follow these steps:
 
 # Feedback and Support
 
-For any feedback or support, please contact our support team at support@myfitbuddy.com. We are here to help you make the most out of MyFitBuddy.
+For any feedback or support, please contact our support team at ege.yakar@ug.bilkent.com. We are here to help you make the most out of MyFitBuddy.
 
 # License
 
