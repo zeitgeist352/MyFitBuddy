@@ -1,8 +1,6 @@
 package com.nutrition;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class NutrientData {
     // private static final Map<String, Nutrient> nutrientMap = new HashMap<>();

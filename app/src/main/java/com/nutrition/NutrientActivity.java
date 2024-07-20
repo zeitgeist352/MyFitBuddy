@@ -1,5 +1,6 @@
 package com.nutrition;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.myfitbuddy.R;
 import com.myfitbuddy.databinding.ActivityNutrientBinding;
@@ -89,6 +92,27 @@ public class NutrientActivity extends AppCompatActivity {
         // Load nutrients from Firebase
         loadNutrientsFromFirebase();
 
+        nutrientAdapter.setOnItemClickListener(new NutrientAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Nutrient nutrient) {
+            }
+
+            @Override
+            public void onDeleteClick(Nutrient nutrient) {
+                new AlertDialog.Builder(NutrientActivity.this)
+                        .setTitle("Delete Nutrient").setMessage("Are you sure you want to delete \"" + nutrient.getName() + "\" nutrient?")
+                        .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                            // Remove the nutrient from the list and update UI
+                            nutrientList.removeNutrient(nutrient);
+                            nutrientAdapter.notifyDataSetChanged();
+                            updateNutrientInfo();
+                            // Delete the nutrient from db
+                            deleteNutrientFromFirebase(nutrient);
+                        })
+                        .setNegativeButton(android.R.string.no, null).setIcon(android.R.drawable.ic_dialog_alert).show();
+            }
+        });
+
         // Set button click listener
         buttonAddNutrient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +168,13 @@ public class NutrientActivity extends AppCompatActivity {
             public void onItemClick(Nutrient nutrient) {
                 showEnterGramsDialog(nutrient);
                 dialog.dismiss();
+            }
+            @Override
+            public void onDeleteClick(Nutrient nutrient) {
+                nutrientList.removeNutrient(nutrient);
+                nutrientAdapter.notifyDataSetChanged();
+                updateNutrientInfo();
+                deleteNutrientFromFirebase(nutrient);
             }
         });
 
@@ -236,6 +267,39 @@ public class NutrientActivity extends AppCompatActivity {
             userDocRef.set(nutrientData)
                     .addOnSuccessListener(aVoid -> Log.d("Firebase", "Nutrient data saved successfully"))
                     .addOnFailureListener(e -> Log.d("Firebase", "Error saving nutrient data", e));
+        }
+    }
+
+    private void deleteNutrientFromFirebase(Nutrient nutrient) {
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            databaseReference.child(userId).orderByChild("name").equalTo(nutrient.getName())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                snapshot.getRef().removeValue();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e("Firebase", "Failed to delete nutrient", databaseError.toException());
+                        }
+                    });
+
+            db.collection("Users").document(userId).collection("nutrients")
+                    .whereEqualTo("name", nutrient.getName())
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful() && task.getResult() != null) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                document.getReference().delete()
+                                        .addOnSuccessListener(aVoid -> Log.d("Firebase", "Nutrient deleted successfully"))
+                                        .addOnFailureListener(e -> Log.e("Firebase", "Error deleting nutrient", e));
+                            }
+                        }
+                    });
         }
     }
 

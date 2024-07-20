@@ -1,8 +1,10 @@
+
 package com.nutrition;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,45 +12,41 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.myfitbuddy.R;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class NutrientAdapter extends RecyclerView.Adapter<NutrientAdapter.NutrientViewHolder> {
 
-    private List<Nutrient> nutrientList;
+    private ArrayList<Nutrient> nutrientList;
     private OnItemClickListener onItemClickListener;
+
+    public NutrientAdapter(ArrayList<Nutrient> nutrientList) {
+        this.nutrientList = nutrientList;
+    }
 
     public interface OnItemClickListener {
         void onItemClick(Nutrient nutrient);
+        void onDeleteClick(Nutrient nutrient);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
 
-    public NutrientAdapter(List<Nutrient> nutrientList) {
-        this.nutrientList = nutrientList;
-    }
-
     @NonNull
     @Override
     public NutrientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.nutrient_list_item, parent, false);
-        return new NutrientViewHolder(view);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.nutrient_list_item, parent, false);
+        return new NutrientViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NutrientViewHolder holder, int position) {
-        Nutrient nutrient = nutrientList.get(position);
-        holder.bind(nutrient);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(nutrient);
-                }
-            }
-        });
+        Nutrient currentNutrient = nutrientList.get(position);
+        holder.textViewName.setText(currentNutrient.getName());
+        holder.textViewCalories.setText("Calories: " + currentNutrient.getCalories() + " kcal");
+        holder.textViewProtein.setText("Protein: " + currentNutrient.getProtein() + " g");
+        holder.textViewCarbs.setText("Carbs: " + currentNutrient.getCarbs() + " g");
+        holder.textViewFat.setText("Fat: " + currentNutrient.getFat() + " g");
     }
 
     @Override
@@ -56,12 +54,10 @@ public class NutrientAdapter extends RecyclerView.Adapter<NutrientAdapter.Nutrie
         return nutrientList.size();
     }
 
-    public static class NutrientViewHolder extends RecyclerView.ViewHolder {
-        private TextView textViewName;
-        private TextView textViewCalories;
-        private TextView textViewProtein;
-        private TextView textViewCarbs;
-        private TextView textViewFat;
+    class NutrientViewHolder extends RecyclerView.ViewHolder {
+
+        TextView textViewName, textViewCalories, textViewProtein, textViewCarbs, textViewFat;
+        ImageButton buttonRemoveNutrient;
 
         public NutrientViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,14 +66,31 @@ public class NutrientAdapter extends RecyclerView.Adapter<NutrientAdapter.Nutrie
             textViewProtein = itemView.findViewById(R.id.textView_nutrient_protein);
             textViewCarbs = itemView.findViewById(R.id.textView_nutrient_carbs);
             textViewFat = itemView.findViewById(R.id.textView_nutrient_fat);
-        }
+            buttonRemoveNutrient = itemView.findViewById(R.id.button_remove_nutrient);
 
-        public void bind(Nutrient nutrient) {
-            textViewName.setText(nutrient.getName());
-            textViewCalories.setText("Calories: " + nutrient.getCalories() + " kcal");
-            textViewProtein.setText("Protein: " + nutrient.getProtein() + " g");
-            textViewCarbs.setText("Carbs: " + nutrient.getCarbs() + " g");
-            textViewFat.setText("Fat: " + nutrient.getFat() + " g");
+            buttonRemoveNutrient.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onItemClickListener.onDeleteClick(nutrientList.get(position));
+                        }
+                    }
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            onItemClickListener.onItemClick(nutrientList.get(position));
+                        }
+                    }
+                }
+            });
         }
     }
 }
