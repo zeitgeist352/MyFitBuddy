@@ -2,12 +2,15 @@ package com.nutrition;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +39,7 @@ import java.util.Map;
 
 public class NutrientActivity extends AppCompatActivity {
 
+    private static final String TAG = "NutrientActivity";
     private TextView textViewCalories;
     private TextView textViewProtein;
     private TextView textViewCarbs;
@@ -43,15 +47,20 @@ public class NutrientActivity extends AppCompatActivity {
     private Button buttonAddNutrient;
     private Button buttonSelectNutrient;
     private RecyclerView recyclerViewNutrientList;
+    private Context context;
 
     private ActivityNutrientBinding binding;
 
     private NutrientAdapter nutrientAdapter;
+    private ArrayList<Nutrient> nutrients;
     private NutrientList nutrientList;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private FirebaseFirestore db;
+
+    private NutrientData nutrientData;
+    private ArrayList<String> nutrientNames;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,12 +68,22 @@ public class NutrientActivity extends AppCompatActivity {
 
         binding = ActivityNutrientBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        nutrientData = new NutrientData();
+        nutrientNames = new ArrayList<>();
+
+        for (Nutrient nutrient : NutrientData.nutrients) {
+            nutrientNames.add(nutrient.getName());
+        }
+
+        Log.d(TAG, "Nutrient names: " + nutrientNames.toString());
+        
 
         binding.toolbarNutrient.setNavigationOnClickListener(v -> {
             Intent intent = new Intent(NutrientActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         });
+
 
         // Initialize views
         textViewCalories = findViewById(R.id.textView_nutrient_calories);
@@ -154,32 +173,39 @@ public class NutrientActivity extends AppCompatActivity {
         }
     }
     private void showSelectNutrientDialog() {
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_select_nutrient);
+        if (nutrientNames == null || nutrientNames.isEmpty()) {
+            Log.e(TAG, "Nutrient names list is null or empty!");
+            return;
+        }
 
-        RecyclerView recyclerView = dialog.findViewById(R.id.recycler_view_dialog_nutrient_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_select_nutrient, null);
+        builder.setView(dialogView);
 
-        NutrientAdapter dialogAdapter = new NutrientAdapter(nutrientList.getNutrients());
-        recyclerView.setAdapter(dialogAdapter);
+        Spinner nutrientSpinner = dialogView.findViewById(R.id.nutrient_spinner);
+        EditText gramsEditText = dialogView.findViewById(R.id.grams_edit_text);
 
-        dialogAdapter.setOnItemClickListener(new NutrientAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Nutrient nutrient) {
-                showEnterGramsDialog(nutrient);
-                dialog.dismiss();
-            }
-            @Override
-            public void onDeleteClick(Nutrient nutrient) {
-                nutrientList.removeNutrient(nutrient);
-                nutrientAdapter.notifyDataSetChanged();
-                updateNutrientInfo();
-                deleteNutrientFromFirebase(nutrient);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, nutrientNames);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        nutrientSpinner.setAdapter(adapter);
+
+        builder.setPositiveButton("Save", (dialog, which) -> {
+            String selectedNutrientName = nutrientSpinner.getSelectedItem().toString();
+            String gramsText = gramsEditText.getText().toString();
+
+            if (!gramsText.isEmpty()) {
+                int grams = Integer.parseInt(gramsText);
+                Nutrient selectedNutrient = NutrientData.getNutrient(selectedNutrientName);
+                saveNutrientToFirestore(selectedNutrient);
             }
         });
 
-        dialog.show();
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+
+        builder.create().show();
     }
+
+
     private void showEnterGramsDialog(final Nutrient selectedNutrient) {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_enter_grams);
