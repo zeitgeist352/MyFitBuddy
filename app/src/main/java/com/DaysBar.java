@@ -37,9 +37,9 @@ public class DaysBar extends View {
         int height = getHeight();
 
         // Background rounded rectangle
-        paint.setColor(Color.parseColor("#D6D7D7")); 
+        paint.setColor(Color.parseColor("#A3979B"));
         rect.set(16, 0, width - 16, height);
-        canvas.drawRoundRect(rect, 50, 50, paint); 
+        canvas.drawRoundRect(rect, 50, 50, paint);
 
         // Drawing slots and day letters
         paint.setColor(Color.BLACK); // Line color

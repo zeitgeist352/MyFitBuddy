@@ -56,8 +56,8 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
             holder.binding.imageExercise.setImageResource(R.drawable.legnobg);
         } else if (exerciseList.get(position).getName().contains("Deadlift")) {
             holder.binding.imageExercise.setImageResource(R.drawable.barbelldeadlift);
-        } else if (exerciseList.get(position).getName().contains("Row")) {
-            holder.binding.imageExercise.setImageResource(R.drawable.seatedvbarcablerow);
+        } else if (exerciseList.get(position).getName().contains("Rowing")) {
+            holder.binding.imageExercise.setImageResource(R.drawable.rowingmachine);
         } else if (exerciseList.get(position).getName().equalsIgnoreCase("Pull-up")) {
             holder.binding.imageExercise.setImageResource(R.drawable.pullup);
         } else if (Tester.isBackExercise(exerciseList.get(position).getName())) {
@@ -92,10 +92,12 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
                 exerciseList.get(position).getName().contains("Jump Squats") ||
                 exerciseList.get(position).getName().contains("Plyometric")) {
             holder.binding.imageExercise.setImageResource(R.drawable.ropenobg);
-        } else if (exerciseList.get(position).getName().contains("Rowing")) {
+        } else if (exerciseList.get(position).getName().contains("Row")) {
             holder.binding.imageExercise.setImageResource(R.drawable.seatedvbarcablerow);
         } else if (exerciseList.get(position).getName().contains("Running (High Tempo") ||
                 exerciseList.get(position).getName().contains("Running (Low Tempo")||
+                exerciseList.get(position).getName().contains("Trail Running")||
+                exerciseList.get(position).getName().contains("Running")||
                 exerciseList.get(position).getName().contains("HIIT") ||
                 exerciseList.get(position).getName().contains("Sprinting")) {
             holder.binding.imageExercise.setImageResource(R.drawable.runningnobg);

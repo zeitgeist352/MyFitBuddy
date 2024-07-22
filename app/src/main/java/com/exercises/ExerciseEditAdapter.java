@@ -53,8 +53,8 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
         holder.binding.textExerciseSetReps.setText("3x12");
         //photos
         if (exerciseList.get(position).getName().equalsIgnoreCase("squat") ||
-                exerciseList.get(position).getName().equalsIgnoreCase("bulgarian split squat"))
-        {
+                exerciseList.get(position).getName().equalsIgnoreCase("bulgarian split squat")||
+               exerciseList.get(position).getName().equalsIgnoreCase("jump squats")) {
             holder.binding.imageExercise.setImageResource(R.drawable.bodyweightsquat);
         } else if (exerciseList.get(position).getName().equalsIgnoreCase("dumbell squat") ||
                 exerciseList.get(position).getName().equalsIgnoreCase("hack squat")) {
@@ -81,9 +81,9 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
         {
             holder.binding.imageExercise.setImageResource(R.drawable.barbelldeadlift);
         }
-        else if (exerciseList.get(position).getName().contains("Row"))
+        else if (exerciseList.get(position).getName().contains("Rowing"))
         {
-            holder.binding.imageExercise.setImageResource(R.drawable.barbellrow);
+            holder.binding.imageExercise.setImageResource(R.drawable.rowingmachine);
         }
         else if (exerciseList.get(position).getName().equalsIgnoreCase("Pull-up"))
         {
@@ -140,12 +140,14 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
             holder.binding.imageExercise.setImageResource(R.drawable.ropenobg);
         } else if (exerciseList.get(position).getName().contains("Box Jumps")) {
             holder.binding.imageExercise.setImageResource(R.drawable.boxjumps);
-        } else if (exerciseList.get(position).getName().contains("Rowing"))
+        } else if (exerciseList.get(position).getName().contains("Row"))
         {
-            holder.binding.imageExercise.setImageResource(R.drawable.seatedvbarcablerow);
+            holder.binding.imageExercise.setImageResource(R.drawable.barbellrow);
         }
         else if (exerciseList.get(position).getName().contains("Running (High Tempo)") ||
                 exerciseList.get(position).getName().contains("Running (Low Tempo)") ||
+                exerciseList.get(position).getName().contains("Running") ||
+                exerciseList.get(position).getName().contains("Trail Running") ||
                 exerciseList.get(position).getName().contains("HIIT") ||
                 exerciseList.get(position).getName().contains("Sprinting"))
         {
