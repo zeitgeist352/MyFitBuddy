@@ -15,7 +15,7 @@ import com.myfitbuddy.R;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
-public class SlottedRectangleView extends View {
+public class DaysBar extends View {
 
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private RectF rect = new RectF(); // Used for drawing rounded rectangle
@@ -23,7 +23,7 @@ public class SlottedRectangleView extends View {
     private final String[] DAYS = {"M", "T", "W", "T", "F", "S", "S"};
 
 
-    public SlottedRectangleView(Context context, AttributeSet attrs) {
+    public DaysBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         setClickable(true);
     }
@@ -37,9 +37,9 @@ public class SlottedRectangleView extends View {
         int height = getHeight();
 
         // Background rounded rectangle
-        paint.setColor(Color.parseColor("#D6D7D7")); // Background color
+        paint.setColor(Color.parseColor("#D6D7D7")); 
         rect.set(16, 0, width - 16, height);
-        canvas.drawRoundRect(rect, 50, 50, paint); // Adjust corner radius as needed
+        canvas.drawRoundRect(rect, 50, 50, paint); 
 
         // Drawing slots and day letters
         paint.setColor(Color.BLACK); // Line color

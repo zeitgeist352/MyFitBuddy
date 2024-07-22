@@ -490,7 +490,6 @@ public class Tester {
         //cardio exercises
         cardioExercises.add(new CardioExercises(4, "Running"));
         cardioExercises.add(new CardioExercises(3, "Cycling"));
-        cardioExercises.add(new CardioExercises(5, "Jump Rope"));
         cardioExercises.add(new CardioExercises(3, "Swimming"));
         cardioExercises.add(new CardioExercises(5, "Breast Stroke Swimming"));
         cardioExercises.add(new CardioExercises(1, "Rowing Machine"));

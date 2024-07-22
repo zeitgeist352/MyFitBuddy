@@ -13,10 +13,6 @@ public class UserInfoManager {
         return instance;
     }
 
-    public UserInfoHolder getUserInfo() {
-        return userInfo;
-    }
-
     public void setUserInfo(UserInfoHolder userInfo) {
         this.userInfo = userInfo;
     }

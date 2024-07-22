@@ -193,9 +193,18 @@ public class NutrientActivity extends AppCompatActivity {
             String selectedNutrientName = nutrientSpinner.getSelectedItem().toString();
             String gramsText = gramsEditText.getText().toString();
 
+
             if (!gramsText.isEmpty()) {
                 int grams = Integer.parseInt(gramsText);
                 Nutrient selectedNutrient = NutrientData.getNutrient(selectedNutrientName);
+                selectedNutrient.setGrams(grams);
+
+                nutrientList.addNutrient(selectedNutrient);
+                nutrientAdapter.notifyDataSetChanged();
+                updateNutrientInfo();
+
+                databaseReference.child(currentUser.getUid()).push().setValue(selectedNutrient);
+
                 saveNutrientToFirestore(selectedNutrient);
             }
         });
@@ -205,7 +214,7 @@ public class NutrientActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-
+/* bu methoda gerek yok diger methodlar icersinde ayrı bir sekilde yazıldı
     private void showEnterGramsDialog(final Nutrient selectedNutrient) {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_enter_grams);
@@ -238,7 +247,7 @@ public class NutrientActivity extends AppCompatActivity {
 
         dialog.show();
     }
-
+*/
     private void showAddNutrientDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.add_nutrient);
