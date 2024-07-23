@@ -48,8 +48,6 @@ public class UserInfoHolder implements Serializable {
 
     private int icon;
 
-    //We will not use this program "for now".
-    /*private ArrayList<Exercises>[] program;*/
 
     private ArrayList<ArrayList<Exercises>> program;
 
@@ -71,7 +69,6 @@ public class UserInfoHolder implements Serializable {
         this.numberGoingGym = 0;
         this.power = 2;
         this.icon = 1;
-        /*this.program = new ArrayList[7];*/
     }
 
     public void calculateIbm()
@@ -332,9 +329,6 @@ public class UserInfoHolder implements Serializable {
         this.generateProgram();
     }
 
-    public void updatePower(double change){
-        this.power += change;
-    }
 
     public void generateProgram()
     {
