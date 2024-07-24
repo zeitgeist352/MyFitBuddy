@@ -116,7 +116,7 @@ public class Tester {
         }
         return  false;
     }
-    
+
     public static void generateMuscleProgram (ArrayList<ArrayList<Exercises>> program, double power, boolean generateHalf)
     {
         for (int i = 0; i < program.size(); i++)
@@ -446,7 +446,7 @@ public class Tester {
         exercisesList.add(new LegExercises(2, "Calf Raise"));
 
         // back excs
-        exercisesList.add(new BackExercises(5, "Conventional Dead lift"));
+        exercisesList.add(new BackExercises(5, "Conventional Deadlift"));
         exercisesList.add(new BackExercises(5, "Pull-up"));
         exercisesList.add(new BackExercises(4, "Barbell Row"));
         exercisesList.add(new BackExercises(3, "Lat Pull down"));
@@ -458,7 +458,7 @@ public class Tester {
         exercisesList.add(new BackExercises(3, "Bent Over Barbell Row"));
         exercisesList.add(new BackExercises(1, "Face Pulls"));
         exercisesList.add(new BackExercises(3, "Machine Row"));
-        exercisesList.add(new BackExercises(4, "Romanian Dead lift"));
+        exercisesList.add(new BackExercises(4, "Romanian Deadlift"));
         exercisesList.add(new BackExercises(1, "Inverted Row"));
 
         // biceps excs
