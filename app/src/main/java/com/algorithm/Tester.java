@@ -116,37 +116,7 @@ public class Tester {
         }
         return  false;
     }
-
-    public static boolean isShoulderExercise(String s)
-    {
-        for (int i = 0; i < exercisesList.size(); i++)
-        {
-            if (exercisesList.get(i).getName().equalsIgnoreCase(s))
-            {
-                if (String.valueOf(exercisesList.get(i).getClass()).equalsIgnoreCase("class com.algorithm.ShoulderExercises"))
-                {
-                    return  true;
-                }
-            }
-        }
-        return  false;
-    }
-
-    public static boolean isChestExercise(String s)
-    {
-        for (int i = 0; i < exercisesList.size(); i++)
-        {
-            if (exercisesList.get(i).getName().equalsIgnoreCase(s))
-            {
-                if (String.valueOf(exercisesList.get(i).getClass()).equalsIgnoreCase("class com.ChestExercises"))
-                {
-                    return  true;
-                }
-            }
-        }
-        return  false;
-    }
-
+    
     public static void generateMuscleProgram (ArrayList<ArrayList<Exercises>> program, double power, boolean generateHalf)
     {
         for (int i = 0; i < program.size(); i++)
@@ -393,52 +363,6 @@ public class Tester {
             }
         }
     }
-
-    public static ArrayList<String> returnBackExercises(String backExerciseName)
-    {
-        boolean flag = false;
-        ArrayList<String> a = new ArrayList<>();
-        BackExercises b = new BackExercises(0, "");
-        for (int i = 0; i < exercisesList.size(); i++) {
-            if (exercisesList.get(i).getClass().equals(b.getClass())) {
-                if (backExerciseName.equals(exercisesList.get(i).getIsim())){
-                    a.add(exercisesList.get(i).getName());
-                    flag = true;
-                }else {
-                    a.add(exercisesList.get(i).getName());
-                }
-            }
-        }
-        if (flag) {
-            return a;
-        }
-        return null;
-
-    }
-
-    public static ArrayList<String> returnBicepsExercises(String bicepsExerciseName)
-    {
-        boolean flag = false;
-        ArrayList<String> a = new ArrayList<>();
-        BicepsExercises b = new BicepsExercises(0, "");
-        for (int i = 0; i < exercisesList.size(); i++)
-        {
-            if (exercisesList.get(i).getClass().equals(b.getClass()))
-            {
-                if(bicepsExerciseName.equals(exercisesList.get(i).getIsim())){
-                    a.add(exercisesList.get(i).getName());
-                    flag = true;
-                }else {
-                    a.add(exercisesList.get(i).getName());
-                }
-            }
-        }
-        if (flag) {
-            return a;
-        }
-        return null;
-    }
-
     public static ArrayList<String> returnAssociatedList(String s)
     {
         boolean isCardio = false;

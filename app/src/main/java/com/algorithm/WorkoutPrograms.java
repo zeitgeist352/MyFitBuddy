@@ -326,20 +326,5 @@ public class WorkoutPrograms {
     {
         return this.mixedPrograms;
     }
-
-    public ArrayList<ArrayList<Exercises>> getTwoDaysMuscle() {
-        return this.twoDsMuscleFocus;
-    }
-
-    public ArrayList<ArrayList<Exercises>> getThreeDaysMuscle() {
-        return this.threeDsMuscleFocus;
-    }
-
-    public ArrayList<ArrayList<Exercises>> getFourDaysMuscle() {
-        return this.fourDsMuscleFocus;
-    }
-
-    public ArrayList<ArrayList<Exercises>> getFiveDaysMuscle() {
-        return this.fiveDsMuscleFocus;
-    }
+    
 }
