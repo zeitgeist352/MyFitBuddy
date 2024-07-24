@@ -16,7 +16,8 @@ public abstract class Exercises implements Comparable<Exercises>, Serializable{
         return this.dif;
     }
 
-    public String getIsim() {
+    public String getName()
+    {
         return this.name;
     }
 
@@ -42,8 +43,5 @@ public abstract class Exercises implements Comparable<Exercises>, Serializable{
         }
     }
 
-    public String getName()
-    {
-        return this.name;
-    }
+    
 }

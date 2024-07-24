@@ -218,7 +218,7 @@ public class Tester {
         boolean contains = false;
         for (int i = 0; i < program.size(); i++)
         {
-            if (program.get(i).getIsim().equals(e.getIsim()))
+            if (program.get(i).getName().equals(e.getName()))
             {
                 contains = true;
             }
