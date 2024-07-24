@@ -29,6 +29,29 @@ To get started with MyFitBuddy, follow these steps:
 	4.	Start Your Journey: Begin your fitness journey by following the personalized exercise routines and tracking your progress.
 	5.	Track Nutrients: Use the nutrient tracking feature to manage your dietary intake and ensure a balanced diet.
 
+ # Techs used
+    Android Studio
+    Firebase
+
+# Dependencies
+	    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+	    implementation("com.google.firebase:firebase-analytics")
+	    implementation("com.google.firebase:firebase-storage")
+	    implementation("com.google.firebase:firebase-firestore")
+	    implementation("com.google.firebase:firebase-auth")
+	    implementation("com.google.firebase:firebase-database")
+	    implementation ("com.google.firebase:firebase-auth:21.3.0")
+	    implementation("com.google.android.material:material:1.13.0-alpha03")
+	    implementation("com.github.bumptech.glide:glide:4.12.0")
+	    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+	    implementation("androidx.appcompat:appcompat:1.6.1")
+	    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+	    implementation("androidx.activity:activity-ktx:1.5.1")
+	    implementation("androidx.gridlayout:gridlayout:1.0.0")
+	    testImplementation("junit:junit:4.13.2")
+	    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+	    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+
 # Feedback and Support
 
 For any feedback or support, please contact our support team at ege.yakar@ug.bilkent.com. We are here to help you make the most out of MyFitBuddy.
