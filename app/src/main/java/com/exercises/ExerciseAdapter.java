@@ -63,15 +63,37 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         } else if (Tester.isBackExercise(exerciseList.get(position).getName())) {
             holder.binding.imageExercise.setImageResource(R.drawable.backnobg);
         } else if (Tester.isBicepsExercise(exerciseList.get(position).getName())) {
-            if (exerciseList.get(position).getName().equalsIgnoreCase("barbell curl") ||
-                    exerciseList.get(position).getName().equalsIgnoreCase("dumbbell curl") ||
-                    exerciseList.get(position).getName().equalsIgnoreCase("preacher curl") ||
-                    exerciseList.get(position).getName().equalsIgnoreCase("concentration curl") ||
-                    exerciseList.get(position).getName().equalsIgnoreCase("cable curl") ||
-                    exerciseList.get(position).getName().equalsIgnoreCase("spider curl")) {
-                holder.binding.imageExercise.setImageResource(R.drawable.inclinedumbbelcurl);
-            } else {
+            if (exerciseList.get(position).getName().equalsIgnoreCase("barbell curl"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.barbellcurl);
+            }
+            else if(exerciseList.get(position).getName().equalsIgnoreCase("dumbbell curl"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.dumbbellcurl);
+            }
+            else if( exerciseList.get(position).getName().equalsIgnoreCase("preacher curl"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.preachercurl);
+            }
+            else if(exerciseList.get(position).getName().equalsIgnoreCase("concentration curl"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.concentrationcurl);
+            }
+            else if(exerciseList.get(position).getName().equalsIgnoreCase("cable curl"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.cablecurl);
+            }
+            else if( exerciseList.get(position).getName().equalsIgnoreCase("spider curl"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.spidercurl);
+            }
+            else if(exerciseList.get(position).getName().equalsIgnoreCase("hammer curl"))
+            {
                 holder.binding.imageExercise.setImageResource(R.drawable.hammercurl);
+            }
+            else if(exerciseList.get(position).getName().equalsIgnoreCase("incline dumbbel curl"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.inclinedumbbelcurl);
             }
         } else if (Tester.isTricepsExercise(exerciseList.get(position).getName())) {
             if (exerciseList.get(position).getName().contains("Dip")) {
