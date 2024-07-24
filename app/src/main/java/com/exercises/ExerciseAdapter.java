@@ -136,30 +136,58 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
                 exerciseList.get(position).getName().contains("Running (Low Tempo")||
                 exerciseList.get(position).getName().contains("Trail Running")||
                 exerciseList.get(position).getName().contains("Running")||
-                exerciseList.get(position).getName().contains("HIIT") ||
                 exerciseList.get(position).getName().contains("Sprinting")) {
             holder.binding.imageExercise.setImageResource(R.drawable.runningnobg);
-        } else if (exerciseList.get(position).getName().contains("Climbing") ||
-                (exerciseList.get(position).getName().contains("Mountain Climbers"))) {
+        }
+        else if(exerciseList.get(position).getName().contains("HIIT"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.hiit);
+        }
+        else if (exerciseList.get(position).getName().contains("Climbing")) {
             holder.binding.imageExercise.setImageResource(R.drawable.stairnobg);
-        } else if (exerciseList.get(position).getName().contains("Cycling") ||
+        }
+        else if(exerciseList.get(position).getName().contains("Mountain Climbers"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.mountainclimber);
+        }
+        else if (exerciseList.get(position).getName().contains("Cycling") ||
                 exerciseList.get(position).getName().contains("Circuit Training")) {
             holder.binding.imageExercise.setImageResource(R.drawable.cyclenbg);
         } else if (exerciseList.get(position).getName().contains("Elliptical")) {
             holder.binding.imageExercise.setImageResource(R.drawable.ellipticalng);
         } else if (exerciseList.get(position).getName().contains("Burpees")) {
             holder.binding.imageExercise.setImageResource(R.drawable.burpeeng);
-        } else if (exerciseList.get(position).getName().contains("Seated Dumbbell Press") ||
-                exerciseList.get(position).getName().contains("Dumbbell Pullover") ||
-                exerciseList.get(position).getName().contains("Machine Shoulder Press")) {
+        }
+        else if (exerciseList.get(position).getName().contains("Seated Dumbbell Press"))
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.shoulderpress);
-        } else if (exerciseList.get(position).getName().contains("Push Press")||
-                exerciseList.get(position).getName().contains("High Pulls")||
-                exerciseList.get(position).getName().contains("Upright Row")||
-                exerciseList.get(position).getName().contains("Face Pull")) {
-            holder.binding.imageExercise.setImageResource(R.drawable.facepull);
+        }
+        else if(exerciseList.get(position).getName().contains("Dumbbell Pullover"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.dumbbellpullover);
+        }
+        else if(exerciseList.get(position).getName().contains("Machine Shoulder Press"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.machineshoulder);
+        }
 
-        } else if (exerciseList.get(position).getName().contains("Military Press")) {
+        else if (exerciseList.get(position).getName().contains("Face Pull"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.facepull);
+        }
+        else if(exerciseList.get(position).getName().contains("High Pulls"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.highpulls);
+        }
+        else if(exerciseList.get(position).getName().contains("Upright Row"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.uprightrow);
+        }
+        else if(exerciseList.get(position).getName().contains("Push Press"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.pushpress);
+        }
+        else if (exerciseList.get(position).getName().contains("Military Press")) {
             holder.binding.imageExercise.setImageResource(R.drawable.militarypress);
         }
         else if (exerciseList.get(position).getName().contains("Arnold Press")) {
@@ -169,42 +197,95 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
             holder.binding.imageExercise.setImageResource(R.drawable.shrugs);
 
         }else if (exerciseList.get(position).getName().contains("Lateral (In machine)")||
-                exerciseList.get(position).getName().contains("Front Raise") ||
-                exerciseList.get(position).getName().contains("Cable Lateral Raise") ||
-                exerciseList.get(position).getName().contains("Lateral Raise") ||
-                exerciseList.get(position).getName().contains("Barbell Front Raise") ||
-                exerciseList.get(position).getName().contains("Bent Over Lateral Raise")) {
+                exerciseList.get(position).getName().contains("Lateral Raise"))
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.latraise);
         }
-        else if (exerciseList.get(position).getName().contains("Bench Press") ||
-                exerciseList.get(position).getName().contains("Incline Bench Press") ||
-                exerciseList.get(position).getName().contains("Decline Bench Press")) {
+        else if(exerciseList.get(position).getName().contains("Front Raise"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.frontraise);
+        }
+        else if(exerciseList.get(position).getName().contains("Cable Lateral Raise"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.cablelatraise);
+        }
+        else if(exerciseList.get(position).getName().contains("Barbell Front Raise"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.barbellfrontraise);
+        }
+        else if(exerciseList.get(position).getName().contains("Bent Over Lateral Raise"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.bentoverlatraise);
+        }
+        else if (exerciseList.get(position).getName().contains("Bench Press"))
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.barbellbenchpress);
-    }    else if (exerciseList.get(position).getName().contains("Cable Fly") ||
-                exerciseList.get(position).getName().contains("Reverse Fly") ||
-                exerciseList.get(position).getName().contains("Machine Fly") ||
-                exerciseList.get(position).getName().contains("Dumbbell Fly")) {
+        }
+        else if( exerciseList.get(position).getName().contains("Incline Bench Press"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.inclinebenchpress);
+        }
+        else if(exerciseList.get(position).getName().contains("Decline Bench Press"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.declinebenchpress);
+        }
+        else if (exerciseList.get(position).getName().contains("Dumbbell Fly"))
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.dumbbellfly);
-        } else if(exerciseList.get(position).getName().contains("Dips")){
+        }
+        else if( exerciseList.get(position).getName().contains("Reverse Fly"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.reversefly);
+        }
+        else if(exerciseList.get(position).getName().contains("Machine Fly"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.machinefly);
+        }
+        else if(exerciseList.get(position).getName().contains("Cable Fly"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.cablefly);
+        }
+        else if(exerciseList.get(position).getName().contains("Dips")){
             holder.binding.imageExercise.setImageResource(R.drawable.benchdips);
-        } else if(exerciseList.get(position).getName().contains("Dumbbell Press") ||
-                exerciseList.get(position).getName().contains("Incline Dumbbell Press") ||
-                exerciseList.get(position).getName().contains("Decline Dumbbell Press")){
+        } else if(exerciseList.get(position).getName().contains("Dumbbell Press"))
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.dumbbellpress);
         }
-        else if (exerciseList.get(position).getName().contains("Push-up")) {
-            holder.binding.imageExercise.setImageResource(R.drawable.pushups);
-        } else if (exerciseList.get(position).getName().contains("Pec Deck") ||
-                exerciseList.get(position).getName().contains("Chest Press Machine") ||
-                exerciseList.get(position).getName().contains("Chest Squeeze")) {
-            holder.binding.imageExercise.setImageResource(R.drawable.chestpress);
-        } else if (exerciseList.get(position).getName().contains("Climbing") ||
-                (exerciseList.get(position).getName().contains("Mountain Climbers"))) {
-            holder.binding.imageExercise.setImageResource(R.drawable.stairnobg);
-        } else {
-            holder.binding.imageExercise.setImageResource(R.drawable.exercise);
+        else if(exerciseList.get(position).getName().contains("Incline Dumbbell Press"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.inclinedumbbellpress);
+        }
+        else if(exerciseList.get(position).getName().contains("Decline Dumbbell Press"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.declinedumbbellpress);
         }
 
+        else if (exerciseList.get(position).getName().contains("Push-up")) {
+            holder.binding.imageExercise.setImageResource(R.drawable.pushups);
+        } else if (exerciseList.get(position).getName().contains("Pec Deck"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.chestpress);
+        }
+        else if(exerciseList.get(position).getName().contains("Chest Press Machine"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.chestpressmachine);
+        }
+        else if(exerciseList.get(position).getName().contains("Chest Squeeze"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.chestsqueeze);
+        }
+        else if (exerciseList.get(position).getName().contains("Climbing"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.stairnobg);
+        }
+        else if(exerciseList.get(position).getName().contains("Mountain Climber"))
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.mountainclimber);
+        }
+        else
+        {
+            holder.binding.imageExercise.setImageResource(R.drawable.exercise);
+        }
 
     }
 
