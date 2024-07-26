@@ -1,11 +1,14 @@
 package com.Settings;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.MainActivity;
+import com.ReportActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.AuthCredential;
@@ -24,6 +27,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         auth = FirebaseAuth.getInstance();
+
+        binding.toolbarReport.setNavigationOnClickListener(v -> {
+            Intent intent = new Intent(ChangePasswordActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        });
 
         binding.okButton.setOnClickListener(v -> {
             String currentPassword = binding.editTextCurrentPassword.getText().toString();
