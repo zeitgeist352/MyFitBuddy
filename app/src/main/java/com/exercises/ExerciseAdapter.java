@@ -139,7 +139,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         }
         else if (exerciseList.get(position).getName().contains("Row")) {
             holder.binding.imageExercise.setImageResource(R.drawable.seatedvbarcablerow);
-        } 
+        }
         else if(exerciseList.get(position).getName().contains("HIIT"))
         {
             holder.binding.imageExercise.setImageResource(R.drawable.hiit);
