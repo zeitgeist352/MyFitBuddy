@@ -184,7 +184,7 @@ public class ReportActivity extends AppCompatActivity {
 
         for (int day = 0; day < 7; day++) {
 
-            switch (dayOfWeek) {
+            switch (day) {
                 case 1: // Monday
                     intakeEntries.add(new BarEntry(day, (float) mondayChart.getIntakedCalories()));
                     break;
