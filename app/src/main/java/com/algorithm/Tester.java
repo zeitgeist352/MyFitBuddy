@@ -472,7 +472,6 @@ public class Tester {
         exercisesList.add(new BicepsExercises(2, "Spider Curl"));
         exercisesList.add(new BicepsExercises(2, "Alternating Hammer Curl"));
         exercisesList.add(new BicepsExercises(1, "Cable Hammer Curl"));
-        exercisesList.add(new BicepsExercises(4, "Zottman Curl"));
 
         // Triceps excs
         exercisesList.add(new TricepsExercises(5, "Triceps Dips"));
