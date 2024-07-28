@@ -3,15 +3,21 @@ package com;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.exercises.ExerciseAdapter;
-import com.exercises.ExerciseModel;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,32 +27,29 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.myfitbuddy.R;
 import com.myfitbuddy.databinding.ActivityReportBinding;
 import com.nutrition.Nutrient;
 import com.nutrition.NutrientList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ReportActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private int thisWeekPoints = 0;
-    private int lastWeekPoints = 0;
     private FirebaseFirestore db;
     private DocumentReference documentReference;
-    private ArrayList<ExerciseModel> exerciseList;
     private NutrientList nutrientList;
     private final int kcalConst = 7700;
 
     private ActivityReportBinding binding;
 
-    private ExerciseAdapter exerciseAdapter;
-    TextView caloriesText;
-    TextView consumedCaloriesText;
-    TextView resultText;
-
+    private TextView caloriesText;
+    private TextView consumedCaloriesText;
+    private TextView resultText;
+    private BarChart barChart;
     private String reportType = "weekly";
 
     @Override
@@ -68,24 +71,22 @@ public class ReportActivity extends AppCompatActivity {
         caloriesText = binding.caloriesText;
         consumedCaloriesText = binding.consumedCaloriesText;
         resultText = binding.resultText;
+        barChart = binding.barChart;
+
+        barChart.setVisibility(View.INVISIBLE);
+
+        binding.buttonWeeklyReport.setOnClickListener(v -> {
+            barChart.setVisibility(View.VISIBLE);
+            reportType = "weekly";
+            setTexts(currentUser.getUid(), reportType);
+            updateBarChart();
+        });
 
         nutrientList = new NutrientList(new ArrayList<>());
         loadNutrientsFromDb();
 
-        Button buttonWeeklyReport = findViewById(R.id.buttonWeeklyReport);
-        Button buttonMonthlyReport = findViewById(R.id.buttonMonthlyReport);
-
-        buttonWeeklyReport.setOnClickListener(v -> {
-            reportType = "weekly";
-            setTexts(currentUser.getUid(), reportType);
-        });
-
-        buttonMonthlyReport.setOnClickListener(v -> {
-            reportType = "monthly";
-            setTexts(currentUser.getUid(), reportType);
-        });
-
         setTexts(currentUser.getUid(), reportType);
+        updateBarChart();
     }
 
     private void loadNutrientsFromDb() {
@@ -100,7 +101,8 @@ public class ReportActivity extends AppCompatActivity {
                         Nutrient nutrient = snapshot.getValue(Nutrient.class);
                         nutrientList.addNutrient(nutrient);
                     }
-                    updateConsumedCalories();
+                    calculateBurn(currentUser.getUid());
+                    updateBarChart();
                 }
 
                 @Override
@@ -109,11 +111,6 @@ public class ReportActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    private void updateConsumedCalories() {
-        consumedCaloriesText.setText("Calories consumed so far: " + nutrientList.getTotalCalories() + " kcal");
-        calculateBurn(currentUser.getUid());
     }
 
     private void calculateBurn(String userId) {
@@ -148,7 +145,7 @@ public class ReportActivity extends AppCompatActivity {
                 Number pointsNumber = documentSnapshot.getLong("points");
                 if (pointsNumber != null) {
                     int points = pointsNumber.intValue();
-                    caloriesText.setText("Your " + reportType + " kcal burn is: " + points * 3);
+                    caloriesText.setText("Your " + reportType + " kcal burn is: " + points * 3 + " kcal");
                 } else {
                     caloriesText.setText("Your " + reportType + " kcal burn is: 0");
                 }
@@ -174,5 +171,45 @@ public class ReportActivity extends AppCompatActivity {
         } else {
             resultText.setText("You are in balance, no kilos expected to be gained or lost");
         }
+    }
+
+    private void updateBarChart() {
+        List<BarEntry> intakeEntries = new ArrayList<>();
+        List<BarEntry> burnEntries = new ArrayList<>();
+
+        for (int day = 0; day < 7; day++) {
+            intakeEntries.add(new BarEntry(day, (float) nutrientList.getTotalCalories()));
+            burnEntries.add(new BarEntry(day, (float) thisWeekPoints * 3));
+        }
+
+        BarDataSet intakeDataSet = new BarDataSet(intakeEntries, "Calorie Intake");
+        intakeDataSet.setColor(Color.GREEN);
+
+        BarDataSet burnDataSet = new BarDataSet(burnEntries, "Calorie Burn");
+        burnDataSet.setColor(Color.RED);
+
+        BarData barData = new BarData(intakeDataSet, burnDataSet);
+        barData.setBarWidth(0.3f);
+
+        barChart.setData(barData);
+        barChart.groupBars(0f, 0.4f, 0.02f); 
+
+        barChart.invalidate();
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f);
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return "Day " + (int) value;
+            }
+        });
+
+        YAxis leftAxis = barChart.getAxisLeft();
+        leftAxis.setAxisMinimum(0f);
+        barChart.getAxisRight().setEnabled(false);
+
+        barChart.getDescription().setEnabled(false); 
     }
 }

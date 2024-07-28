@@ -1,111 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.ReportActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/consumedCaloriesImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="92dp"
-        android:src="@drawable/cbnobg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarReport" />
 
-    <TextView
-        android:id="@+id/caloriesText"
-        android:layout_width="160dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="20dp"
-        android:text="Burnt calories so far: "
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@id/consumedCaloriesImage"
-        app:layout_constraintTop_toTopOf="@id/consumedCaloriesImage" />
-
-    <ImageView
-        android:id="@+id/intakeImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/cinobg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/consumedCaloriesImage" />
-
-    <TextView
-        android:id="@+id/consumedCaloriesText"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Consumed calories so far: "
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@id/intakeImage"
-        app:layout_constraintTop_toTopOf="@id/intakeImage" />
-
-    <TextView
-        android:id="@+id/resultText"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="16dp"
-        android:text=""
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/consumedCaloriesText" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarReport"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/baseline_arrow_back_24"
-        app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:titleTextColor="#FFFFFF"
-        tools:layout_editor_absoluteX="0dp">
+        android:layout_height="match_parent"
+        tools:context=".ReportActivity">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarReport"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:navigationIcon="@drawable/baseline_arrow_back_24"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update Your Password"
+                android:textSize="25dp"
+                android:layout_gravity="center" />
+        </androidx.appcompat.widget.Toolbar>
 
         <TextView
+            android:id="@+id/caloriesText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Report"
-            android:textColor="#FFFFFF"
-            android:textSize="30dp" />
-    </androidx.appcompat.widget.Toolbar>
+            android:layout_below="@id/toolbarReport"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:text="Calories Burned"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/buttonWeeklyReport"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="164dp"
-        android:background="@drawable/border"
-        android:text="Weekly Report"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/resultText" />
+        <TextView
+            android:id="@+id/consumedCaloriesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/caloriesText"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:text="Calories Consumed"
+            android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/buttonMonthlyReport"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="164dp"
-        android:background="@drawable/border2"
-        android:text="Monthly Report"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/buttonWeeklyReport"
-        app:layout_constraintTop_toBottomOf="@id/resultText" />
+        <TextView
+            android:id="@+id/resultText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/consumedCaloriesText"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:text="Balance Result"
+            android:textSize="18sp"
+            android:textStyle="italic" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/buttonWeeklyReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/resultText"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/border"
+            android:layout_marginStart="75dp"
+            android:layout_marginEnd="75dp"
+            android:text="Display Bar Chart Report" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_below="@id/buttonWeeklyReport"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+
+    </RelativeLayout>
+</layout>
