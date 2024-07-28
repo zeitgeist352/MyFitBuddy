@@ -33,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.myfitbuddy.R;
 import com.myfitbuddy.databinding.ActivityNutrientBinding;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +63,14 @@ public class NutrientActivity extends AppCompatActivity {
     private NutrientData nutrientData;
     private ArrayList<String> nutrientNames;
 
+    private chartMonday mondayChart;
+    private chartTuesday tuesdayChart;
+    private chartWednesday wednesdayChart;
+    private chartThursday thursdayChart;
+    private chartFriday fridayChart;
+    private chartSaturday saturdayChart;
+    private chartSunday sundayChart;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +85,7 @@ public class NutrientActivity extends AppCompatActivity {
         }
 
         Log.d(TAG, "Nutrient names: " + nutrientNames.toString());
-        
+
 
         binding.toolbarNutrient.setNavigationOnClickListener(v -> {
             Intent intent = new Intent(NutrientActivity.this, MainActivity.class);
@@ -131,6 +140,15 @@ public class NutrientActivity extends AppCompatActivity {
                         .setNegativeButton(android.R.string.no, null).setIcon(android.R.drawable.ic_dialog_alert).show();
             }
         });
+
+        // Creates days for intaken calories chart
+        mondayChart = new chartMonday();
+        tuesdayChart = new chartTuesday();
+        wednesdayChart = new chartWednesday();
+        thursdayChart = new chartThursday();
+        fridayChart = new chartFriday();
+        saturdayChart = new chartSaturday();
+        sundayChart = new chartSunday();
 
         // Set button click listener
         buttonAddNutrient.setOnClickListener(new View.OnClickListener() {
@@ -280,6 +298,8 @@ public class NutrientActivity extends AppCompatActivity {
                 nutrientAdapter.notifyDataSetChanged();
                 updateNutrientInfo();
 
+                updateChartWithIntakeCalories(calories);
+
                 dialog.dismiss();
             }
         });
@@ -302,6 +322,8 @@ public class NutrientActivity extends AppCompatActivity {
             userDocRef.set(nutrientData)
                     .addOnSuccessListener(aVoid -> Log.d("Firebase", "Nutrient data saved successfully"))
                     .addOnFailureListener(e -> Log.d("Firebase", "Error saving nutrient data", e));
+
+            updateChartWithIntakeCalories(nutrient.getCalories());
         }
     }
 
@@ -343,5 +365,33 @@ public class NutrientActivity extends AppCompatActivity {
         textViewProtein.setText("Protein: " + nutrientList.getTotalProteins() + " g");
         textViewCarbs.setText("Carbohydrates: " + nutrientList.getTotalCarbs() + " g");
         textViewFat.setText("Fat: " + nutrientList.getTotalFats() + " g");
+    }
+
+    private void updateChartWithIntakeCalories(double calories) {
+        LocalDateTime today = LocalDateTime.now();
+        int dayOfWeek = today.getDayOfWeek().getValue();
+        switch (dayOfWeek) {
+            case 1: // Monday
+                mondayChart.setIntakedCalories(mondayChart.getIntakedCalories() + calories);
+                break;
+            case 2: // Tuesday
+                tuesdayChart.setIntakedCalories(tuesdayChart.getIntakedCalories() + calories);
+                break;
+            case 3: // Wednesday
+                wednesdayChart.setIntakedCalories(wednesdayChart.getIntakedCalories() + calories);
+                break;
+            case 4: // Thursday
+                thursdayChart.setIntakedCalories(thursdayChart.getIntakedCalories() + calories);
+                break;
+            case 5: // Friday
+                fridayChart.setIntakedCalories(fridayChart.getIntakedCalories() + calories);
+                break;
+            case 6: // Saturday
+                saturdayChart.setIntakedCalories(saturdayChart.getIntakedCalories() + calories);
+                break;
+            case 7: // Sunday
+                sundayChart.setIntakedCalories(sundayChart.getIntakedCalories() + calories);
+                break;
+        }
     }
 }
