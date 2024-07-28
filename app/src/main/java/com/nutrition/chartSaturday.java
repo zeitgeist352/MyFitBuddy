@@ -1,3 +1,4 @@
+package com.nutrition;
 public class chartSaturday {
 
     private double burnedCalories;
