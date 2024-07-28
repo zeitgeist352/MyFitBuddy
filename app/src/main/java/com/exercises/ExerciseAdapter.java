@@ -51,7 +51,14 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
             holder.binding.imageExercise.setImageResource(R.drawable.calfraisenobg);
         } else if (exerciseList.get(position).getName().equalsIgnoreCase("lunges")) {
             holder.binding.imageExercise.setImageResource(R.drawable.lunge);
-        } else if (Tester.isLegExercise(exerciseList.get(position).getName())) {
+        } else if (exerciseList.get(position).getName().contains("Running (High Tempo") ||
+                exerciseList.get(position).getName().contains("Running (Low Tempo")||
+                exerciseList.get(position).getName().contains("Trail Running")||
+                exerciseList.get(position).getName().contains("Running")||
+                exerciseList.get(position).getName().contains("Sprinting")) {
+            holder.binding.imageExercise.setImageResource(R.drawable.runningnobg);
+        }
+        else if (Tester.isLegExercise(exerciseList.get(position).getName())) {
             holder.binding.imageExercise.setImageResource(R.drawable.legnobg);
         } else if (exerciseList.get(position).getName().contains("Deadlift")) {
             holder.binding.imageExercise.setImageResource(R.drawable.barbelldeadlift);
@@ -132,13 +139,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         }
         else if (exerciseList.get(position).getName().contains("Row")) {
             holder.binding.imageExercise.setImageResource(R.drawable.seatedvbarcablerow);
-        } else if (exerciseList.get(position).getName().contains("Running (High Tempo") ||
-                exerciseList.get(position).getName().contains("Running (Low Tempo")||
-                exerciseList.get(position).getName().contains("Trail Running")||
-                exerciseList.get(position).getName().contains("Running")||
-                exerciseList.get(position).getName().contains("Sprinting")) {
-            holder.binding.imageExercise.setImageResource(R.drawable.runningnobg);
-        }
+        } 
         else if(exerciseList.get(position).getName().contains("HIIT"))
         {
             holder.binding.imageExercise.setImageResource(R.drawable.hiit);
