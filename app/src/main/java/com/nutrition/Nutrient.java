@@ -1,6 +1,8 @@
 package com.nutrition;
 
 public class Nutrient {
+
+    //defining private variables
     private String name;
     private double calories;
     private double protein;
@@ -12,6 +14,7 @@ public class Nutrient {
         // Default constructor required for calls to DataSnapshot.getValue(Nutrient.class)
     }
 
+    //non default constructor
     public Nutrient(String name, double calories, double protein, double carbs, double fat, double grams) {
         this.name = name;
         this.calories = calories;

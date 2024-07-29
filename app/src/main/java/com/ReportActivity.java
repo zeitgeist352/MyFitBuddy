@@ -36,6 +36,8 @@ import java.util.List;
 
 public class ReportActivity extends AppCompatActivity {
 
+    //defining variables
+
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private int thisWeekPoints = 0;
@@ -112,7 +114,7 @@ public class ReportActivity extends AppCompatActivity {
             });
         }
     }
-
+    
     private void calculateBurn(String userId) {
         db = FirebaseFirestore.getInstance();
         documentReference = db.collection("Users").document(userId);
@@ -137,6 +139,7 @@ public class ReportActivity extends AppCompatActivity {
         });
     }
 
+    //it gives a burns kcal message
     private void setTexts(String userId, String reportType) {
         db = FirebaseFirestore.getInstance();
         documentReference = db.collection("Users").document(userId);
@@ -156,6 +159,7 @@ public class ReportActivity extends AppCompatActivity {
         }).addOnFailureListener(e -> Log.d(TAG, "Error fetching document", e));
     }
 
+    //it gives a message for a user such as you are in balance or you are likely to gain kilos
     private void calcBalance(int thisWeekPoints) {
         double totalConsumed = nutrientList.getTotalCalories();
         double totalBurned = thisWeekPoints;

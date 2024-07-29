@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DaysFragment extends Fragment {
+
+    //defining the private variables
     private RecyclerView recyclerView;
     private ArrayList<ExerciseModel> exercises;
 

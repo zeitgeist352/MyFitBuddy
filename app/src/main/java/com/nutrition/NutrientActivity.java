@@ -40,6 +40,7 @@ import java.util.Map;
 
 public class NutrientActivity extends AppCompatActivity {
 
+    //defining private variables
     private static final String TAG = "NutrientActivity";
     private TextView textViewCalories;
     private TextView textViewProtein;
@@ -168,6 +169,7 @@ public class NutrientActivity extends AppCompatActivity {
         updateNutrientInfo();
     }
 
+    //it loads nutrients from database
     private void loadNutrientsFromFirebase() {
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -266,6 +268,7 @@ public class NutrientActivity extends AppCompatActivity {
         dialog.show();
     }
 */
+    //it shows the nutrient details
     private void showAddNutrientDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.add_nutrient);
@@ -307,6 +310,7 @@ public class NutrientActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    //it saves the nutrient to the firestore
     private void saveNutrientToFirestore(Nutrient nutrient) {
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -327,6 +331,7 @@ public class NutrientActivity extends AppCompatActivity {
         }
     }
 
+    //it helps us to delete the nutrient from the database
     private void deleteNutrientFromFirebase(Nutrient nutrient) {
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -360,6 +365,7 @@ public class NutrientActivity extends AppCompatActivity {
         }
     }
 
+    //it updates the nutritient's information such as calories or protein
     private void updateNutrientInfo() {
         textViewCalories.setText("Calories: " + nutrientList.getTotalCalories() + " kcal");
         textViewProtein.setText("Protein: " + nutrientList.getTotalProteins() + " g");
@@ -367,9 +373,12 @@ public class NutrientActivity extends AppCompatActivity {
         textViewFat.setText("Fat: " + nutrientList.getTotalFats() + " g");
     }
 
+    //it updates the chart with intake calories
     private void updateChartWithIntakeCalories(double calories) {
+        //defining and initializing variables
         LocalDateTime today = LocalDateTime.now();
         int dayOfWeek = today.getDayOfWeek().getValue();
+
         switch (dayOfWeek) {
             case 1: // Monday
                 mondayChart.setIntakedCalories(mondayChart.getIntakedCalories() + calories);

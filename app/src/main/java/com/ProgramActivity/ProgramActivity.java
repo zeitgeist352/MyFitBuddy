@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ProgramActivity extends AppCompatActivity {
+
+    //defining private variables
     private ActivityProgramBinding binding;
 
     private FirebaseAuth mAuth;
@@ -91,6 +93,7 @@ public class ProgramActivity extends AppCompatActivity {
         }).addOnFailureListener(e -> Log.w(TAG, "Error retrieving user document", e));
     }
 
+    //it sets the pager and tabs
     private void setupViewPagerAndTabs(List<String> daysList, Map<String, List<ExerciseModel>> exercisesByDay) {
         runOnUiThread(() -> {
             daysPagerAdapter = new DaysPagerAdapter(getSupportFragmentManager(), getLifecycle(), daysList, exercisesByDay);
@@ -102,6 +105,7 @@ public class ProgramActivity extends AppCompatActivity {
         });
     }
 
+    //it gets the spesific exercise days from the user
     private ArrayList<String> getUserSpecificDays() {
         SharedPreferences sharedPreferences = getSharedPreferences("ExerciseDays", Context.MODE_PRIVATE);
         ArrayList<String> daysList = new ArrayList<>();
@@ -113,6 +117,7 @@ public class ProgramActivity extends AppCompatActivity {
         return daysList;
     }
 
+    //it returns the day name by getting the index
     private String getDayName(int dayIndex) {
         switch (dayIndex) {
             case 0: return "Monday";

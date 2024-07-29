@@ -13,9 +13,12 @@ import java.util.List;
 import java.util.Map;
 
 public class DaysPagerAdapter extends FragmentStateAdapter {
+
+    //defining the variables
     private final List<String> daysList;
     private final Map<String, List<ExerciseModel>> exercisesByDay;
 
+    //constructor for dayspageradapter and initialize the dayList and exercisesByDay
     public DaysPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, List<String> daysList, Map<String, List<ExerciseModel>> exercisesByDay) {
         super(fragmentManager, lifecycle);
         this.daysList = daysList;
@@ -30,6 +33,7 @@ public class DaysPagerAdapter extends FragmentStateAdapter {
     }
 
     @Override
+    //it returns prefered days count
     public int getItemCount() {
         return daysList.size();
     }

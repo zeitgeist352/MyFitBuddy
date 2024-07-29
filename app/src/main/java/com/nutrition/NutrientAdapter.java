@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class NutrientAdapter extends RecyclerView.Adapter<NutrientAdapter.NutrientViewHolder> {
 
+    //defining variables
     private ArrayList<Nutrient> nutrientList;
     private OnItemClickListener onItemClickListener;
 
@@ -23,11 +24,13 @@ public class NutrientAdapter extends RecyclerView.Adapter<NutrientAdapter.Nutrie
         this.nutrientList = nutrientList;
     }
 
+    //click listener for deleting nutrient
     public interface OnItemClickListener {
         void onItemClick(Nutrient nutrient);
         void onDeleteClick(Nutrient nutrient);
     }
 
+    //it sets the item click listener
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
@@ -50,6 +53,7 @@ public class NutrientAdapter extends RecyclerView.Adapter<NutrientAdapter.Nutrie
     }
 
     @Override
+    //it returns the nutrients' count
     public int getItemCount() {
         return nutrientList.size();
     }

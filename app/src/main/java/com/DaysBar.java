@@ -17,12 +17,13 @@ import java.time.LocalDate;
 
 public class DaysBar extends View {
 
+    //defining private variables
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private RectF rect = new RectF(); // Used for drawing rounded rectangle
 
     private final String[] DAYS = {"M", "T", "W", "T", "F", "S", "S"};
 
-
+    //creating constructor
     public DaysBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         setClickable(true);
@@ -30,6 +31,7 @@ public class DaysBar extends View {
 
 
     @Override
+    //drawing the canvas, day letters and slots
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
@@ -105,6 +107,7 @@ public class DaysBar extends View {
         return days;
     }
 
+    //it returns the completed exercise days list
     public boolean[] getCompletedExerciseDays(){
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("CompletedExerciseDays", Context.MODE_PRIVATE);
         boolean[] days = new boolean[7];

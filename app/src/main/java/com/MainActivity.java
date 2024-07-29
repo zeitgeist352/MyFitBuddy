@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+
+    //defining the variables
     private ActivityMainBinding activityMainBinding;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
@@ -114,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
     }
-
     private void updateUserPoints() {
         if (currentUser == null) {
             Log.d(TAG, "User is not logged in.");
@@ -193,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+    //it sets the user's variables
     private void setVariablesForUser(String userId) {
         db = FirebaseFirestore.getInstance();
         documentReference = db.collection("Users").document(userId);
@@ -220,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
         }).addOnFailureListener(e -> Log.d(TAG, "Error fetching document", e));
     }
 
+    //it returns the completed exercise days list
     public boolean[] getCompletedExerciseDays() {
         SharedPreferences sharedPreferences = getSharedPreferences("CompletedExerciseDays", Context.MODE_PRIVATE);
         boolean[] days = new boolean[7];
@@ -247,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
         return "Monday"; // default to Monday if no other day is found
     }
 
+    //it returns the exercise days list
     public boolean[] getExerciseDays() {
         SharedPreferences sharedPreferences = getSharedPreferences("ExerciseDays", Context.MODE_PRIVATE);
         boolean[] days = new boolean[7];

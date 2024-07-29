@@ -4,17 +4,20 @@ import java.util.ArrayList;
 
 public class NutrientList {
 
+    //defining private variable
     private ArrayList<Nutrient> nutrients;
 
+    //constructor for nutrient list
     public NutrientList(ArrayList<Nutrient> nutrients) {
         this.nutrients = nutrients;
     }
 
-    // Getters
+    // it returns the nutrients
     public ArrayList<Nutrient> getNutrients() {
         return nutrients;
     }
 
+    //it returns the total proteins
     public double getTotalProteins() {
         double totalProtein = 0;
         for (int i = 0; i < this.nutrients.size(); i++) {
@@ -25,6 +28,7 @@ public class NutrientList {
         return totalProtein;
     }
 
+    //it returns the total proteins
     public double getTotalCarbs() {
         double totalCarbs = 0;
         for (int i = 0; i < this.nutrients.size(); i++) {
@@ -35,6 +39,7 @@ public class NutrientList {
         return totalCarbs;
     }
 
+    //it returns the total fats
     public double getTotalFats() {
         double totalFats = 0;
         for (int i = 0; i < this.nutrients.size(); i++) {
@@ -45,6 +50,7 @@ public class NutrientList {
         return totalFats;
     }
 
+    //it returns the total calories
     public double getTotalCalories() {
         double totalCalories = 0;
         for (int i = 0; i < this.nutrients.size(); i++) {
@@ -55,11 +61,12 @@ public class NutrientList {
         return totalCalories;
     }
 
-    // Additions
+    // it adds the nutrient
     public void addNutrient(Nutrient nutrient) {
         this.nutrients.add(nutrient);
     }
 
+    // it removes the nutrient
     public void removeNutrient(Nutrient nutrient) {
         this.nutrients.remove(nutrient);
     }

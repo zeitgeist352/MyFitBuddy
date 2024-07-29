@@ -26,11 +26,13 @@ import com.get_info_activites.UserInfoHolder;
 
 public class FeedbackActivity extends AppCompatActivity {
 
+    //defining variables
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private FirebaseFirestore db;
     private DocumentReference documentReference;
 
+    //it returns the user id
     private String getCurrentUserId() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {

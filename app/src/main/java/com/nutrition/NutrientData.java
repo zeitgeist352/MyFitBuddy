@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 public class NutrientData {
 
+    //defining the static variable
     static ArrayList<Nutrient> nutrients = new ArrayList<Nutrient>();
 
+    //it adds some nutrient samples
     public NutrientData()
     {
         nutrients.add( new Nutrient("Apple", 52, 0.3, 14, 0.2, 100));
@@ -27,6 +29,7 @@ public class NutrientData {
         nutrients.add( new Nutrient("Lentils", 116, 9, 20, 0.4, 100));
     }
 
+    //it returns the nutrient with name
     public static Nutrient getNutrient(String name) {
 
         Nutrient nt = new Nutrient(name, 0, 0, 0, 0, 0);
