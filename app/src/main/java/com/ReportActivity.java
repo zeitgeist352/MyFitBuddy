@@ -177,39 +177,10 @@ public class ReportActivity extends AppCompatActivity {
         List<BarEntry> intakeEntries = new ArrayList<>();
         List<BarEntry> burnEntries = new ArrayList<>();
 
-        /*for (int day = 0; day < 7; day++) {
-            intakeEntries.add(new BarEntry(day, (float) nutrientList.getTotalCalories()));
-            burnEntries.add(new BarEntry(day, (float) thisWeekPoints * 3));
-        }*/
-
         for (int day = 0; day < 7; day++) {
-
-            switch (day) {
-                case 1: // Monday
-                    intakeEntries.add(new BarEntry(day, (float) mondayChart.getIntakedCalories()));
-                    break;
-                case 2: // Tuesday
-                    intakeEntries.add(new BarEntry(day, (float) tuesdayChart.getIntakedCalories()));
-                    break;
-                case 3: // Wednesday
-                    intakeEntries.add(new BarEntry(day, (float) wednesdayChart.getIntakedCalories()));
-                    break;
-                case 4: // Thursday
-                    intakeEntries.add(new BarEntry(day, (float) thursdayChart.getIntakedCalories()));
-                    break;
-                case 5: // Friday
-                    intakeEntries.add(new BarEntry(day, (float) fridayChart.getIntakedCalories()));
-                    break;
-                case 6: // Saturday
-                    intakeEntries.add(new BarEntry(day, (float) saturdayChart.getIntakedCalories()));
-                    break;
-                case 7: // Sunday
-                    intakeEntries.add(new BarEntry(day, (float) sundayChart.getIntakedCalories()));
-                    break;
-            }
-            burnEntries.add(new BarEntry(day, (float) thisWeekPoints * 3));
+            intakeEntries.add(new BarEntry(day, (float) nutrientList.getTotalCalories()));
+            burnEntries.add(new BarEntry(day, (float) thisWeekPoints));
         }
-
 
         BarDataSet intakeDataSet = new BarDataSet(intakeEntries, "Calorie Intake");
         intakeDataSet.setColor(Color.GREEN);
@@ -221,7 +192,7 @@ public class ReportActivity extends AppCompatActivity {
         barData.setBarWidth(0.3f);
 
         barChart.setData(barData);
-        barChart.groupBars(0f, 0.4f, 0.02f); 
+        barChart.groupBars(0f, 0.4f, 0.02f);
 
         barChart.invalidate();
 
@@ -239,6 +210,6 @@ public class ReportActivity extends AppCompatActivity {
         leftAxis.setAxisMinimum(0f);
         barChart.getAxisRight().setEnabled(false);
 
-        barChart.getDescription().setEnabled(false); 
+        barChart.getDescription().setEnabled(false);
     }
 }
