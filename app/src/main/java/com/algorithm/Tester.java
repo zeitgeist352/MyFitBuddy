@@ -446,20 +446,20 @@ public class Tester {
         exercisesList.add(new LegExercises(2, "Calf Raise"));
 
         // back excs
-        exercisesList.add(new BackExercises(5, "Conventional Deadlift"));
-        exercisesList.add(new BackExercises(5, "Pull-up"));
-        exercisesList.add(new BackExercises(4, "Barbell Row"));
-        exercisesList.add(new BackExercises(3, "Lat Pull down"));
-        exercisesList.add(new BackExercises(2, "Dumbbell Row"));
-        exercisesList.add(new BackExercises(4, "T-Bar Row"));
-        exercisesList.add(new BackExercises(1, "Cable Row"));
-        exercisesList.add(new BackExercises(3, "Single Arm Dumbbell Row"));
-        exercisesList.add(new BackExercises(2, "Seated Cable Row"));
-        exercisesList.add(new BackExercises(3, "Bent Over Barbell Row"));
-        exercisesList.add(new BackExercises(1, "Face Pulls"));
-        exercisesList.add(new BackExercises(3, "Machine Row"));
-        exercisesList.add(new BackExercises(4, "Romanian Deadlift"));
-        exercisesList.add(new BackExercises(1, "Inverted Row"));
+        exercisesList.add(new BackExercises(5, "Conventional Deadlift"));//
+        exercisesList.add(new BackExercises(5, "Pull-up"));//
+        exercisesList.add(new BackExercises(4, "Barbell Row"));//
+        exercisesList.add(new BackExercises(3, "Lat Pull down"));//
+        exercisesList.add(new BackExercises(2, "Dumbbell Row"));//
+        exercisesList.add(new BackExercises(4, "T-Bar Row"));//
+        exercisesList.add(new BackExercises(1, "Cable Row"));//
+        exercisesList.add(new BackExercises(3, "Single Arm Dumbbell Row"));//
+        exercisesList.add(new BackExercises(2, "Seated Cable Row"));//
+        exercisesList.add(new BackExercises(3, "Bent Over Barbell Row"));//
+        exercisesList.add(new BackExercises(1, "Face Pulls"));//
+        exercisesList.add(new BackExercises(3, "Machine Row"));//
+        exercisesList.add(new BackExercises(4, "Romanian Deadlift"));//
+        exercisesList.add(new BackExercises(1, "Inverted Row"));//
 
         // biceps excs
         exercisesList.add(new BicepsExercises(5, "Barbell Curl"));
