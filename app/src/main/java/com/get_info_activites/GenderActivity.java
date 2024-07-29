@@ -16,18 +16,18 @@ public class GenderActivity extends AppCompatActivity {
         binding = ActivityGenderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        UserInfoHolder userInfoHolder = new UserInfoHolder("","", false, false, false, false, 0, 0, 0, false, false, false, false, false, false, false, null, null, 0);
+        UserInfoHolder userInfoHolder = new UserInfoHolder("", false, false, false, false, 0, 0, 0, false, false, false, false, false, false, false, null, null, 0);
 
 
         binding.buttonMale.setOnClickListener(view -> {
-                    userInfoHolder.setGender("male");
-                    goBodyInfoActivity(userInfoHolder);
+            userInfoHolder.setGender("male");
+            goBodyInfoActivity(userInfoHolder);
 
         });
 
         binding.buttonFemale.setOnClickListener(view -> {
-                    userInfoHolder.setGender("female");
-                    goBodyInfoActivity(userInfoHolder);
+            userInfoHolder.setGender("female");
+            goBodyInfoActivity(userInfoHolder);
         });
 
     }

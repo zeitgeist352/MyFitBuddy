@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class UserInfoHolder implements Serializable {
 
     private double power;
-    private String email;
+
     private String gender;
     private boolean chest;
     private boolean back;
@@ -51,15 +51,13 @@ public class UserInfoHolder implements Serializable {
 
     private ArrayList<ArrayList<Exercises>> program;
 
-    public UserInfoHolder(String email, String gender, boolean chest, boolean back, boolean arm, boolean leg,
+    public UserInfoHolder(String gender, boolean chest, boolean back, boolean arm, boolean leg,
                           int age, int weight, int height, boolean isMondayEligible,
                           boolean isTuesdayEligible, boolean isWednesdayEligible,
                           boolean isThursdayEligible, boolean isFridayEligible,
                           boolean isSaturdayEligible, boolean isSundayEligible,
                           String purpose, String bodyType, int pushupCount) {
-
         Tester t = new Tester();
-        this.email = email;
         this.age = age;
         this.weight = weight;
         this.height = height;
@@ -73,15 +71,11 @@ public class UserInfoHolder implements Serializable {
         this.icon = 1;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public void calculateIbm()
     {
-        System.out.println("weight heigth respectively: ***** : " + this.weight + " , " + this.height);
+        System.out.println("weight heigth respectively: *************** : " + this.weight + " , " + this.height);
         this.ibm = (double) this.getWeight() / ((double) (this.getHeight() * this.getHeight()) / 10000);
-        System.out.println("ibm: ***** : " + this.ibm);
+        System.out.println("ibm: *************** : " + this.ibm);
     }
 
     public void setDays(int index, boolean isEligible)
@@ -330,7 +324,7 @@ public class UserInfoHolder implements Serializable {
         {
             this.power = 1.1;
         }
-        System.out.println("*****FINAL " + this.power);
+        System.out.println("*********FINAL " + this.power);
 
         this.generateProgram();
     }
@@ -412,7 +406,6 @@ public class UserInfoHolder implements Serializable {
     }
 
 }
-
 
 
 
