@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -65,7 +67,7 @@ public class SignUpActivity extends AppCompatActivity {
         String name_surname = signUpBinding.editTextNameSurname.getText().toString();
 
         if (email.isEmpty() || password.isEmpty() || nameSurname.isEmpty()){
-            Toast.makeText(this,"fill in the blanks",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Please fill all the blanks above",Toast.LENGTH_LONG).show();
         }else{auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -99,9 +101,16 @@ public class SignUpActivity extends AppCompatActivity {
                             startActivity(intent);
 
                         }else{
-                            Toast.makeText(SignUpActivity.this, task.getException().toString(),
-                                    Toast.LENGTH_SHORT).show();
-                            Log.d("Login Page","Create account failed!");
+                            Exception ex = task.getException();
+                            if (ex instanceof FirebaseAuthUserCollisionException) {
+                                Toast.makeText(SignUpActivity.this, "User with this email already exists",
+                                        Toast.LENGTH_SHORT).show();
+                                Log.d("Login Page", "Create account failed!");
+                            } else if (ex instanceof FirebaseAuthWeakPasswordException){
+                                Toast.makeText(SignUpActivity.this, "Password is too weak, please try a stronger password",
+                                        Toast.LENGTH_SHORT).show();
+                                Log.d("Login Page", "Create account failed!");
+                            }
                         }
                     }
                 });
