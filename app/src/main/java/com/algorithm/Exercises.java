@@ -3,15 +3,17 @@ package com.algorithm;
 import java.io.Serializable;
 
 public abstract class Exercises implements Comparable<Exercises>, Serializable{
-    
+
+    //defining variables
     private double dif;
     private String name;
 
+    //creating constructor
     public Exercises(double dif, String name) {
         this.dif = dif;
         this.name = name;
     }
-  
+
     public double getDif() {
         return this.dif;
     }

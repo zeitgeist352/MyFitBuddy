@@ -5,20 +5,25 @@ import java.util.Random;
 
 public class Tester {
 
+    //defining static variables
     static Random rnd;
     static ArrayList<Exercises> exercisesList;
     static ArrayList<Exercises> cardioExercises;
 
+
     public static void main(String[] args)
     {
+        //creating tester object and starting constructor
         Tester tester = new Tester();
 
     }
-
+    //helps us to find correct excersize
     public static String getSuitibleExercisesAccoringToPower(String exerciseName, double power)
     {
+        //defining and initializing variables
         String classNameOfGivenExercise = "";
         boolean found = false;
+
         for (int i = 0; i < exercisesList.size(); i++)
         {
             if (exercisesList.get(i).getName().equalsIgnoreCase(exerciseName))
@@ -55,6 +60,7 @@ public class Tester {
         return  null;
     }
 
+    //helps us to find if the excersize is back exercise or not
     public static boolean isBackExercise(String s)
     {
         for (int i = 0; i < exercisesList.size(); i++)
@@ -72,6 +78,7 @@ public class Tester {
         return  false;
     }
 
+    //helps us to find if the excersize is leg exercise or not
     public static boolean isLegExercise(String s)
     {
         for (int i = 0; i < exercisesList.size(); i++)
@@ -87,6 +94,7 @@ public class Tester {
         return  false;
     }
 
+    //helps us to find if the excersize is biceps exercise or not
     public static boolean isBicepsExercise(String s)
     {
         for (int i = 0; i < exercisesList.size(); i++)
@@ -102,6 +110,7 @@ public class Tester {
         return  false;
     }
 
+    //helps us to find if the excersize is triceps exercise or not
     public static boolean isTricepsExercise(String s)
     {
         for (int i = 0; i < exercisesList.size(); i++)
@@ -117,6 +126,7 @@ public class Tester {
         return  false;
     }
 
+    //it generates the correct muscle program according to your gender and power
     public static void generateMuscleProgram (ArrayList<ArrayList<Exercises>> program, double power, boolean generateHalf)
     {
         for (int i = 0; i < program.size(); i++)
@@ -151,6 +161,7 @@ public class Tester {
 
     }
 
+    //it generates the correct cardio program according to your gender and power
     public static void generateCardioWorkoutProgram(ArrayList<ArrayList<Exercises>> program, double power, boolean generateHalf)
     {
         for (int i = 0; i < program.size(); i++)
@@ -182,6 +193,7 @@ public class Tester {
         }
     }
 
+    //it adds the back target exercises to program
     public static void addBackTargetExercises(ArrayList<ArrayList<Exercises>> program, double power)
     {
         shuffleExercises();
@@ -213,6 +225,7 @@ public class Tester {
         }
     }
 
+    //it finds if the program contains a spesific exercise or not
     private static boolean isProgramContains(ArrayList<Exercises> program, Exercises e)
     {
         boolean contains = false;
@@ -226,6 +239,7 @@ public class Tester {
         return contains;
     }
 
+    //it adds the chest target exercises to program
     public static void addChestTargetExercises(ArrayList<ArrayList<Exercises>> program, double power)
     {
 
@@ -255,6 +269,7 @@ public class Tester {
         }
     }
 
+    //it adds the leg target exercises to program
     public static void addLegTargetExercises(ArrayList<ArrayList<Exercises>> program, double power)
     {
 
@@ -283,6 +298,7 @@ public class Tester {
             }
         }
     }
+    //it adds the arm target exercises to program
     public static void addArmTargetExercises(ArrayList<ArrayList<Exercises>> program, double power)
     {
         shuffleExercises();
@@ -328,6 +344,7 @@ public class Tester {
     }
 
 
+    //it shuffles the exercises for giving the correct but random program for user
     public static void shuffleExercises()
     {
         rnd = new Random();
@@ -346,6 +363,7 @@ public class Tester {
         }
     }
 
+    //it shuffles the cardio exercises for giving the correct but random program for user
     public static void shuffleCardioExercises()
     {
         rnd = new Random();
@@ -406,6 +424,7 @@ public class Tester {
         return associatedExercises;
     }
 
+    //a constructor for adding exercises and cardio exercises
     public Tester()
     {
         exercisesList = new ArrayList<Exercises>();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class WorkoutPrograms {
 
+    //defining ArrayList variables
     ArrayList<ArrayList<Exercises>>[] buildMusclePrograms;
     ArrayList<ArrayList<Exercises>> twoDsMuscleFocus;
     ArrayList<ArrayList<Exercises>> threeDsMuscleFocus;
@@ -22,6 +23,7 @@ public class WorkoutPrograms {
     ArrayList<ArrayList<Exercises>> fourDaysMixed;
     ArrayList<ArrayList<Exercises>> fiveDaysMixed;
 
+    //creating a constructor for starting the program generators for 2-3-4-5 days
     public WorkoutPrograms()
     {
         twoDaysBuildMuscleProgramGenerator();
@@ -58,6 +60,7 @@ public class WorkoutPrograms {
         mixedPrograms[3] = fiveDaysMixed;
     }
 
+    //A program generator for people who choose building muscle and 2 days program option
     private void twoDaysBuildMuscleProgramGenerator()
     {
         twoDsMuscleFocus = new ArrayList<>();
@@ -75,6 +78,7 @@ public class WorkoutPrograms {
         twoDsMuscleFocus.get(1).add(new LegExercises(0, null));
     }
 
+    //A program generator for people who choose building muscle and 3 days program option
     private void threeDaysBuildMuscleProgramGenerator()
     {
         threeDsMuscleFocus = new ArrayList<>();
@@ -96,6 +100,7 @@ public class WorkoutPrograms {
         threeDsMuscleFocus.get(2).add(new BicepsExercises(0, null));
     }
 
+    //A program generator for people who choose building muscle and 4 days program option
     private void fourDaysBuildMuscleProgramGenerator()
     {
         fourDsMuscleFocus = new ArrayList<>();
@@ -124,6 +129,7 @@ public class WorkoutPrograms {
         fourDsMuscleFocus.get(3).add(new LegExercises(0, null));
     }
 
+    //A program generator for people who choose building muscle and 5 days program option
     private void fiveDaysBuildMuscleProgramGenerator()
     {
         fiveDsMuscleFocus = new ArrayList<>();
@@ -155,6 +161,7 @@ public class WorkoutPrograms {
         fiveDsMuscleFocus.get(4).add(new TricepsExercises(0, null));
     }
 
+    //A program generator for people who choose cardio exercises and 2 days program option
     private void twoDsCardioFocusGenerator()
     {
         twoDsCardioFocus = new ArrayList<>();
@@ -165,6 +172,7 @@ public class WorkoutPrograms {
         cardioHelper(twoDsCardioFocus);
     }
 
+    //A program generator for people who choose cardio exercises and 3 days program option
     private void threeDsCardioFocusGenerator()
     {
         threeDsCardioFocus = new ArrayList<>();
@@ -176,6 +184,7 @@ public class WorkoutPrograms {
         cardioHelper(threeDsCardioFocus);
     }
 
+    //A program generator for people who choose cardio exercises and 4 days program option
     private void fourDsCardioFocusGenerator()
     {
         fourDsCardioFocus = new ArrayList<>();
@@ -188,6 +197,7 @@ public class WorkoutPrograms {
         cardioHelper(fourDsCardioFocus);
     }
 
+    //A program generator for people who choose cardio exercises and 5 days program option
     private void fiveDsCardioFocusGenerator()
     {
         fiveDsCardioFocus = new ArrayList<>();
@@ -211,6 +221,7 @@ public class WorkoutPrograms {
         }
     }
 
+    //A program generator for people who choose mix program and 2 days program option
     private void twoDaysBuildMixedProgramGenerator() // Start of mixed programs
     {
         twoDaysMixed = new ArrayList<>();
@@ -228,6 +239,7 @@ public class WorkoutPrograms {
         twoDaysMixed.get(1).add(new CardioExercises(0, null));
     }
 
+    //A program generator for people who choose mix program and 3 days program option
     private void threeDaysBuildMixedProgramGenerator()
     {
         threeDaysMixed = new ArrayList<>();
@@ -250,6 +262,7 @@ public class WorkoutPrograms {
         threeDaysMixed.get(2).add(new CardioExercises(0, null));
     }
 
+    //A program generator for people who choose mix program and 4 days program option
     private void fourDaysBuildMixedProgramGenerator()
     {
         fourDaysMixed = new ArrayList<>();
@@ -278,6 +291,7 @@ public class WorkoutPrograms {
         fourDaysMixed.get(3).add(new CardioExercises(0, null));
     }
 
+    //A program generator for people who choose mix program and 5 days program option
     private void fiveDaysBuildMixedProgramGenerator()
     {
         fiveDaysMixed = new ArrayList<>();
@@ -312,16 +326,19 @@ public class WorkoutPrograms {
         fiveDaysMixed.get(4).add(new CardioExercises(0, null)); // End of mixed programs
     }
 
+    //it returns the building muscle program
     public ArrayList<ArrayList<Exercises>>[] getBuildMusclePrograms()
     {
         return buildMusclePrograms;
     }
 
+    //it returns the building cardio program
     public ArrayList<ArrayList<Exercises>>[] getCardioPrograms()
     {
         return  this.cardioPrograms;
     }
 
+    //it returns the mixed program
     public ArrayList<ArrayList<Exercises>>[] getMixedPrograms()
     {
         return this.mixedPrograms;
