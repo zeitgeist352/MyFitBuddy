@@ -38,35 +38,64 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         if (exerciseList.get(position).getName().equalsIgnoreCase("squat") ||
                 exerciseList.get(position).getName().equalsIgnoreCase("bulgarian split squat")) {
             holder.binding.imageExercise.setImageResource(R.drawable.bodyweightsquat);
-        } else if (exerciseList.get(position).getName().equalsIgnoreCase("leg press")) {
+        } 
+        else if (exerciseList.get(position).getName().equalsIgnoreCase("leg press")) 
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.legpressnobg);
-        } else if (exerciseList.get(position).getName().equalsIgnoreCase("dumbbell squat") ||
+        } 
+        else if (exerciseList.get(position).getName().equalsIgnoreCase("dumbbell squat") ||
                 exerciseList.get(position).getName().equalsIgnoreCase("hack squat")) {
             holder.binding.imageExercise.setImageResource(R.drawable.squat);
-        } else if (exerciseList.get(position).getName().equalsIgnoreCase("leg curl")) {
+        } 
+        else if (exerciseList.get(position).getName().equalsIgnoreCase("leg curl")) 
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.legcurlnobg);
-        } else if (exerciseList.get(position).getName().equalsIgnoreCase("leg extension")) {
+        } 
+        else if (exerciseList.get(position).getName().equalsIgnoreCase("leg extension")) 
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.legextension);
-        } else if (exerciseList.get(position).getName().equalsIgnoreCase("calf raise")) {
+        } 
+        else if (exerciseList.get(position).getName().equalsIgnoreCase("calf raise")) 
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.calfraisenobg);
-        } else if (exerciseList.get(position).getName().equalsIgnoreCase("lunges")) {
+        } 
+        else if (exerciseList.get(position).getName().equalsIgnoreCase("lunges")) 
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.lunge);
-        } else if (exerciseList.get(position).getName().contains("Running (High Tempo") ||
+        } 
+        else if (exerciseList.get(position).getName().contains("Running (High Tempo") ||
                 exerciseList.get(position).getName().contains("Running (Low Tempo")||
                 exerciseList.get(position).getName().contains("Trail Running")||
                 exerciseList.get(position).getName().contains("Running")||
-                exerciseList.get(position).getName().contains("Sprinting")) {
+                exerciseList.get(position).getName().contains("Sprinting")) 
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.runningnobg);
         }
-        else if (Tester.isLegExercise(exerciseList.get(position).getName())) {
+        else if (Tester.isLegExercise(exerciseList.get(position).getName())) 
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.legnobg);
-        } else if (exerciseList.get(position).getName().contains("Deadlift")) {
+        } 
+        else if (exerciseList.get(position).getName().contains("Deadlift")) 
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.barbelldeadlift);
-        } else if (exerciseList.get(position).getName().contains("Rowing")) {
+        } 
+        else if (exerciseList.get(position).getName().contains("Rowing")) 
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.rowingmachine);
-        } else if (exerciseList.get(position).getName().equalsIgnoreCase("Pull-up")) {
+        } 
+        else if (exerciseList.get(position).getName().equalsIgnoreCase("Pull-up")) 
+        {
             holder.binding.imageExercise.setImageResource(R.drawable.pullup);
-        } else if (Tester.isBackExercise(exerciseList.get(position).getName())) {
+        } 
+        else if (Tester.isBackExercise(exerciseList.get(position).getName())) {
+             if(exerciseList.get(position).getName().contains("Dumbbell Row"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.dumbbellrow);
+            }
+            else if(exerciseList.get(position).getName().contains("Inverted Row"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.invertedrow);
+            }
             holder.binding.imageExercise.setImageResource(R.drawable.backnobg);
         } else if (Tester.isBicepsExercise(exerciseList.get(position).getName())) {
             if (exerciseList.get(position).getName().equalsIgnoreCase("barbell curl"))
@@ -97,21 +126,77 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
             {
                 holder.binding.imageExercise.setImageResource(R.drawable.hammercurl);
             }
+            else if (exerciseList.get(position).getName().equalsIgnoreCase("Reverse curl"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.reversecurl);
+            }
+            else if (exerciseList.get(position).getName().equalsIgnoreCase("alternating hammer curl"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.alternatinghammercurl);
+            }
+            else if (exerciseList.get(position).getName().equalsIgnoreCase("Cable hammer curl"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.cablehammercurl);
+            }
             else if (exerciseList.get(position).getName().equalsIgnoreCase("incline dumbbel curl"))
             {
                 holder.binding.imageExercise.setImageResource(R.drawable.inclinedumbbelcurl);
             }
         } else if (Tester.isTricepsExercise(exerciseList.get(position).getName())) {
-            if (exerciseList.get(position).getName().contains("Dip")) {
-                holder.binding.imageExercise.setImageResource(R.drawable.benchdips);
-            } else if (exerciseList.get(position).getName().contains("Pushdown") ||
-                    exerciseList.get(position).getName().contains("Extension")) {
-                holder.binding.imageExercise.setImageResource(R.drawable.tricepspressdown);
-            } else if (exerciseList.get(position).getName().contains("Kickback")) {
-                holder.binding.imageExercise.setImageResource(R.drawable.kickback);
-            } else {
-                holder.binding.imageExercise.setImageResource(R.drawable.triceps);
+            if (exerciseList.get(position).getName().equalsIgnoreCase("Skull Crusher"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.skullcrusher);
             }
+            else if (exerciseList.get(position).getName().equalsIgnoreCase("Triceps Bench Dip"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.tricepsbenchdips);
+            }
+            else if (exerciseList.get(position).getName().equalsIgnoreCase("Overhead Dumbbell Triceps Press"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.overheaddumbelltricepspress);
+            }
+            else if (exerciseList.get(position).getName().equalsIgnoreCase("Triceps Cable Kickback"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.tricepscablekickback);
+            }
+            else if (exerciseList.get(position).getName().equalsIgnoreCase("Triceps Dips"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.tricepsdips);
+            }
+            else if (exerciseList.get(position).getName().equalsIgnoreCase("Overhead Triceps Extension"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.overheadtricepsextension);
+            }
+            else if (exerciseList.get(position).getName().equalsIgnoreCase("Triceps Kickback"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.kickback);
+            }
+            else if (exerciseList.get(position).getName().equalsIgnoreCase("Triceps Push Down"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.tricepspressdown);
+            }
+            else if (exerciseList.get(position).getName().equalsIgnoreCase("Triceps Triceps Rope Push down"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.tricepsropepushdown);
+            }
+            else if (exerciseList.get(position).getName().equalsIgnoreCase("Triceps Rope Overhead Extension"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.tricepsropeoverheadextension);
+            }
+            else if (exerciseList.get(position).getName().equalsIgnoreCase("Dumbbell Triceps Extension"))
+            {
+                holder.binding.imageExercise.setImageResource(R.drawable.dumbbelltricepsextension);
+            }
+            // if (exerciseList.get(position).getName().contains("Dip")) {
+            //     holder.binding.imageExercise.setImageResource(R.drawable.benchdips);
+            // } else if (exerciseList.get(position).getName().contains("Pushdown") ||
+            //         exerciseList.get(position).getName().contains("Extension")) {
+            //     holder.binding.imageExercise.setImageResource(R.drawable.tricepspressdown);
+            // } else if (exerciseList.get(position).getName().contains("Kickback")) {
+            //     holder.binding.imageExercise.setImageResource(R.drawable.kickback);
+            // } else {
+            //     holder.binding.imageExercise.setImageResource(R.drawable.triceps);
+            // }
         }
         else if (exerciseList.get(position).getName().contains("Swimming"))
         {
