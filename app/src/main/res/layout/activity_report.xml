@@ -65,17 +65,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/resultText"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/border"
             android:layout_marginStart="75dp"
+            android:layout_marginTop="14dp"
             android:layout_marginEnd="75dp"
-            android:text="Display Bar Chart Report" />
+            android:background="@drawable/border"
+            android:text="Display Report" />
+
+        <Button
+            android:id="@+id/buttonClear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="230dp"
+            android:layout_marginEnd="75dp"
+            android:background="@drawable/border"
+            android:text="Clear" />
+
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChart"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:layout_below="@id/buttonWeeklyReport"
+            android:layout_below="@id/buttonClear"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp" />

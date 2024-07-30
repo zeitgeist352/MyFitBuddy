@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -82,6 +83,10 @@ public class ReportActivity extends AppCompatActivity {
             reportType = "weekly";
             setTexts(currentUser.getUid(), reportType);
             updateBarChart();
+        });
+
+        binding.buttonClear.setOnClickListener(v -> {
+            clearBarChart();
         });
 
         nutrientList = new NutrientList(new ArrayList<>());
@@ -215,5 +220,12 @@ public class ReportActivity extends AppCompatActivity {
         barChart.getAxisRight().setEnabled(false);
 
         barChart.getDescription().setEnabled(false);
+    }
+
+    private void clearBarChart()
+    {
+        barChart.clear();
+        barChart.invalidate();
+        Toast.makeText(this, "Bar chart has been cleared", Toast.LENGTH_SHORT).show();
     }
 }
