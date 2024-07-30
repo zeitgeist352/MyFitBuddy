@@ -33,14 +33,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.myfitbuddy.R;
 import com.myfitbuddy.databinding.ActivityNutrientBinding;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class NutrientActivity extends AppCompatActivity {
 
-    //defining private variables
     private static final String TAG = "NutrientActivity";
     private TextView textViewCalories;
     private TextView textViewProtein;
@@ -64,13 +62,6 @@ public class NutrientActivity extends AppCompatActivity {
     private NutrientData nutrientData;
     private ArrayList<String> nutrientNames;
 
-    private chartMonday mondayChart;
-    private chartTuesday tuesdayChart;
-    private chartWednesday wednesdayChart;
-    private chartThursday thursdayChart;
-    private chartFriday fridayChart;
-    private chartSaturday saturdayChart;
-    private chartSunday sundayChart;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -142,14 +133,6 @@ public class NutrientActivity extends AppCompatActivity {
             }
         });
 
-        // Creates days for intaken calories chart
-        mondayChart = new chartMonday();
-        tuesdayChart = new chartTuesday();
-        wednesdayChart = new chartWednesday();
-        thursdayChart = new chartThursday();
-        fridayChart = new chartFriday();
-        saturdayChart = new chartSaturday();
-        sundayChart = new chartSunday();
 
         // Set button click listener
         buttonAddNutrient.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +152,6 @@ public class NutrientActivity extends AppCompatActivity {
         updateNutrientInfo();
     }
 
-    //it loads nutrients from database
     private void loadNutrientsFromFirebase() {
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -234,41 +216,40 @@ public class NutrientActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-/* bu methoda gerek yok diger methodlar icersinde ayrı bir sekilde yazıldı
-    private void showEnterGramsDialog(final Nutrient selectedNutrient) {
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_enter_grams);
+    /* bu methoda gerek yok diger methodlar icersinde ayrı bir sekilde yazıldı
+        private void showEnterGramsDialog(final Nutrient selectedNutrient) {
+            final Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.dialog_enter_grams);
 
-        final EditText editTextGrams = dialog.findViewById(R.id.editText_grams);
-        Button buttonSave = dialog.findViewById(R.id.button_save_grams);
+            final EditText editTextGrams = dialog.findViewById(R.id.editText_grams);
+            Button buttonSave = dialog.findViewById(R.id.button_save_grams);
 
-        buttonSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String gramsStr = editTextGrams.getText().toString().trim();
-                if (!gramsStr.isEmpty()) {
-                    int grams = Integer.parseInt(gramsStr);
-                    Nutrient nutrientWithGrams = NutrientData.getNutrient(selectedNutrient.getName());
-                    nutrientWithGrams.setGrams(grams);
+            buttonSave.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String gramsStr = editTextGrams.getText().toString().trim();
+                    if (!gramsStr.isEmpty()) {
+                        int grams = Integer.parseInt(gramsStr);
+                        Nutrient nutrientWithGrams = NutrientData.getNutrient(selectedNutrient.getName());
+                        nutrientWithGrams.setGrams(grams);
 
-                    // Add the nutrient to the list and update UI
-                    nutrientList.addNutrient(nutrientWithGrams);
-                    nutrientAdapter.notifyDataSetChanged();
-                    updateNutrientInfo();
+                        // Add the nutrient to the list and update UI
+                        nutrientList.addNutrient(nutrientWithGrams);
+                        nutrientAdapter.notifyDataSetChanged();
+                        updateNutrientInfo();
 
-                    // Save to Firebase
-                    databaseReference.child(currentUser.getUid()).push().setValue(nutrientWithGrams);
-                    saveNutrientToFirestore(nutrientWithGrams);
+                        // Save to Firebase
+                        databaseReference.child(currentUser.getUid()).push().setValue(nutrientWithGrams);
+                        saveNutrientToFirestore(nutrientWithGrams);
 
-                    dialog.dismiss();
+                        dialog.dismiss();
+                    }
                 }
-            }
-        });
+            });
 
-        dialog.show();
-    }
-*/
-    //it shows the nutrient details
+            dialog.show();
+        }
+    */
     private void showAddNutrientDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.add_nutrient);
@@ -301,8 +282,6 @@ public class NutrientActivity extends AppCompatActivity {
                 nutrientAdapter.notifyDataSetChanged();
                 updateNutrientInfo();
 
-                updateChartWithIntakeCalories(calories);
-
                 dialog.dismiss();
             }
         });
@@ -310,7 +289,6 @@ public class NutrientActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    //it saves the nutrient to the firestore
     private void saveNutrientToFirestore(Nutrient nutrient) {
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -327,11 +305,9 @@ public class NutrientActivity extends AppCompatActivity {
                     .addOnSuccessListener(aVoid -> Log.d("Firebase", "Nutrient data saved successfully"))
                     .addOnFailureListener(e -> Log.d("Firebase", "Error saving nutrient data", e));
 
-            updateChartWithIntakeCalories(nutrient.getCalories());
         }
     }
 
-    //it helps us to delete the nutrient from the database
     private void deleteNutrientFromFirebase(Nutrient nutrient) {
         if (currentUser != null) {
             String userId = currentUser.getUid();
@@ -365,7 +341,6 @@ public class NutrientActivity extends AppCompatActivity {
         }
     }
 
-    //it updates the nutritient's information such as calories or protein
     private void updateNutrientInfo() {
         textViewCalories.setText("Calories: " + nutrientList.getTotalCalories() + " kcal");
         textViewProtein.setText("Protein: " + nutrientList.getTotalProteins() + " g");
@@ -373,34 +348,5 @@ public class NutrientActivity extends AppCompatActivity {
         textViewFat.setText("Fat: " + nutrientList.getTotalFats() + " g");
     }
 
-    //it updates the chart with intake calories
-    private void updateChartWithIntakeCalories(double calories) {
-        //defining and initializing variables
-        LocalDateTime today = LocalDateTime.now();
-        int dayOfWeek = today.getDayOfWeek().getValue();
 
-        switch (dayOfWeek) {
-            case 1: // Monday
-                mondayChart.setIntakedCalories(mondayChart.getIntakedCalories() + calories);
-                break;
-            case 2: // Tuesday
-                tuesdayChart.setIntakedCalories(tuesdayChart.getIntakedCalories() + calories);
-                break;
-            case 3: // Wednesday
-                wednesdayChart.setIntakedCalories(wednesdayChart.getIntakedCalories() + calories);
-                break;
-            case 4: // Thursday
-                thursdayChart.setIntakedCalories(thursdayChart.getIntakedCalories() + calories);
-                break;
-            case 5: // Friday
-                fridayChart.setIntakedCalories(fridayChart.getIntakedCalories() + calories);
-                break;
-            case 6: // Saturday
-                saturdayChart.setIntakedCalories(saturdayChart.getIntakedCalories() + calories);
-                break;
-            case 7: // Sunday
-                sundayChart.setIntakedCalories(sundayChart.getIntakedCalories() + calories);
-                break;
-        }
-    }
 }
