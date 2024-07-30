@@ -2,11 +2,13 @@ package com;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.myfitbuddy.R;
 import com.myfitbuddy.databinding.ActivityReportBinding;
 import com.nutrition.Nutrient;
 import com.nutrition.NutrientList;
@@ -88,6 +91,37 @@ public class ReportActivity extends AppCompatActivity {
 
         binding.buttonClear.setOnClickListener(v -> {
             clearBarChart();
+        });
+
+        binding.buttonAdd.setOnClickListener(v ->{
+            String day; //=get day from spinner
+            //spinnerı bağlamak lazım buradan (dialog_select_day.xml)
+            //add buttonunu dialoga bağlamak gerek (activity_report.xml)
+            BarData barData = barChart.getData(); //bar charttaki data
+            //clear methoduna bakın orada alma değiştirme işleri var fikir verir
+            //asagıda boş show dialog methodu var oradan spinnerı ekrana çıkarıp kullanıcının
+            //gün seçmesini sağlamak gerekiyor
+            //nutrient activity.java dan bakıp yapabilirsiniz aynısı değil ama mantıken benziyor dialog vs
+
+            if(day.equals("Monday"))
+            {
+                //get data of monday from barchart index 0
+
+            }
+            else if(day.equals("Tuesday"))
+            {
+                //index 1
+            }
+            else if(day.equals("Wednesday"))
+            {
+                //aynı devam
+            }
+            else if(day.equals("Thursday"))
+            {
+
+            }
+
+            barChart.invalidate();
         });
 
         nutrientList = new NutrientList(new ArrayList<>());
@@ -236,5 +270,14 @@ public class ReportActivity extends AppCompatActivity {
         }
         barChart.invalidate();
         Toast.makeText(this, "Bar chart has been cleared", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showSelectDayDialog()
+    {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.activity_report);
+        final EditText editTextDay = dialog.findViewById(R.id.day_edit_text);
+
+
     }
 }

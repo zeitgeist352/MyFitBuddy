@@ -94,8 +94,6 @@
             android:background="@drawable/border"
             android:text="Add" />
 
-
-
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChart"
             android:layout_width="match_parent"
