@@ -52,6 +52,17 @@ To get started with MyFitBuddy, follow these steps:
 	    androidTestImplementation("androidx.test.ext:junit:1.1.3")
 	    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
+# Personal Logs
+
+Onur Ege YAKAR
+
+24-30 June/ Main Activity and Login Activities(Sign In, Sign Up activities)
+1-7 July/ Main Activity, Information Activites and their GUIs
+8-14 July/ Settings Activities(Change PW, Settings Activity), Feedback Activity
+15-21 July/ Nutrition Classes(Activity,Data,Adapter) and GUIs
+22-28 July/ Report Activity, DaysBar
+29 July-2 August/ Forgot PW Activity, UI Improvements, Some DB Nuances
+
 # Feedback and Support
 
 For any feedback or support, please contact our support team at ege.yakar@ug.bilkent.com. We are here to help you make the most out of MyFitBuddy.
