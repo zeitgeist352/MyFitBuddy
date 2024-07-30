@@ -62,24 +62,38 @@
 
         <Button
             android:id="@+id/buttonWeeklyReport"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/resultText"
-            android:layout_marginStart="75dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="75dp"
             android:background="@drawable/border"
             android:text="Display Report" />
 
+
         <Button
             android:id="@+id/buttonClear"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="75dp"
-            android:layout_marginTop="230dp"
+            android:layout_below="@id/resultText"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="14dp"
             android:layout_marginEnd="75dp"
             android:background="@drawable/border"
             android:text="Clear" />
+
+        <Button
+            android:id="@+id/buttonAdd"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/resultText"
+            android:layout_marginStart="280dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="75dp"
+            android:background="@drawable/border"
+            android:text="Add" />
+
 
 
         <com.github.mikephil.charting.charts.BarChart

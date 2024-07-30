@@ -19,6 +19,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -224,7 +225,15 @@ public class ReportActivity extends AppCompatActivity {
 
     private void clearBarChart()
     {
-        barChart.clear();
+        BarData barData = barChart.getData();
+        for(IBarDataSet dataSet : barData.getDataSets())
+        {
+            for(int i = 0; i < dataSet.getEntryCount(); i++)
+            {
+                BarEntry entry = dataSet.getEntryForIndex(i);
+                entry.setY(0);
+            }
+        }
         barChart.invalidate();
         Toast.makeText(this, "Bar chart has been cleared", Toast.LENGTH_SHORT).show();
     }
