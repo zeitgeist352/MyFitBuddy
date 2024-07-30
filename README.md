@@ -56,12 +56,12 @@ To get started with MyFitBuddy, follow these steps:
 
 Onur Ege YAKAR
 
-24-30 June/ Main Activity and Login Activities(Sign In, Sign Up activities)
-1-7 July/ Main Activity, Information Activites and their GUIs
-8-14 July/ Settings Activities(Change PW, Settings Activity), Feedback Activity
-15-21 July/ Nutrition Classes(Activity,Data,Adapter) and GUIs
-22-28 July/ Report Activity, DaysBar
-29 July-2 August/ Forgot PW Activity, UI Improvements, Some DB Nuances
+24-30 June/ Main Activity and Login Activities(Sign In, Sign Up activities) <br/>
+1-7 July/ Main Activity, Information Activites and their GUIs <br/>
+8-14 July/ Settings Activities(Change PW, Settings Activity), Feedback Activity <br/>
+15-21 July/ Nutrition Classes(Activity,Data,Adapter) and GUIs <br/>
+22-28 July/ Report Activity, DaysBar <br/>
+29 July-2 August/ Forgot PW Activity, UI Improvements, Some DB Nuances <br/>
 
 # Feedback and Support
 
