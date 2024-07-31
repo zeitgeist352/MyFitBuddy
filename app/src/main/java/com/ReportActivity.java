@@ -117,6 +117,7 @@ public class ReportActivity extends AppCompatActivity {
             saveDataToFirebase(day,calories);
             BarData barData = barChart.getData();
             BarDataSet dataSet = (BarDataSet)barData.getDataSetByIndex(0);
+            BarDataSet dataSetBurn = (BarDataSet)barData.getDataSetByIndex(1);
 
             switch (day) {
                 case "Monday":
