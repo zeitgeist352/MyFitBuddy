@@ -53,6 +53,8 @@ public class ReportActivity extends AppCompatActivity {
     private DocumentReference documentReference;
     private NutrientList nutrientList;
     private final int kcalConst = 7700;
+    private int countDay = 0;
+    private Number pointsA;
 
     private ActivityReportBinding binding;
 
@@ -62,6 +64,7 @@ public class ReportActivity extends AppCompatActivity {
     private BarChart barChart;
     private String reportType = "weekly";
     private EditText editTextDay;
+    private Button selectDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,23 +87,22 @@ public class ReportActivity extends AppCompatActivity {
         resultText = binding.resultText;
         barChart = binding.barChart;
 
-        barChart.setVisibility(View.INVISIBLE);
-
-        binding.buttonWeeklyReport.setOnClickListener(v -> {
-            barChart.setVisibility(View.VISIBLE);
-            reportType = "weekly";
-            setTexts(currentUser.getUid(), reportType);
-            updateBarChart();
-        });
+        barChart.setVisibility(View.VISIBLE);
 
         binding.buttonClear.setOnClickListener(v -> {
             clearBarChart();
         });
 
+        Button selectDayButton = findViewById(R.id.selectDayButton);
+        selectDayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showSelectDayDialog();
+            }
+        });
+
         binding.buttonAdd.setOnClickListener(v ->{
-            showSelectDayDialog();
-            editTextDay = findViewById(R.id.dayEditText);
-            String day = String.valueOf(editTextDay.getText());
+            String day = String.valueOf(selectDayButton.getText());
             BarData barData = barChart.getData();
             BarDataSet dataSet = (BarDataSet)barData.getDataSetByIndex(0);
 
@@ -138,9 +140,8 @@ public class ReportActivity extends AppCompatActivity {
 
         nutrientList = new NutrientList(new ArrayList<>());
         loadNutrientsFromDb();
-
         setTexts(currentUser.getUid(), reportType);
-        updateBarChart();
+        updateBarChart(currentUser.getUid());
     }
 
     private void loadNutrientsFromDb() {
@@ -156,7 +157,8 @@ public class ReportActivity extends AppCompatActivity {
                         nutrientList.addNutrient(nutrient);
                     }
                     calculateBurn(currentUser.getUid());
-                    updateBarChart();
+                    updateBarChart(currentUser.getUid());
+
                 }
 
                 @Override
@@ -166,7 +168,7 @@ public class ReportActivity extends AppCompatActivity {
             });
         }
     }
-    
+
     private void calculateBurn(String userId) {
         db = FirebaseFirestore.getInstance();
         documentReference = db.collection("Users").document(userId);
@@ -190,11 +192,60 @@ public class ReportActivity extends AppCompatActivity {
             calcBalance(thisWeekPoints);
         });
     }
+    private void calculateDays(String userId){
+        db = FirebaseFirestore.getInstance();
+        documentReference = db.collection("Users").document(userId);
+        documentReference.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()){
+                Boolean monday = documentSnapshot.getBoolean("isMondayEligible");
+                if (monday == true){
+                    countDay++;
+                }
+            }
+            if (documentSnapshot.exists()) {
+                Boolean tuesday = documentSnapshot.getBoolean("isTuesdayEligible");
+                if (tuesday == true) {
+                            countDay++;
+                }
+            }
+            if (documentSnapshot.exists()) {
+                Boolean wednesday = documentSnapshot.getBoolean("isWednesdayEligible");
+                if (wednesday == true) {
+                    countDay++;
+                }
+            }
+            if (documentSnapshot.exists()) {
+                Boolean thursday = documentSnapshot.getBoolean("isThursdayEligible");
+                if (thursday == true) {
+                    countDay++;
+                }
+            }
+            if (documentSnapshot.exists()) {
+                Boolean friday = documentSnapshot.getBoolean("isFridayEligible");
+                if (friday == true) {
+                    countDay++;
+                }
+            }
+            if (documentSnapshot.exists()) {
+                Boolean saturday = documentSnapshot.getBoolean("isSaturdayEligible");
+                if (saturday == true) {
+                    countDay++;
+                }
+            }
+            if (documentSnapshot.exists()) {
+                Boolean Sunday = documentSnapshot.getBoolean("isSundayEligible");
+                if (Sunday == true) {
+                    countDay++;
+                }
+            }
+        });
+    }
 
     //it gives a burns kcal message
     private void setTexts(String userId, String reportType) {
         db = FirebaseFirestore.getInstance();
         documentReference = db.collection("Users").document(userId);
+        calculateDays(userId);
         documentReference.get().addOnSuccessListener(documentSnapshot -> {
             if (documentSnapshot.exists()) {
                 Number pointsNumber = documentSnapshot.getLong("points");
@@ -229,44 +280,108 @@ public class ReportActivity extends AppCompatActivity {
         }
     }
 
-    private void updateBarChart() {
+    private void updateBarChart(String userId) {
         List<BarEntry> intakeEntries = new ArrayList<>();
         List<BarEntry> burnEntries = new ArrayList<>();
 
-        for (int day = 0; day < 7; day++) {
-            intakeEntries.add(new BarEntry(day, (float) nutrientList.getTotalCalories()));
-            burnEntries.add(new BarEntry(day, (float) thisWeekPoints));
-        }
+        db = FirebaseFirestore.getInstance();
+        documentReference = db.collection("Users").document(userId);
+        documentReference.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                pointsA = documentSnapshot.getLong("points");
+                if (pointsA != null && countDay > 0) {
+                    int points = pointsA.intValue();
+                        intakeEntries.add(new BarEntry(0, 0));
+                        if (documentSnapshot.getBoolean("isMondayEligible")) {
+                            burnEntries.add(new BarEntry(0, points* 3 / countDay));
+                    }
+                        else{
+                            burnEntries.add(new BarEntry(0, 0));
 
-        BarDataSet intakeDataSet = new BarDataSet(intakeEntries, "Calorie Intake");
-        intakeDataSet.setColor(Color.GREEN);
+                        }
+                    intakeEntries.add(new BarEntry(1, 0));
+                    if (documentSnapshot.getBoolean("isTuesdayEligible")) {
+                        burnEntries.add(new BarEntry(1, points * 3/ countDay));
+                    }
+                    else{
+                        burnEntries.add(new BarEntry(1, 0));
 
-        BarDataSet burnDataSet = new BarDataSet(burnEntries, "Calorie Burn");
-        burnDataSet.setColor(Color.RED);
+                    }
+                    intakeEntries.add(new BarEntry(2, 0));
+                    if (documentSnapshot.getBoolean("isWednesdayEligible")) {
+                        burnEntries.add(new BarEntry(2, points * 3/ countDay));
+                    }
+                    else{
+                        burnEntries.add(new BarEntry(2, 0));
 
-        BarData barData = new BarData(intakeDataSet, burnDataSet);
-        barData.setBarWidth(0.3f);
+                    }
+                    intakeEntries.add(new BarEntry(3, 0));
+                    if (documentSnapshot.getBoolean("isThursdayEligible")) {
+                        burnEntries.add(new BarEntry(3, points * 3 / countDay));
+                    }
+                    else{
+                        burnEntries.add(new BarEntry(3, 0));
 
-        barChart.setData(barData);
-        barChart.groupBars(0f, 0.4f, 0.02f);
+                    }
+                    intakeEntries.add(new BarEntry(4, 0));
+                    if (documentSnapshot.getBoolean("isFridayEligible")) {
+                        burnEntries.add(new BarEntry(4, points * 3/ countDay));
+                    }
+                    else{
+                        burnEntries.add(new BarEntry(4, 0));
 
-        barChart.invalidate();
+                    }
+                    intakeEntries.add(new BarEntry(5, 0));
+                    if (documentSnapshot.getBoolean("isSaturdayEligible")) {
+                        burnEntries.add(new BarEntry(5, points *3 / countDay));
+                    }
+                    else{
+                        burnEntries.add(new BarEntry(5, 0));
 
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return "Day " + (int) value;
+                    }
+                    intakeEntries.add(new BarEntry(6, 0));
+                    if (documentSnapshot.getBoolean("isSundayEligible")) {
+                        burnEntries.add(new BarEntry(6, points * 3 / countDay));
+                    }
+                    else{
+                        burnEntries.add(new BarEntry(6, 0));
+
+                    }
+
+                    BarDataSet intakeDataSet = new BarDataSet(intakeEntries, "Calorie Intake");
+                    intakeDataSet.setColor(Color.GREEN);
+
+                    BarDataSet burnDataSet = new BarDataSet(burnEntries, "Calorie Burn");
+                    burnDataSet.setColor(Color.RED);
+
+                    BarData barData = new BarData(intakeDataSet, burnDataSet);
+                    barData.setBarWidth(0.3f);
+
+                    barChart.setData(barData);
+                    barChart.groupBars(0f, 0.4f, 0.02f);
+                    barChart.invalidate();
+
+                    XAxis xAxis = barChart.getXAxis();
+                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                    xAxis.setGranularity(1f);
+                    xAxis.setValueFormatter(new ValueFormatter() {
+                        @Override
+                        public String getFormattedValue(float value) {
+                            return "Day " + (int) value;
+                        }
+                    });
+
+                    YAxis leftAxis = barChart.getAxisLeft();
+                    leftAxis.setAxisMinimum(0f);
+                    barChart.getAxisRight().setEnabled(false);
+                    barChart.getDescription().setEnabled(false);
+                } else {
+                    Log.e("ReportActivity", "Invalid data: pointsA=" + pointsA + ", countDay=" + countDay);
+                }
             }
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "Error fetching document", e);
         });
-
-        YAxis leftAxis = barChart.getAxisLeft();
-        leftAxis.setAxisMinimum(0f);
-        barChart.getAxisRight().setEnabled(false);
-
-        barChart.getDescription().setEnabled(false);
     }
 
     private void clearBarChart()
@@ -284,13 +399,17 @@ public class ReportActivity extends AppCompatActivity {
         Toast.makeText(this, "Bar chart has been cleared", Toast.LENGTH_SHORT).show();
     }
 
-    private void showSelectDayDialog()
-    {
+    private void showSelectDayDialog() {
         final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.activity_report);
-        final EditText editTextDay = dialog.findViewById(R.id.dayEditText);
+        dialog.setContentView(R.layout.dialog_select_day); // Assuming you have a separate layout for the dialog
+
         final Spinner daySpinner = dialog.findViewById(R.id.day_spinner);
         final Button okButton = dialog.findViewById(R.id.ok_button);
+
+        if (daySpinner == null || okButton == null) {
+            Log.e("ReportActivity", "Spinner or Button is not properly initialized. Check layout.");
+            return; // Handle the error accordingly
+        }
 
         String[] daysOfWeek = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, daysOfWeek);
@@ -300,11 +419,13 @@ public class ReportActivity extends AppCompatActivity {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String day = (String)daySpinner.getSelectedItem();
-                editTextDay.setText(day);
+                String selectedDay = (String) daySpinner.getSelectedItem();
+                Button selectDayButton = findViewById(R.id.selectDayButton);
+                selectDayButton.setText(selectedDay);
                 dialog.dismiss();
             }
         });
+
         dialog.show();
     }
 }
