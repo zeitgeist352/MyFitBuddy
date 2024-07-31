@@ -36,7 +36,7 @@ public class PreferredDaysActivity extends AppCompatActivity {
             userInfoHolder.setThursdayEligible(binding.checkBoxThu.isChecked());
             userInfoHolder.setFridayEligible(binding.checkBoxFri.isChecked());
             userInfoHolder.setSaturdayEligible(binding.checkBoxSat.isChecked());
-            userInfoHolder.setFridayEligible(binding.checkBoxSun.isChecked());
+            userInfoHolder.setSundayEligible(binding.checkBoxSun.isChecked());
 
             userInfoHolder.printPrefDays();
 

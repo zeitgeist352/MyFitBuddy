@@ -68,7 +68,8 @@
             android:layout_below="@id/consumedCaloriesText"
             android:layout_marginStart="275dp"
             android:layout_marginTop="44dp"
-            android:background="@drawable/border"
+            android:textColor="@color/grey"
+            android:background="@drawable/border2"
             android:text="Select Day" />
 
         <Button

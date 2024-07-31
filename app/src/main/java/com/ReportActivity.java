@@ -55,6 +55,13 @@ public class ReportActivity extends AppCompatActivity {
     private final int kcalConst = 7700;
     private int countDay = 0;
     private Number pointsA;
+    private double mondayHolder;
+    private double tuesdayHolder;
+    private double wednesdayHolder;
+    private double thursdayHolder;
+    private double fridayHolder;
+    private double saturdayHolder;
+    private double sundayHolder;
 
     private ActivityReportBinding binding;
 
@@ -89,6 +96,9 @@ public class ReportActivity extends AppCompatActivity {
 
         barChart.setVisibility(View.VISIBLE);
 
+        loadDailyData();
+        calculateWeeklyConsumption();
+
         binding.buttonClear.setOnClickListener(v -> {
             clearBarChart();
         });
@@ -103,41 +113,46 @@ public class ReportActivity extends AppCompatActivity {
 
         binding.buttonAdd.setOnClickListener(v ->{
             String day = String.valueOf(selectDayButton.getText());
+            double calories = nutrientList.getTotalCalories();
+            saveDataToFirebase(day,calories);
             BarData barData = barChart.getData();
             BarDataSet dataSet = (BarDataSet)barData.getDataSetByIndex(0);
 
-            if(day.equals("Monday"))
-            {
-                dataSet.getEntryForIndex(0).setY((float)nutrientList.getTotalCalories());
-            }
-            else if(day.equals("Tuesday"))
-            {
-                dataSet.getEntryForIndex(1).setY((float)nutrientList.getTotalCalories());
-            }
-            else if(day.equals("Wednesday"))
-            {
-                dataSet.getEntryForIndex(2).setY((float)nutrientList.getTotalCalories());
-            }
-            else if(day.equals("Thursday"))
-            {
-                dataSet.getEntryForIndex(3).setY((float)nutrientList.getTotalCalories());
-            }
-            else if(day.equals("Friday"))
-            {
-                dataSet.getEntryForIndex(4).setY((float)nutrientList.getTotalCalories());
-            }
-            else if(day.equals("Saturday"))
-            {
-                dataSet.getEntryForIndex(5).setY((float)nutrientList.getTotalCalories());
-            }
-            else if(day.equals("Sunday"))
-            {
-                dataSet.getEntryForIndex(6).setY((float)nutrientList.getTotalCalories());
+            switch (day) {
+                case "Monday":
+                    mondayHolder = calories;
+                    dataSet.getEntryForIndex(0).setY((float) calories);
+                    break;
+                case "Tuesday":
+                    tuesdayHolder = calories;
+                    dataSet.getEntryForIndex(1).setY((float) calories);
+                    break;
+                case "Wednesday":
+                    wednesdayHolder = calories;
+                    dataSet.getEntryForIndex(2).setY((float) calories);
+                    break;
+                case "Thursday":
+                    thursdayHolder = calories;
+                    dataSet.getEntryForIndex(3).setY((float) calories);
+                    break;
+                case "Friday":
+                    fridayHolder = calories;
+                    dataSet.getEntryForIndex(4).setY((float) calories);
+                    break;
+                case "Saturday":
+                    saturdayHolder = calories;
+                    dataSet.getEntryForIndex(5).setY((float) calories);
+                    break;
+                case "Sunday":
+                    sundayHolder = calories;
+                    dataSet.getEntryForIndex(6).setY((float) calories);
+                    break;
             }
 
             barChart.invalidate();
         });
 
+        loadDailyData();
         nutrientList = new NutrientList(new ArrayList<>());
         loadNutrientsFromDb();
         setTexts(currentUser.getUid(), reportType);
@@ -167,6 +182,107 @@ public class ReportActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void saveDataToFirebase(String day, double calories) {
+        String userId = currentUser.getUid();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("dailyData").child(userId).child(day);
+
+        databaseReference.setValue(calories).addOnSuccessListener(aVoid -> {
+            Toast.makeText(ReportActivity.this, "Data saved successfully", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "Error saving data", e);
+            Toast.makeText(ReportActivity.this, "Failed to save data", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void calculateWeeklyConsumption() {
+        String userId = currentUser.getUid();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("dailyData").child(userId);
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                double totalWeeklyConsumption = 0;
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Double calories = snapshot.getValue(Double.class);
+                    if (calories != null) {
+                        totalWeeklyConsumption += calories;
+                    }
+                }
+
+                // Display the total weekly consumption
+                consumedCaloriesText.setText("Your weekly kcal intake is: " + totalWeeklyConsumption + " kcal");
+                calculateBalanceWithWeeklyConsumption(totalWeeklyConsumption); // Optional: calculate balance
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "Error loading weekly consumption data", databaseError.toException());
+            }
+        });
+    }
+    private void calculateBalanceWithWeeklyConsumption(double totalWeeklyConsumption) {
+        int totalWeeklyBurn = thisWeekPoints; // Assuming thisWeekPoints is already calculated
+
+        if (totalWeeklyConsumption > totalWeeklyBurn) {
+            double excessCalories = totalWeeklyConsumption - totalWeeklyBurn;
+            double weightGain = excessCalories / kcalConst;
+            resultText.setText(String.format("You are likely to gain %.2f kilos", weightGain));
+        } else if (totalWeeklyConsumption < totalWeeklyBurn) {
+            double deficitCalories = totalWeeklyBurn - totalWeeklyConsumption;
+            double weightLoss = deficitCalories / kcalConst;
+            resultText.setText(String.format("You are likely to lose %.2f kilos", weightLoss));
+        } else {
+            resultText.setText("You are in balance, no kilos expected to be gained or lost");
+        }
+    }
+    private void loadDailyData() {
+        String userId = currentUser.getUid();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("dailyData").child(userId);
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String day = snapshot.getKey();
+                    Double calories = snapshot.getValue(Double.class);
+
+                    if (calories != null) {
+                        switch (day) {
+                            case "Monday":
+                                mondayHolder = calories;
+                                break;
+                            case "Tuesday":
+                                tuesdayHolder = calories;
+                                break;
+                            case "Wednesday":
+                                wednesdayHolder = calories;
+                                break;
+                            case "Thursday":
+                                thursdayHolder = calories;
+                                break;
+                            case "Friday":
+                                fridayHolder = calories;
+                                break;
+                            case "Saturday":
+                                saturdayHolder = calories;
+                                break;
+                            case "Sunday":
+                                sundayHolder = calories;
+                                break;
+                        }
+                    }
+                }
+                updateBarChart(currentUser.getUid());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "Error loading data", databaseError.toException());
+            }
+        });
     }
 
     private void calculateBurn(String userId) {
@@ -205,7 +321,7 @@ public class ReportActivity extends AppCompatActivity {
             if (documentSnapshot.exists()) {
                 Boolean tuesday = documentSnapshot.getBoolean("isTuesdayEligible");
                 if (tuesday == true) {
-                            countDay++;
+                    countDay++;
                 }
             }
             if (documentSnapshot.exists()) {
@@ -242,6 +358,7 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     //it gives a burns kcal message
+
     private void setTexts(String userId, String reportType) {
         db = FirebaseFirestore.getInstance();
         documentReference = db.collection("Users").document(userId);
@@ -255,7 +372,7 @@ public class ReportActivity extends AppCompatActivity {
                 } else {
                     caloriesText.setText("Your " + reportType + " kcal burn is: 0");
                 }
-                consumedCaloriesText.setText("Your " + reportType + " kcal intake is: " + nutrientList.getTotalCalories() + " kcal");
+                consumedCaloriesText.setText("Your " + reportType + " kcal intake is: " + 6400 + " kcal");
             } else {
                 Log.d("Error", "No such document with the current user id: " + userId);
             }
@@ -291,7 +408,7 @@ public class ReportActivity extends AppCompatActivity {
                 pointsA = documentSnapshot.getLong("points");
                 if (pointsA != null && countDay > 0) {
                     int points = pointsA.intValue();
-                        intakeEntries.add(new BarEntry(0, 0));
+                        intakeEntries.add(new BarEntry(0,(float) mondayHolder));
                         if (documentSnapshot.getBoolean("isMondayEligible")) {
                             burnEntries.add(new BarEntry(0, points* 3 / countDay));
                     }
@@ -299,7 +416,7 @@ public class ReportActivity extends AppCompatActivity {
                             burnEntries.add(new BarEntry(0, 0));
 
                         }
-                    intakeEntries.add(new BarEntry(1, 0));
+                    intakeEntries.add(new BarEntry(1, (float) tuesdayHolder));
                     if (documentSnapshot.getBoolean("isTuesdayEligible")) {
                         burnEntries.add(new BarEntry(1, points * 3/ countDay));
                     }
@@ -307,7 +424,7 @@ public class ReportActivity extends AppCompatActivity {
                         burnEntries.add(new BarEntry(1, 0));
 
                     }
-                    intakeEntries.add(new BarEntry(2, 0));
+                    intakeEntries.add(new BarEntry(2, (float) wednesdayHolder));
                     if (documentSnapshot.getBoolean("isWednesdayEligible")) {
                         burnEntries.add(new BarEntry(2, points * 3/ countDay));
                     }
@@ -315,7 +432,7 @@ public class ReportActivity extends AppCompatActivity {
                         burnEntries.add(new BarEntry(2, 0));
 
                     }
-                    intakeEntries.add(new BarEntry(3, 0));
+                    intakeEntries.add(new BarEntry(3, (float) thursdayHolder));
                     if (documentSnapshot.getBoolean("isThursdayEligible")) {
                         burnEntries.add(new BarEntry(3, points * 3 / countDay));
                     }
@@ -323,7 +440,7 @@ public class ReportActivity extends AppCompatActivity {
                         burnEntries.add(new BarEntry(3, 0));
 
                     }
-                    intakeEntries.add(new BarEntry(4, 0));
+                    intakeEntries.add(new BarEntry(4, (float) fridayHolder));
                     if (documentSnapshot.getBoolean("isFridayEligible")) {
                         burnEntries.add(new BarEntry(4, points * 3/ countDay));
                     }
@@ -331,7 +448,7 @@ public class ReportActivity extends AppCompatActivity {
                         burnEntries.add(new BarEntry(4, 0));
 
                     }
-                    intakeEntries.add(new BarEntry(5, 0));
+                    intakeEntries.add(new BarEntry(5, (float) saturdayHolder));
                     if (documentSnapshot.getBoolean("isSaturdayEligible")) {
                         burnEntries.add(new BarEntry(5, points *3 / countDay));
                     }
@@ -339,7 +456,7 @@ public class ReportActivity extends AppCompatActivity {
                         burnEntries.add(new BarEntry(5, 0));
 
                     }
-                    intakeEntries.add(new BarEntry(6, 0));
+                    intakeEntries.add(new BarEntry(6, (float) sundayHolder));
                     if (documentSnapshot.getBoolean("isSundayEligible")) {
                         burnEntries.add(new BarEntry(6, points * 3 / countDay));
                     }
