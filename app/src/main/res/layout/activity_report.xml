@@ -60,6 +60,15 @@
             android:textSize="18sp"
             android:textStyle="italic" />
 
+        <EditText
+            android:id="@+id/dayEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/consumedCaloriesText"
+            android:layout_marginStart="250dp"
+            android:text="Select Day"
+            android:textSize="18sp"/>
+
         <Button
             android:id="@+id/buttonWeeklyReport"
             android:layout_width="100dp"

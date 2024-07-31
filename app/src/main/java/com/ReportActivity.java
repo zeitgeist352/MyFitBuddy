@@ -8,7 +8,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +61,7 @@ public class ReportActivity extends AppCompatActivity {
     private TextView resultText;
     private BarChart barChart;
     private String reportType = "weekly";
+    private EditText editTextDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,31 +98,39 @@ public class ReportActivity extends AppCompatActivity {
         });
 
         binding.buttonAdd.setOnClickListener(v ->{
-            String day; //=get day from spinner
-            //spinnerı bağlamak lazım buradan (dialog_select_day.xml)
-            //add buttonunu dialoga bağlamak gerek (activity_report.xml)
-            BarData barData = barChart.getData(); //bar charttaki data
-            //clear methoduna bakın orada alma değiştirme işleri var fikir verir
-            //asagıda boş show dialog methodu var oradan spinnerı ekrana çıkarıp kullanıcının
-            //gün seçmesini sağlamak gerekiyor
-            //nutrient activity.java dan bakıp yapabilirsiniz aynısı değil ama mantıken benziyor dialog vs
+            showSelectDayDialog();
+            editTextDay = findViewById(R.id.dayEditText);
+            String day = String.valueOf(editTextDay.getText());
+            BarData barData = barChart.getData();
+            BarDataSet dataSet = (BarDataSet)barData.getDataSetByIndex(0);
 
             if(day.equals("Monday"))
             {
-                //get data of monday from barchart index 0
-
+                dataSet.getEntryForIndex(0).setY((float)nutrientList.getTotalCalories());
             }
             else if(day.equals("Tuesday"))
             {
-                //index 1
+                dataSet.getEntryForIndex(1).setY((float)nutrientList.getTotalCalories());
             }
             else if(day.equals("Wednesday"))
             {
-                //aynı devam
+                dataSet.getEntryForIndex(2).setY((float)nutrientList.getTotalCalories());
             }
             else if(day.equals("Thursday"))
             {
-
+                dataSet.getEntryForIndex(3).setY((float)nutrientList.getTotalCalories());
+            }
+            else if(day.equals("Friday"))
+            {
+                dataSet.getEntryForIndex(4).setY((float)nutrientList.getTotalCalories());
+            }
+            else if(day.equals("Saturday"))
+            {
+                dataSet.getEntryForIndex(5).setY((float)nutrientList.getTotalCalories());
+            }
+            else if(day.equals("Sunday"))
+            {
+                dataSet.getEntryForIndex(6).setY((float)nutrientList.getTotalCalories());
             }
 
             barChart.invalidate();
@@ -276,8 +288,23 @@ public class ReportActivity extends AppCompatActivity {
     {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.activity_report);
-        final EditText editTextDay = dialog.findViewById(R.id.day_edit_text);
+        final EditText editTextDay = dialog.findViewById(R.id.dayEditText);
+        final Spinner daySpinner = dialog.findViewById(R.id.day_spinner);
+        final Button okButton = dialog.findViewById(R.id.ok_button);
 
+        String[] daysOfWeek = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, daysOfWeek);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        daySpinner.setAdapter(adapter);
 
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String day = (String)daySpinner.getSelectedItem();
+                editTextDay.setText(day);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }
