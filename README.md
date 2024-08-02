@@ -63,6 +63,15 @@ Onur Ege YAKAR
 22-28 July/ Report Activity, DaysBar <br/>
 29 July-2 August/ Forgot PW Activity, UI Improvements, Some DB Nuances <br/>
 
+Mehmet DİZDAR
+
+24-30 June/ Nutrient/NutirentList classes, Fundamental exercise classes <br/> 
+1-7 July/ Nutrient Activity class, GUI's, functionality <br/>
+8-14 July/ Forgot Password GUI, Nutrient Select Activity class and it's GUI <br/>
+15-21 July/ Exercise Adapter class, adding exercise images, matching <br/>
+22-28 July/ Bar chart with MPAndroid studio for tracking nutrients <br/>
+29 July-2 August/ Additions to bar chart -> functionality, GUI <br/>
+
 # Feedback and Support
 
 For any feedback or support, please contact our support team at ege.yakar@ug.bilkent.com. We are here to help you make the most out of MyFitBuddy.
