@@ -52,25 +52,7 @@ To get started with MyFitBuddy, follow these steps:
 	    androidTestImplementation("androidx.test.ext:junit:1.1.3")
 	    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
-# Personal Logs
 
-Onur Ege YAKAR
-
-24-30 June/ Main Activity and Login Activities(Sign In, Sign Up activities) <br/>
-1-7 July/ Main Activity, Information Activites and their GUIs <br/>
-8-14 July/ Settings Activities(Change PW, Settings Activity), Feedback Activity <br/>
-15-21 July/ Nutrition Classes(Activity,Data,Adapter) and GUIs <br/>
-22-28 July/ Report Activity, DaysBar <br/>
-29 July-2 August/ Forgot PW Activity, UI Improvements, Some DB Nuances <br/>
-
-Mehmet DİZDAR
-
-24-30 June/ Nutrient/NutirentList classes, Fundamental exercise classes <br/> 
-1-7 July/ Nutrient Activity class, GUI's, functionality <br/>
-8-14 July/ Forgot Password GUI, Nutrient Select Activity class and it's GUI <br/>
-15-21 July/ Exercise Adapter class, adding exercise images, matching <br/>
-22-28 July/ Bar chart with MPAndroid studio for tracking nutrients <br/>
-29 July-2 August/ Additions to bar chart -> functionality, GUI <br/>
 
 # Feedback and Support
 
