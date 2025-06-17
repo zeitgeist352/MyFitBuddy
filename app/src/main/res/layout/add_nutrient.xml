@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:hint="Add New Nutrient"
         android:textSize="20dp"
-        android:textColor="#03A603"/>
+        android:textColor="#B"/>
 
     <EditText
         android:id="@+id/editText_nutrient_name"
@@ -58,6 +58,8 @@
     <Button
         android:id="@+id/button_save_nutrient"
         android:layout_width="match_parent"
+        android:textColor="@color/white"
+        android:background="@drawable/button_bg"
         android:layout_height="wrap_content"
         android:text="Save" />
 </LinearLayout>
