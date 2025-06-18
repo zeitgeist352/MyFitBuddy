@@ -3,105 +3,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ReportActivity">
-
+        tools:context=".ReportActivity"
+        >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarReport"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:navigationIcon="@drawable/baseline_arrow_back_24"
-            tools:ignore="MissingConstraints">
+            app:navigationIcon="@drawable/baseline_arrow_back_24">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Report"
                 android:textColor="@color/white"
-                android:textSize="25dp"
+                android:textSize="22sp"
                 android:layout_gravity="center" />
         </androidx.appcompat.widget.Toolbar>
 
-        <TextView
-            android:id="@+id/caloriesText"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/toolbarReport"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:text="Calories Burned"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/consumedCaloriesText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/caloriesText"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="16dp"
-            android:text="Calories Consumed"
-            android:textStyle="bold"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/caloriesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calories Burned: 0"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/resultText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/consumedCaloriesText"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="16dp"
-            android:text="Balance Result"
-            android:textSize="18sp"
-            android:textStyle="italic" />
+            <TextView
+                android:id="@+id/consumedCaloriesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Calories Consumed: 0"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/resultText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Balance Result: 0"
+                android:textSize="16sp"
+                android:textStyle="italic" />
 
-        <Button
-            android:id="@+id/selectDayButton"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/consumedCaloriesText"
-            android:layout_marginStart="275dp"
-            android:layout_marginTop="44dp"
-            android:textColor="@color/grey"
-            android:background="@drawable/border2"
-            android:text="Select Day" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-        <Button
-            android:id="@+id/buttonClear"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/resultText"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="75dp"
-            android:background="@drawable/border"
-            android:text="Clear" />
+                <Button
+                    android:id="@+id/selectDayButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/border2"
+                    android:text="Select Day"
+                    android:textColor="@color/grey" />
 
-        <Button
-            android:id="@+id/buttonAdd"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/resultText"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="75dp"
-            android:background="@drawable/border"
-            android:text="Add" />
+                <Button
+                    android:id="@+id/buttonAdd"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:text="Add" />
+            </LinearLayout>
+        </LinearLayout>
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChart"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:layout_below="@id/buttonClear"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp" />
+            android:layout_below="@id/linearLayout"
+            android:layout_margin="16dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/border" />
+
+        <Button
+            android:id="@+id/buttonClear"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/barChart"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/border"
+            android:text="Clear" />
 
     </RelativeLayout>
 </layout>

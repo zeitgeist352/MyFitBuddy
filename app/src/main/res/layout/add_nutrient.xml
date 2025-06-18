@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:hint="Add New Nutrient"
         android:textSize="20dp"
-        android:textColor="#B"/>
+        android:textColor="@color/white"/>
 
     <EditText
         android:id="@+id/editText_nutrient_name"
