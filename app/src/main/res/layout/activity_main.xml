@@ -76,7 +76,8 @@
                     android:layout_height="wrap_content"
                     android:text="Fitness  Points \n      Keep Up!"
                     android:textColor="#ffffff"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:layout_marginTop="20dp"/>
             </RelativeLayout>
         </LinearLayout>
     </FrameLayout>

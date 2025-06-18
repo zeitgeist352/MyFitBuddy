@@ -22,7 +22,7 @@
         android:id="@+id/button_prev_goal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="60dp"
         android:layout_marginBottom="60dp"
         android:text="PREVIOUS"
         android:background="@drawable/border"
@@ -75,13 +75,14 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="90dp"
             android:fontFamily="sans-serif-black"
-            android:text="Build Muscle"
+            android:text="Building Muscle"
             android:textSize="24sp" />
     </RadioGroup>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="80dp"
