@@ -15,5 +15,6 @@
         android:id="@+id/ok_button_month"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_bg"
         android:text="OK" />
 </LinearLayout>
