@@ -4,6 +4,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="4dp">
 
     <TextView
         android:id="@+id/textView_nutrient_name"
@@ -15,6 +20,17 @@
         android:textColor="@color/teal_200"
         android:layout_marginBottom="4dp"/>
 
+    <TextView
+        android:id="@+id/in100gramtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" (Nutrition in 100 grams)"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:textColor="#878787"
+        android:layout_marginBottom="4dp"/>
+    </LinearLayout>
+
 
 
     <TextView
@@ -25,6 +41,7 @@
         android:text="Calories: 0 kcal"
         android:textColor="@android:color/white"
         android:textSize="16sp" />
+
 
     <TextView
         android:id="@+id/textView_nutrient_protein"
