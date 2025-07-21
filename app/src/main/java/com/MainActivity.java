@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.myfitbuddy.R;
 import com.myfitbuddy.databinding.ActivityMainBinding;
 import com.nutrition.NutrientActivity;
+import com.report.ReportActivity;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

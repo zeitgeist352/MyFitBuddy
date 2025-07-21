@@ -53,7 +53,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                     Toast.makeText(ForgotPasswordActivity.this, "Reset mail has been sent", Toast.LENGTH_LONG).show();
                                 } else {
                                     // Email does not exist
-                                    Toast.makeText(ForgotPasswordActivity.this, "Email does not exist", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(ForgotPasswordActivity.this, "Account with this address does not exist", Toast.LENGTH_LONG).show();
                                 }
                             } else {
                                 // Error occurred

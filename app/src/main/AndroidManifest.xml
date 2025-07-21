@@ -18,7 +18,7 @@
         <activity android:name="com.Settings.ChangePasswordActivity" android:exported="false" />
         <activity android:name="com.Settings.SettingsActivity" android:exported="false" />
         <activity android:name="com.FeedbackActivity" android:exported="false" />
-        <activity android:name="com.ReportActivity" android:exported="false" />
+        <activity android:name="com.report.ReportActivity" android:exported="false" />
         <activity android:name="com.nutrition.NutrientActivity" android:exported="false"/>
         <activity android:name="com.ProgramActivity.ProgramActivity" android:exported="false" />
         <activity android:name="com.get_info_activites.LoadingInfoSessionSActivity" android:exported="true" />

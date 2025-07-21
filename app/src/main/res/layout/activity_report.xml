@@ -6,9 +6,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ReportActivity"
-        >
+        tools:context=".ReportActivity">
 
+        <!-- Top Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarReport"
             android:layout_width="match_parent"
@@ -25,11 +25,12 @@
                 android:layout_gravity="center" />
         </androidx.appcompat.widget.Toolbar>
 
+        <!-- Summary Section -->
         <LinearLayout
             android:id="@+id/linearLayout"
+            android:layout_below="@id/toolbarReport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/toolbarReport"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -86,22 +87,23 @@
             </LinearLayout>
         </LinearLayout>
 
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChart"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
+        <!-- Daily Progress RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/progressRecyclerView"
             android:layout_below="@id/linearLayout"
-            android:layout_margin="16dp"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/border" />
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_above="@id/buttonClear"
+            android:layout_margin="8dp" />
 
+        <!-- Clear Button -->
         <Button
             android:id="@+id/buttonClear"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/barChart"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/border"
             android:text="Clear" />
 
