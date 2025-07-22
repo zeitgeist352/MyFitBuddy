@@ -35,6 +35,8 @@ public class ReportActivity extends AppCompatActivity {
     private DatabaseReference userRef;
     private String selectedDay = null;
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,8 @@ public class ReportActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Weekly Report");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Enables back arrow
         }
+
+
 
        /* // Toolbar back navigation
         toolbar.setNavigationOnClickListener(v -> {
@@ -91,6 +95,13 @@ public class ReportActivity extends AppCompatActivity {
         // Day selector
         selectDayButton.setOnClickListener(v -> showDaySelectionDialog());
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish(); // Or use finish() if you don't want the default animation
+        return true;
+    }
+
 
     private void loadData() {
         userRef.child("Report").addListenerForSingleValueEvent(new ValueEventListener() {
