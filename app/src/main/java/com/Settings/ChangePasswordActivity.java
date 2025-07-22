@@ -27,7 +27,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        binding.toolbarReport.setNavigationOnClickListener(v -> {
+        binding.toolbarCp.setNavigationOnClickListener(v -> {
             Intent intent = new Intent(ChangePasswordActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
